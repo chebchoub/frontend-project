@@ -45,7 +45,8 @@ export class HomeClientComponent implements OnInit{
     this.userService.logout();
   }
   openPopUp: string = "";
-  modalNotificaiton() {
+  modalNotificaiton(destination:string) {
+    this.openPopUp="notif"
     this.serviceClient.toggleModal();
   }
   closeModal() {

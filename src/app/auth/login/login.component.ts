@@ -58,13 +58,9 @@ export class LoginComponent implements OnInit {
         }
         else if (this.role === "CLIENT") {
           this.router.navigate(['/homeClient']);
-
-
-
         }
         else if (this.role === "TECHNICALENGINEER") {
-          this.router.navigate(['/homeTechnicien']);
-
+          this.router.navigate(['/homeTechnician']);
         }
       },
       (error) => {

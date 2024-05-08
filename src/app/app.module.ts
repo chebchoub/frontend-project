@@ -36,7 +36,6 @@ import { ClientRegisterComponent } from './auth/client-register/client-register.
 import { TechnicienRegisterComponent } from './auth/technicien-register/technicien-register.component';
 import { SendCreateEmailComponent } from './admin/technician/send-create-email/send-create-email.component';
 import { HomeClientComponent } from './Client/home-client/home-client.component';
-import { HomeTechnicienComponent } from './technicien/home-technicien/home-technicien.component';
 import { ErreurPageComponent } from './auth/erreur-page/erreur-page.component';
 import { ContractComponent } from './Client/contract/contract.component';
 import { CreateTicketComponent } from './Client/create-ticket/create-ticket.component';
@@ -46,6 +45,10 @@ import { RatingTicketComponent } from './Client/rating-ticket/rating-ticket.comp
 import { ProfileClientComponent } from './Client/profile-client/profile-client.component';
 import { EnterPasswordComponent } from './Client/enter-password/enter-password.component';
 import { UpdateProfilePasswordComponent } from './Client/update-profile-password/update-profile-password.component';
+import { HomeTechnicianComponent } from './technician/home-technician/home-technician.component';
+import { DashboardTechnicianComponent } from './technician/dashboard-technician/dashboard-technician.component';
+import { TicketsTechnicienComponent } from './technician/tickets-technicien/tickets-technicien.component';
+import { ProfileTechnicienComponent } from './technician/profile-technicien/profile-technicien.component';
 
 
 @NgModule({
@@ -79,7 +82,6 @@ import { UpdateProfilePasswordComponent } from './Client/update-profile-password
     TechnicienRegisterComponent,
     SendCreateEmailComponent,
     HomeClientComponent,
-    HomeTechnicienComponent,
     ErreurPageComponent,
     ContractComponent,
     CreateTicketComponent,
@@ -89,6 +91,11 @@ import { UpdateProfilePasswordComponent } from './Client/update-profile-password
     ProfileClientComponent,
     EnterPasswordComponent,
     UpdateProfilePasswordComponent,
+    HomeTechnicianComponent,
+    DashboardTechnicianComponent,
+    TicketsTechnicienComponent,
+    ProfileTechnicienComponent,
+    
    
   ],
   imports: [

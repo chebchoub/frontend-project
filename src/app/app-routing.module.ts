@@ -21,7 +21,6 @@ import { UpdatePasswordComponent } from './auth/update-password/update-password.
 import { ClientRegisterComponent } from './auth/client-register/client-register.component';
 import { TechnicienRegisterComponent } from './auth/technicien-register/technicien-register.component';
 import { HomeClientComponent } from './Client/home-client/home-client.component';
-import { HomeTechnicienComponent } from './technicien/home-technicien/home-technicien.component';
 import { ClientGuard } from './auth/services/ClientGuard';
 import { TechnicienGuard } from './auth/services/TechnicienGuard';
 import { TokenGuard } from './auth/services/TokenQuard';
@@ -34,6 +33,10 @@ import { RatingTicketComponent } from './Client/rating-ticket/rating-ticket.comp
 import { ProfileClientComponent } from './Client/profile-client/profile-client.component';
 import { UpdateProfilePasswordComponent } from './Client/update-profile-password/update-profile-password.component';
 import { AssignedTicketComponent } from './admin/ticket/assigned-ticket/assigned-ticket.component';
+import { HomeTechnicianComponent } from './technician/home-technician/home-technician.component';
+import { DashboardTechnicianComponent } from './technician/dashboard-technician/dashboard-technician.component';
+import { TicketsTechnicienComponent } from './technician/tickets-technicien/tickets-technicien.component';
+import { ProfileTechnicienComponent } from './technician/profile-technicien/profile-technicien.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // Redirige le chemin vide vers 'home'
@@ -101,13 +104,25 @@ const routes: Routes = [
       // Route enfant pour les détails du contrat
   ]
 
-},
+}
+,
 {
-  path: 'homeTechnicien', component: HomeTechnicienComponent
+  path: 'homeTechnician', component: HomeTechnicianComponent,
+  children: [
+    { path: '', redirectTo: 'dashboardTechnician', pathMatch: 'full' }, // Redirection de homeClient vers dashboardClient
+
+    { path: 'dashboardTechnician', component:DashboardTechnicianComponent},
+    { path: 'ticketsTechnician', component:TicketsTechnicienComponent},
+    { path: 'profileTechnician', component:ProfileTechnicienComponent},
+
+     
+     
+
+
+      // Route enfant pour les détails du contrat
+  ]
 
 }
-
-
 
 
 

@@ -281,9 +281,9 @@ selectedImages: ImageItem[] = [];
         (response: any) => {
         }
       );
+      location.reload();
 
     }
-    location.reload();
 
   }
 

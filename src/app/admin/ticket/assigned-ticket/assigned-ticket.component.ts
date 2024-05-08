@@ -19,7 +19,6 @@ export class AssignedTicketComponent implements OnInit {
     });
   }
   searchText = '';
-
   technicians: any[] = [];
   listeVide: boolean = false;
   getAllTechnician(): void {

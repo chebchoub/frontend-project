@@ -20,7 +20,7 @@
                 <p>Priority</p>
                 <form>
                     <select aria-label="select" class="focus:text-indigo-600 focus:outline-none bg-transparent ml-1"
-                        (change)="getAllTicketByPriority($event)">
+                     >
                         <option class="text-sm text-indigo-800" value="ALL">ALL</option>
                         <option class="text-sm text-indigo-800" value="LOW">LOW</option>
                         <option class="text-sm text-indigo-800" value="MEDIUM">MEDIUM</option>
@@ -39,7 +39,7 @@
                 <p>Status</p>
                 <form>
                     <select aria-label="select" class="focus:text-indigo-600 focus:outline-none bg-transparent ml-1"
-                        (change)="getAllTicketByStatus($event)">
+                       >
                         <option class="text-sm text-indigo-800" value="ALL">ALL</option>
                         <option class="text-sm text-indigo-800" value="NEW">NEW</option>
                         <option class="text-sm text-indigo-800" value="IN_PROGRESS">IN_PROGRESS</option>
@@ -48,9 +48,9 @@
                     </select>
                 </form>
             </div>
-            <div (click)="sortTiketByOpeningDate()"
+            <div 
                 class=" md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                <svg class="h-4 w-4 mr-2 text-gray-400" *ngIf="sortByOpeningDate === 'OpeningDateDesc'" width="20px"
+                <svg class="h-4 w-4 mr-2 text-gray-400"  width="20px"
                     height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="sort-ascending"
                     class="icon glyph" fill="#000000">
                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -65,7 +65,7 @@
                         <path d="M20,7H10a1,1,0,0,1,0-2H20a1,1,0,0,1,0,2Z" style="fill:#9ca3af"></path>
                     </g>
                 </svg>
-                <svg *ngIf="sortByOpeningDate === 'OpeningDateAsc'" width="20px" height="20px" viewBox="0 0 24 24"
+                <svg  width="20px" height="20px" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg" id="sort-ascending" class="icon glyph" fill="#000000"
                     transform="rotate(180)">
                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -159,30 +159,12 @@
           <div class="text-md  font-bold" style="color: #36A2EB;" *ngIf="ticket.status==='RESOLVED'">RESOLVED</div>
           <div class="text-md   font-bold" style="color: #4CAF50;" *ngIf="ticket.status==='CLOSED'">CLOSED</div>
           <div class="grid sm:grid-cols-3">
-           
-            <button *ngIf="ticket.status==='NEW'" (click)="toggleModalEdit('edit',ticket._id)"
-                style="width: 50px; justify-content: center; display: flex;margin-left: 120px;"
-                class="py-2 px-2.5 text-sm focus:outline-none leading-none text-green-700 bg-green-100 hover:bg-green-200 rounded ">
-                <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <path
-                            d="M13.5 5.5L6.45321 12.5468C6.22845 12.7716 6.11607 12.8839 6.04454 13.0229C5.97301 13.1619 5.94689 13.3187 5.89463 13.6322L5.11508 18.3095C5.06262 18.6243 5.03639 18.7817 5.12736 18.8726C5.21833 18.9636 5.37571 18.9374 5.69048 18.8849L10.3678 18.1054L10.3678 18.1054C10.6813 18.0531 10.8381 18.027 10.9771 17.9555C11.1161 17.8839 11.2284 17.7716 11.4532 17.5468L11.4532 17.5468L18.5 10.5C19.5171 9.48295 20.0256 8.97442 20.1384 8.36277C20.1826 8.12295 20.1826 7.87705 20.1384 7.63723C20.0256 7.02558 19.5171 6.51705 18.5 5.5C17.4829 4.48295 16.9744 3.97442 16.3628 3.8616C16.1229 3.81737 15.8771 3.81737 15.6372 3.8616C15.0256 3.97442 14.5171 4.48294 13.5 5.5Z"
-                            fill="#2A4157" fill-opacity="0.24"></path>
-                        <path
-                            d="M12.2929 6.70711L6.45321 12.5468C6.22845 12.7716 6.11607 12.8839 6.04454 13.0229C5.97301 13.1619 5.94689 13.3187 5.89463 13.6322L5.11508 18.3095C5.06262 18.6243 5.03639 18.7817 5.12736 18.8726C5.21833 18.9636 5.37571 18.9374 5.69048 18.8849L10.3678 18.1054L10.3678 18.1054C10.6813 18.0531 10.8381 18.027 10.9771 17.9555C11.1161 17.8839 11.2284 17.7716 11.4532 17.5468L11.4532 17.5468L17.2929 11.7071C17.6262 11.3738 17.7929 11.2071 17.7929 11C17.7929 10.7929 17.6262 10.6262 17.2929 10.2929L17.2929 10.2929L13.7071 6.70711C13.3738 6.37377 13.2071 6.20711 13 6.20711C12.7929 6.20711 12.6262 6.37377 12.2929 6.70711Z"
-                            fill="#222222"></path>
-                    </g>
-                </svg>
-          </button>
-                <button id="btClose" *ngIf="ticket.status=='NEW'" (click)="toggleModalAssigned('assigned',ticket._id)"  class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"(click)="addComment()">
-                    Assigned to</button>    
-
           </div>
           </div>
           <p class="text-md text-gray-400" *ngIf="ticket.status==='CLOSED'" style="margin-left: 60%;"> {{ticket.closingDate | date:
             'yyyy-MM-dd'}}</p> 
+            <p class="text-md text-gray-400" *ngIf="ticket.status==='NEW'" style="margin-left: 60%;"> {{ticket.openingDate | date:
+                'yyyy-MM-dd'}}</p> 
         </div>
           
         </li>
@@ -409,57 +391,11 @@
           </div>
         
         
-          <button id="bt" class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800" (click)="addComment()">
+          <button id="bt" class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800" 
+         >
             Send</button>
         </div>
       </form>
     </section>
     </main>
-    <div *ngIf="ticketService.modalOpen && this.openPopUp=='assigned'"
-    class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-5 h-[calc(100%-1rem)] max-h-full "
-    style="display: flex;justify-content: center;">
-    <app-assigned-ticket></app-assigned-ticket>
-</div>
-<div *ngIf="ticketService.modalOpen && this.openPopUp=='delete'"
-    class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-5 h-[calc(100%-1rem)] max-h-full "
-    style="display: flex;justify-content: center;">
-    <div class="fixed top-0 right-0 left-0 z-40 bg-black bg-opacity-50 h-screen"></div>
-    <div id="popup-modal" tabindex="-1"
-        class=" overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
-        style="display: flex;justify-content: center;margin-top: -150px;">
-        <div class="relative p-4 w-full max-w-md max-h-full">
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <button (click)="closeModal()" type="button"
-                    class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                    data-modal-hide="popup-modal">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
-                <div class="p-4 md:p-5 text-center">
-                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                    </svg>
-                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to
-                        archive this Ticket?
-                        <br>
-                        {{this.ticketService.selectedTicketId}}
-                    </h3>
-                    <button (click)="confirmDelete()" type="button" style="height: 45px;margin-right: 10px;"
-                        class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
-                        Yes, I'm sure
-                    </button>
-                    <button (click)="cancelDelete()" type="button" style="height: 45px"
-                        class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                        No, cancel
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+  
