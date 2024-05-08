@@ -1,0 +1,48 @@
+#bt:hover {
+    background-color: #0b0d41; /* Remplacez "your-hover-color" par la couleur de fond que vous souhaitez au survol */
+}
+#bt {
+    background-color:#27284E /* Remplacez "your-hover-color" par la couleur de fond que vous souhaitez au survol */
+    ;width: 20%;
+
+}  .error {
+    border-color: red;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.8rem;
+}.form input,select{
+  
+    height: 50px;
+    padding: 0 15px;
+    font-size: 15px;
+    margin-bottom: 1rem;
+
+  }
+  .form textarea{
+    margin-bottom: 2rem;
+
+  }
+  .image-container {
+    display: flex;
+    flex-wrap: nowrap; /* Empêche le contenu de passer à la ligne */
+    overflow-x: auto; /* Permet le défilement horizontal si nécessaire */
+}
+
+.image-item {
+    flex: 0 0 auto; /* Éléments de taille fixe */
+    display: flex; /* Utilise à nouveau flexbox pour aligner le texte et l'icône */
+    align-items: center; /* Aligne les éléments verticalement */
+    margin-right: 10px; /* Espacement entre les éléments */
+}
+
+.icon-container {
+    margin-right: 5px; /* Espacement entre l'icône et le texte */
+}
+#crud-modal{
+    max-height: calc(90vh - 60px); /* 80px correspond à la hauteur de votre header */
+    overflow-y: auto; /* Activer le défilement vertical lorsque le contenu dépasse la hauteur maximale */
+    flex-grow: 1;
+
+}

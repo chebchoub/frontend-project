@@ -1,0 +1,310 @@
+<div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4"
+    style="margin-top: -30px;margin-bottom: 60px;">
+    <div class="w-full md:w-1/2">
+        <div class="flex items-center">
+            <label for="simple-search" class="sr-only">Search</label>
+            <div class="relative w-full">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none ">
+                    <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
+                        viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <input type="text" placeholder="Search..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-md "
+                    [(ngModel)]="searchText">
+            </div>
+        </div>
+    </div>
+    <div
+        class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+
+        <div
+            class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-2 text-gray-400"
+                viewbox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd"
+                    d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
+                    clip-rule="evenodd" />
+            </svg>
+            <p>Contract type</p>
+            <form>
+                <select aria-label="select" class="focus:text-indigo-600 focus:outline-none bg-transparent ml-1"
+                    (change)="getAllContractsByContractType($event)">
+                    <option class="text-sm text-indigo-800" value="ALL">All</option>
+                    <option class="text-sm text-indigo-800" value="STANDARD">STANDARD</option>
+                    <option class="text-sm text-indigo-800" value="PREMIUM">PREMIUM</option>
+                </select>
+            </form>
+
+
+        </div>
+        <div (click)="sortByTicketsAvailabel()"
+            class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+            <svg class="h-4 w-4 mr-2 text-gray-400" *ngIf="sortByTicketAvailabel === 'TicketsDesc'" width="20px"
+                height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="sort-ascending"
+                class="icon glyph" fill="#000000">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                    <path
+                        d="M6,20a1,1,0,0,1-.71-.29l-4-4a1,1,0,0,1,1.42-1.42L6,17.59l3.29-3.3a1,1,0,0,1,1.42,1.42l-4,4A1,1,0,0,1,6,20Z"
+                        style="fill:#9ca3af"></path>
+                    <path d="M6,20a1,1,0,0,1-1-1V4A1,1,0,0,1,7,4V19A1,1,0,0,1,6,20Z" style="fill:#9ca3af"></path>
+                    <path d="M20,17H15a1,1,0,0,1,0-2h5a1,1,0,0,1,0,2Z" style="fill:#9ca3af"></path>
+                    <path d="M20,12H13a1,1,0,0,1,0-2h7a1,1,0,0,1,0,2Z" style="fill:#9ca3af"></path>
+                    <path d="M20,7H10a1,1,0,0,1,0-2H20a1,1,0,0,1,0,2Z" style="fill:#9ca3af"></path>
+                </g>
+            </svg>
+            <svg *ngIf="sortByTicketAvailabel === 'TicketsAsc'" width="20px" height="20px" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg" id="sort-ascending" class="icon glyph" fill="#000000"
+                transform="rotate(180)">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                    <path
+                        d="M6,20a1,1,0,0,1-.71-.29l-4-4a1,1,0,0,1,1.42-1.42L6,17.59l3.29-3.3a1,1,0,0,1,1.42,1.42l-4,4A1,1,0,0,1,6,20Z"
+                        style="fill:#9ca3af"></path>
+                    <path d="M6,20a1,1,0,0,1-1-1V4A1,1,0,0,1,7,4V19A1,1,0,0,1,6,20Z" style="fill:#9ca3af"></path>
+                    <path d="M20,17H15a1,1,0,0,1,0-2h5a1,1,0,0,1,0,2Z" style="fill:#9ca3af"></path>
+                    <path d="M20,12H13a1,1,0,0,1,0-2h7a1,1,0,0,1,0,2Z" style="fill:#9ca3af"></path>
+                    <path d="M20,7H10a1,1,0,0,1,0-2H20a1,1,0,0,1,0,2Z" style="fill:#9ca3af"></path>
+                </g>
+            </svg>
+            <p style="margin-left: 5px;">Tickets Available</p>
+
+
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="flex flex-wrap">
+    <div class="container mx-auto my-10"
+        *ngFor="let client of clients.slice(calculateRange().start, calculateRange().end) | search: searchText"
+        style="width: 390px;">
+        <div class="bg-white relative shadow rounded-lg">
+            <div class="flex justify-center">
+                <div *ngIf="client.contract.contractType === 'STANDARD'"
+                    class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md transition duration-200 transform hover:scale-110"
+                    style="border-color: #6f9fd8;">
+                    <span class="tickets flex items-center justify-center font-bold" style="background-color: #6f9fd8;">
+                        {{client.ticketsAvailable}}
+                    </span>
+                    <img [src]="client.companyLogo" alt=""style="border-color:#6f9fd8; border-width: 6px;" class="rounded-full mx-auto absolute  w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110">
+                </div>
+                <div *ngIf="client.contract.premiumType === 'SILVER'"
+                    class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md transition duration-200 transform hover:scale-110"
+                    style="border-color: #cccccc; border-width: 4px;">
+                    <span class="tickets" style="background-color: #cccccc;">
+                        {{client.ticketsAvailable}}
+                    </span>
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path opacity="0.4"
+                                d="M12 22.01C17.5228 22.01 22 17.5329 22 12.01C22 6.48716 17.5228 2.01001 12 2.01001C6.47715 2.01001 2 6.48716 2 12.01C2 17.5329 6.47715 22.01 12 22.01Z"
+                                fill="#27284E"></path>
+                            <path
+                                d="M12 6.93994C9.93 6.93994 8.25 8.61994 8.25 10.6899C8.25 12.7199 9.84 14.3699 11.95 14.4299C11.98 14.4299 12.02 14.4299 12.04 14.4299C12.06 14.4299 12.09 14.4299 12.11 14.4299C12.12 14.4299 12.13 14.4299 12.13 14.4299C14.15 14.3599 15.74 12.7199 15.75 10.6899C15.75 8.61994 14.07 6.93994 12 6.93994Z"
+                                fill="#27284E"></path>
+                            <path
+                                d="M18.7807 19.36C17.0007 21 14.6207 22.01 12.0007 22.01C9.3807 22.01 7.0007 21 5.2207 19.36C5.4607 18.45 6.1107 17.62 7.0607 16.98C9.7907 15.16 14.2307 15.16 16.9407 16.98C17.9007 17.62 18.5407 18.45 18.7807 19.36Z"
+                                fill="#27284E"></path>
+                        </g>
+                    </svg>
+                </div>
+                <div *ngIf="client.contract.premiumType === 'GOLD'"
+                    class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md transition duration-200 transform hover:scale-110"
+                 >
+                    <span class="tickets font-bold" style="background-color: #FFD700;">
+                        {{client.ticketsAvailable}}
+                    </span>
+
+                    <img [src]="client.companyLogo" alt="" style="border-color:#FFD700; border-width: 6px;" class="rounded-full mx-auto absolute  w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110">
+                </div>
+                <div *ngIf="client.contract.premiumType === 'PLATINIUM'"
+                    class="flex justify-center rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md transition duration-200 transform hover:scale-110"
+                   >
+                    <span class="tickets font-bold" style="background-color: #ac44f9;font-size: 2.5em;">
+                        ∞ </span>
+
+                        <img [src]="client.companyLogo" alt="" style="border-color:#ac44f9; border-width: 6px;" class="rounded-full mx-auto absolute  w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110">       
+                </div>
+            <div class="mt-16">
+                <h1 class="font-bold text-center text-3xl text-gray-700">{{client.contract.entreprise}}</h1>
+                <p class="text-center text-sm text-gray-400 font-medium"
+                    *ngIf="client.contract.contractType === 'STANDARD'"> Contract Type STANDARD</p>
+                <p class="text-center text-sm text-gray-400 font-medium"
+                    *ngIf="client.contract.contractType === 'PREMIUM'"> Contract Type {{client.contract.premiumType}}
+                </p>
+                <p>
+                    <span></span>
+                </p>
+                <div class="my-5 px-6">
+                    <a id="bt" (click)="toggleModalSendEmail('sendEmail',this.client)"
+                        class="text-gray-200 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-gray-900 hover:bg-black hover:text-white">
+                        <span class="email-icon mr-4 " style="margin-left: -20px;"><i
+                                class="fas fa-envelope"></i></span> <!-- Icône de l'email -->
+
+                        <span class="font-bold">{{client.email}}</span>
+                    </a>
+                </div>
+
+
+                <div class="flex items-center justify-center p-4 border-t border-gray-200">
+                    <button (click)="toggleModalDelete('delete',client.id)"
+                        class="py-2 px-2 text-sm focus:outline-none leading-none text-red-700 bg-red-100 hover:bg-red-200 rounded"><svg
+                            width="30px" height="30px" viewBox="-0.72 -0.72 25.44 25.44" fill="none"
+                            xmlns="http://www.w3.org/2000/svg" stroke="#a72828">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path d="M10 11V17" stroke="#a72828" stroke-width="1.848" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <path d="M14 11V17" stroke="#a72828" stroke-width="1.848" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <path d="M4 7H20" stroke="#a72828" stroke-width="1.848" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <path d="M6 7H12H18V18C18 19.6569 16.6569 21 15 21H9C7.34315 21 6 19.6569 6 18V7Z"
+                                    stroke="#a72828" stroke-width="1.848" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z"
+                                    stroke="#a72828" stroke-width="1.848" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                            </g>
+                        </svg></button>
+                    <button (click)="toggleModalview('view',client.id)"
+                        class="py-2 px-2 text-sm focus:outline-none leading-none text-gray-700 bg-gray-100 hover:bg-gray-200 rounded "
+                        style="margin-left: 10px"><svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path
+                                    d="M12.864 7.37071C13.6338 8.8447 14.0238 10.4874 13.9989 12.1501C13.9739 13.8128 13.5347 15.4431 12.721 16.8933L4 12L12.864 7.37071Z"
+                                    fill="#2A4157" fill-opacity="0.24"></path>
+                                <path
+                                    d="M14.5 5.5C11.7189 9.20812 4.64088 11.6272 3.62274 11.9605C3.57878 11.9748 3.57584 12.0335 3.61809 12.0523C4.61914 12.4983 11.7146 15.7146 14.5 18.5"
+                                    stroke="#222222" stroke-linecap="round"></path>
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M13.5498 9.03334C13.862 10.0385 14.0148 11.0902 13.9989 12.1501C13.9845 13.1091 13.8323 14.0572 13.5499 14.9663C12.1066 14.7491 11 13.5037 11 11.9998C11 10.4959 12.1065 9.25054 13.5498 9.03334Z"
+                                    fill="#222222"></path>
+                                <path d="M16.5 12H20.5" stroke="#2A4157" stroke-opacity="0.24" stroke-linecap="round">
+                                </path>
+                                <path d="M16.5 9.5L20.5 8" stroke="#2A4157" stroke-opacity="0.24"
+                                    stroke-linecap="round"></path>
+                                <path d="M16.5 14.5L20.5 16" stroke="#2A4157" stroke-opacity="0.24"
+                                    stroke-linecap="round"></path>
+                            </g>
+                        </svg></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<nav style="margin-top: -25px;width: 100%;" *ngIf="this.clients.length>0 "
+    class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
+    aria-label="Table navigation">
+    <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
+        Showing
+        <span class="font-semibold text-gray-900 dark:text-white">1{{
+            calculateRange().start-calculateRange().end}}</span>
+        of
+        <span class="font-semibold text-gray-900 dark:text-white">{{this.clients.length}}</span>
+    </span>
+    <ul class="inline-flex items-stretch -space-x-px" >
+        <li>
+            <a (click)="currentPage = currentPage > 0 ? currentPage - 1 : 0"
+                [class.cursor-not-allowed]="currentPage === 0"
+                class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                <span class="sr-only">Previous</span>
+                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                        clip-rule="evenodd" />
+                </svg>
+            </a>
+        </li>
+        <li>
+        </li>
+        <ng-container *ngFor="let pageNumber of getPageNumbers()">
+            <a (click)="currentPage = pageNumber"
+                class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                [class.hidden]="pageNumber >= this.getTotalPages()|| pageNumber < 0">
+                {{ pageNumber + 1 }}
+            </a>
+        </ng-container>
+        <li>
+            <a (click)="currentPage = currentPage < this.getTotalPages() - 1 ? currentPage + 1 : currentPage"
+                class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                <span class="sr-only">Next</span>
+                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clip-rule="evenodd" />
+                </svg>
+            </a>
+        </li>
+    </ul>
+</nav>
+<div *ngIf="clientService.modalOpen && this.openPopUp=='view'"
+    class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-5 h-[calc(100%-1rem)] max-h-full "
+    style="display: flex;justify-content: center;">
+    <app-view-client></app-view-client>
+</div>
+<div *ngIf="clientService.modalOpen && this.openPopUp=='delete'"
+    class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-5 h-[calc(100%-1rem)] max-h-full "
+    style="display: flex;justify-content: center;">
+    <div class="fixed top-0 right-0 left-0 z-40 bg-black bg-opacity-50 h-screen"></div>
+
+    <div id="popup-modal" tabindex="-1"
+        class=" overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+        style="display: flex;justify-content: center;margin-top: -150px;">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <button (click)="closeModal()" type="button"
+                    class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-hide="popup-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <div class="p-4 md:p-5 text-center">
+                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to
+                        delete this contract?
+                        <br>
+                        {{this.clientService.selectedClientId}}
+                    </h3>
+                    <button (click)="confirmDelete()" type="button"
+                        class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                        Yes, I'm sure
+                    </button>
+                    <button (click)="cancelDelete()" type="button"
+                        class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                        No, cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="emailService.modalOpen && this.openPopUp=='sendEmail'"
+    class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-5 h-[calc(100%-1rem)] max-h-full "
+    style="display: flex;justify-content: center;">
+    <app-send-email-client></app-send-email-client>
+</div>

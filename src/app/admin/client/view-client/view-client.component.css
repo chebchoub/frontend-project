@@ -1,0 +1,95 @@
+
+.tickets {
+    position: absolute;
+    top: -20px;
+    right: 0px;
+    z-index: 2;
+    color: black;
+    display: inline-block;
+    height: 45px;
+    line-height: 50px;
+    width: 45px;
+    border-radius: 50px;
+    background: #fdc632;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Rubik", sans-serif;
+    font-size: 40px;
+    text-align: center;
+ 
+}.error {
+    border-color: red;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.8rem;
+}.avatar-container {
+    position: relative;
+    width: fit-content;
+}
+
+
+.avatar-container label{
+    margin-bottom: 50px;
+}
+.image-container {
+    height: 150px;
+    width: 150px;
+     border-width: 8px;
+
+    z-index: 1;
+    border-radius: 50%;
+    background-color: #fff;
+    background-position: center;
+    background-size: cover;
+ 
+}
+.icon-wrapper {
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    padding: .35rem;
+    border-radius: 50%;
+    display: flex;
+    background-color: rgb(240, 240, 240);
+    align-items: center;
+    justify-content: center;
+
+    right: 0;
+    top: 75%;
+    z-index: 2;
+    cursor: pointer;
+
+
+
+    .icon {
+        color: white;
+        width: 25px;
+    }
+
+    label {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    input[type='file'] {
+        display: none;
+    }
+}
+.icon-wrapper:hover {
+   border-color: black;
+   border-width: 2px;
+}
+#bt:hover {
+    background-color: #0b0d41; /* Remplacez "your-hover-color" par la couleur de fond que vous souhaitez au survol */
+}
+#bt {
+    background-color:#27284E /* Remplacez "your-hover-color" par la couleur de fond que vous souhaitez au survol */
+    ;width: 40%;
+    margin-left: 25%;
+
+}

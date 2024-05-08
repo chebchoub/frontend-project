@@ -1,0 +1,41 @@
+<div class="container">
+  <input type="checkbox" id="check">
+  <div class="login form">
+    <header>Login</header>
+    <span *ngIf="this.loginFormInvalidBackend" class="error-message" >Invalid login form</span>
+
+    <form [formGroup]="loginForm">
+      <div [class.error]="loginForm.controls.email.invalid && (loginForm.controls.email.dirty || loginForm.controls.email.touched || loginFormInvalid)">
+        <input type="text" placeholder="Enter your email" formControlName="email" name="email" required/>
+        <span *ngIf="loginForm.controls.email.invalid && (loginForm.controls.email.dirty || loginForm.controls.email.touched||this.loginFormInvalid)" class="error-message">Email is required</span>
+        <span *ngIf="loginForm.controls.email.errors?.invalidEmail" class="error-message">Invalid email format</span>
+
+      </div>
+      <div [class.error]="loginForm.controls.password.invalid && (loginForm.controls.password.dirty || loginForm.controls.password.touched||this.loginFormInvalid)">
+        <input #y type="password" placeholder="Enter your password" formControlName="password" name="password" required />
+        <span *ngIf="loginForm.controls.password.invalid && (loginForm.controls.password.dirty || loginForm.controls.password.touched||this.loginFormInvalid)" class="error-message">Password is required</span>
+        <div class="flex items-start ">
+          <div class="flex items-center h-5">
+              <input (click)="y.type=y.type=='password'?'text':'password'" style="width: 15px;height: 15px;" id="remember" type="checkbox" value="" class=" border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
+          </div>
+           <label  for="remember" id="forget">Show password</label>
+      </div>
+      </div>
+      <!-- Replace the alert with the span error message -->
+
+      <a (click)="toggleModalForgotPassword()">Forgot password?</a>
+      <input type="submit" class="button" value="Login" (click)="loginUser()">
+    </form>
+    <div class="signup">
+      <span class="signup">Don't have an account?
+        <label for="check">Signup</label>
+      </span>
+    </div>
+  </div>
+</div>
+
+
+  <div *ngIf="userService.modalOpen "
+  class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-5 h-[calc(100%-1rem)] max-h-full "
+  style="display: flex;justify-content: center;">
+<app-forgot-password></app-forgot-password></div>

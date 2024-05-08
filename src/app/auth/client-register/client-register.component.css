@@ -1,0 +1,81 @@
+.container{
+   
+}.form input{
+  
+    height: 50px;
+    width: 80%;
+    padding: 0 15px;
+    font-size: 15px;
+    margin-bottom: 1rem;
+   
+    
+  }
+  form{
+    margin-left: 8%;
+  }
+  .form button{
+    margin-left: 20%;
+
+    color: #fff;
+  background-color: #D53636;  transition: 0.3s;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-top: 1.7rem;
+  cursor: pointer;
+  width: 40%;
+  }form button:hover{
+    background: #252121;
+  }
+
+.form2 input{
+  
+    height: 50px;
+    width: 80%;
+    padding: 0 15px;
+    font-size: 15px;
+    margin-bottom: 1rem;
+   
+    
+  }
+  .form2{
+    margin-left: 8%;
+  }
+  #ButtonNext{
+    color: #fff;
+  background-color: #D53636;  transition: 0.3s;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-top: 1.7rem;
+  cursor: pointer;
+  width: 30%;
+  }.form2 button:hover{
+
+    background: #252121;
+  }
+  #PreviousButton{
+    
+    color: #fff;
+  background-color: #21205a;  transition: 0.3s;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-top: 1.7rem;
+  cursor: pointer;
+  width: 40%;
+  }
+  #PreviousButton:hover{
+
+    background: #252121;
+  }
+  #ButtonNext:hover{
+
+    background: #252121;
+  }
+
+  .error {
+    border-color: red;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.8rem;
+}

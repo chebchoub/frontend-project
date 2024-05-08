@@ -1,0 +1,14 @@
+.error {
+    border-color: red;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.8rem;
+}
+#bt:hover {
+    background-color: #0b0d41; /* Remplacez "your-hover-color" par la couleur de fond que vous souhaitez au survol */
+}
+#bt {
+    background-color:#27284E /* Remplacez "your-hover-color" par la couleur de fond que vous souhaitez au survol */
+}

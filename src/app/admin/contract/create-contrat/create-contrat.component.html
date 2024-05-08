@@ -1,0 +1,122 @@
+<div class="fixed top-0 right-0 left-0 z-40 bg-black bg-opacity-50 h-screen"></div>
+
+<div id="crud-modal" class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-screen">
+    <div class="relative p-4 w-full max-w-screen-lg" >
+        <!-- Modal content -->
+        <div class="relative bg-gray-100 rounded-lg shadow dark:bg-gray-700"  >
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    Create New Contract
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal" (click)="closeModal()">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <form class="p-4 md:p-5" [formGroup]="contractForm" >
+                <div class="grid gap-4 mb-4 grid-cols-2">
+                    <div class="col-span-2 sm:col-span-1" [class.error]="contractForm.controls.entreprise.invalid && (contractForm.controls.entreprise.dirty || contractForm.controls.entreprise.touched)">
+                        <label for="entreprise" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company Name <span style="color: red;"> *</span></label>
+                        <input type="text" name="entreprise" id="entreprise" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" formControlName="entreprise" placeholder="Enter company name"  required>
+                        <span *ngIf="contractForm.controls.entreprise.invalid && (contractForm.controls.entreprise.dirty || contractForm.controls.entreprise.touched )" class="error-message" >Company name is required</span>
+                    </div>
+                   
+                    <div class="col-span-2 sm:col-span-1" [class.error]="contractForm.controls.startDate.invalid && (contractForm.controls.startDate.dirty || contractForm.controls.startDate.touched)">
+                        <label for="startDate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Date <span style="color: red;"> *</span></label>
+                        <input type="date" name="startDate" id="startDate"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  formControlName="startDate" placeholder="Select strat date" >
+                        <span *ngIf="contractForm.get('endDate').errors?.invalidEndDate" class="error-message">End date must be greater than start date and at least three months later.</span>
+
+                    </div>
+                    <div class="col-span-2 sm:col-span-1" [class.error]="contractForm.get('endDate').invalid && (contractForm.get('endDate').dirty || contractForm.get('endDate').touched)">
+                        <label for="endDate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End Date <span style="color: red;"> *</span></label>
+                        <input type="date" name="endDate" id="endDate"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  formControlName="endDate" placeholder="Select end date" >
+                        <span *ngIf="contractForm.get('endDate').errors?.invalidEndDate" class="error-message">End date must be greater than start date and at least three months later.</span>
+
+                    </div>
+                    <div class="col-span-2 sm:col-span-1">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contract Type <span style="color: red;"> *</span></label>
+
+                        <div class="flex">
+                            <div class="flex items-center me-4">
+                                <input id="contract_Type_option1" type="radio" name="contractType"
+                                (click)="onContractTypeChange('STANDARD')" [checked]="contractType === 'STANDARD'" value="STANDARD" formControlName="contractType"
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="inline-radio" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Standard</label>
+                            </div>
+                            <div class="flex items-center me-4">
+                                <input id="contract_Type_option2" type="radio" name="contractType"
+                                (click)="onContractTypeChange('PREMIUM')" [checked]="contractType === 'PREMIUM'" value="PREMIUM" formControlName="contractType"
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="inline-2-radio" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Premium</label>
+                            </div>
+                        </div>    
+                    
+                    </div>
+                    <div class="col-span-2 sm:col-span-1"  *ngIf="contractForm.get('contractType')?.value === 'PREMIUM'">
+                        <label for="premiumType" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Premium Option <span style="color: red;"> *</span></label>
+                        <select name="premiumType" id="premiumType" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                         formControlName="premiumType"  placeholder="Select premium option">
+                            <option [value]="null" disabled>Select premium option</option>
+                            <option value="GOLD">GOLD</option>
+                            <option value="SILVER">SILVER</option>
+                            <option value="PLATINIUM">PLATINIUM</option>
+                        </select>
+                        <span *ngIf="contractForm.get('premiumType').invalid && contractForm.get('premiumType').touched" class="error-message">Premium option is required</span>
+                    </div>
+                    <div class="col-span-2 sm:col-span-1" *ngIf="contractForm.get('contractType')?.value === 'PREMIUM'">
+                        <label for="maintenance" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Maintenance  <span style="color: red;"> *</span></label>
+                        <input type="number" name="maintenance" id="maintenance" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  formControlName="maintenance" placeholder="Enter maintenance">
+                        <span *ngIf="contractForm.get('maintenance').invalid && contractForm.get('maintenance').touched" class="error-message">Maintenance is required</span>
+
+                    </div>
+
+                    <div class="col-span-2">
+                        <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                        <textarea name="description" id="description"  rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                        formControlName="description" placeholder="Enter description"></textarea>                    
+                    </div>
+                </div>
+               
+                <button (click)="this.toggleModalCreate('confirmCreate')"  class="text-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center" id="bt" >
+                    <svg style="color: antiquewhite;" class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                    Add new Contract
+                </button>
+            </form>
+        </div>
+    </div>
+</div> 
+<div *ngIf="contractService.ConifrmerModalOpen && this.openPopUp=='confirmCreate'" class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-5 h-[calc(100%-1rem)] max-h-full " style="display: flex;justify-content: center;">
+    <div class="fixed top-0 right-0 left-0 z-40 bg-black bg-opacity-50 h-screen"></div>
+
+    <div id="popup-modal" tabindex="-1" class=" overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full" style="display: flex;justify-content: center;margin-top: -150px;">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <button (click)="closeModalConfimer()" type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <div class="p-4 md:p-5 text-center">
+                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                    </svg>
+                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to add this contract?
+                        <br>
+                    </h3>
+                    <button (click)="addContract()" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                        Yes, I'm sure
+                      </button>
+                      <button (click)="closeModalConfimer()" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                        No, cancel
+                      </button>                
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>
+   

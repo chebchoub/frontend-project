@@ -1,0 +1,242 @@
+body {
+    background: #DDD;
+    font-family: 'Inknut Antiqua', serif;
+    font-family: 'Ravi Prakash', cursive;
+    font-family: 'Lora', serif;
+    font-family: 'Indie Flower', cursive;
+    font-family: 'Cabin', sans-serif;
+}
+
+div.container {
+    max-width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.upcomming {
+    font-size: 45px;
+    text-transform: uppercase;
+    border-left: 14px solid rgba(255, 235, 59, 0.78);
+    padding-left: 12px;
+    margin: 18px 8px;
+}
+
+.container .item {
+    width: 100%;
+    float: left;
+    background: #fff;
+    overflow: hidden;
+    margin: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-radius: 5px;
+    height: 100%;
+
+}
+
+.container .item .title {
+    /* Si vous souhaitez également appliquer la même logique à la zone de titre */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.container .item-right,
+.container .item-left {
+    float: left;
+    padding: 20px;
+
+}
+
+.container .item-right {
+    padding: 79px 50px;
+    margin-right: 20px;
+    width: 25%;
+    display: block;
+    justify-content: space-around;
+    height: 286px;
+    padding-top: 20px;
+}
+
+.container .item-right .up-border,
+.container .item-right .down-border {
+    padding: 14px 15px;
+    background-color: #777;
+    border-radius: 50%;
+    position: absolute
+}
+
+.container .item-right .up-border {
+    top: -30px;
+    right: -35px;
+}
+
+.container .item-right .down-border {
+    bottom: -30px;
+    right: -35px;
+}
+
+.container .item-right .num {
+    font-size: 60px;
+    text-align: center;
+    color: #111;
+    margin-left: -12px;
+}
+
+.container .item-right .day,
+.container .item-left .event {
+    color: #555;
+    font-size: 20px;
+    margin-bottom: 9px;
+}
+
+.container .item-right .day {
+    text-align: center;
+    font-size: 25px;
+}
+
+.container .item-left {
+    width: 71%;
+    border-left: 3px dotted #999;
+    height: 100%;
+
+}
+
+.container .item-left .title {
+    color: #111;
+    font-size: 25px;
+    margin-bottom: 12px
+}
+
+.container .item-left .sce {
+    margin-top: 5px;
+    display: block
+}
+
+.container2 {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.sce,
+.loc {
+    flex: 2 2 50%;
+    /* chaque élément occupe 50% de la largeur */
+    padding: 10px;
+    /* ajout de l'espace intérieur */
+    box-sizing: border-box;
+    /* inclure les rembourrages dans la largeur */
+}
+
+.image-container {
+    flex: 1 1 100%;
+    /* l'image occupe toute la largeur */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.container .item-left .sce .icon,
+.container .item-left .loc .icon {
+    margin-right: 10px;
+    font-size: 20px;
+    color: #666
+}
+
+.container .item-left .loc {
+    display: block
+}
+
+.fix {
+    clear: both
+}
+
+.container .item .tickets,
+.booked,
+.cancel {
+    color: #fff;
+    padding: 6px 14px;
+    float: right;
+    margin-top: 10px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer
+}
+
+.event-container {
+    display: flex;
+    align-items: center;
+}
+
+.event {
+    margin-right: auto;
+    /* Pour pousser le texte à gauche */
+}
+
+.icon {
+    margin-left: auto;
+    /* Pour pousser l'icône à droite */
+}
+
+#bt:hover {
+    background-color: #0b0d41;
+    /* Remplacez "your-hover-color" par la couleur de fond que vous souhaitez au survol */
+}
+
+#bt {
+    background-color: #27284E
+        /* Remplacez "your-hover-color" par la couleur de fond que vous souhaitez au survol */
+}
+
+/* Style pour la petite image */
+/* Style pour la petite image */
+.small-image {
+    flex: 1 1 100%;
+
+    width: 100px;
+    /* Taille initiale */
+    height: auto;
+    /* Pour conserver les proportions */
+    margin-top: 10px;
+}
+
+/* Style pour agrandir et déplacer l'image au survol */
+.small-image:hover {
+    transform: scale(6);
+    /* Agrandissement de 4 fois et centrage */
+    position: fixed;
+    /* Fixer la position */
+    top: 50%;
+    /* Centrer verticalement */
+    left: 47%;
+    /* Centrer horizontalement */
+    z-index: 9999;
+    /* Assurer que l'image est au-dessus de tout */
+}
+
+.container .item .tickets {
+    background: #777
+}
+
+.container .item .booked {
+    background: #3D71E9
+}
+
+.container .item .cancel {
+    background: #DF5454
+}
+
+.linethrough {
+    text-decoration: line-through
+}
+
+@media only screen and (max-width: 1150px) {
+    .container .item {
+        width: 100%;
+        margin-right: 20px
+    }
+
+    div.container {
+        margin: 0 20px auto
+    }
+}

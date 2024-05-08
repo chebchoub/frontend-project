@@ -1,0 +1,178 @@
+.container{
+   
+}.form input{
+  
+    height: 50px;
+    width: 80%;
+    padding: 0 15px;
+    font-size: 15px;
+    margin-bottom: 1rem;
+   
+    
+  }
+  form select{
+  
+    height: 50px;
+    width: 80%;
+    padding: 0 15px;
+    font-size: 15px;
+    margin-bottom: 1rem;
+   
+    
+  }
+  form #dropdownSearch{
+  
+    width: 80%;
+    padding: 0 15px;
+    font-size: 15px;
+    margin-bottom: 1rem;
+    
+  }
+  form{
+    margin-left: 8%;
+  }
+  #passerAStep2{
+    color: #fff;
+  background-color: #D53636;  transition: 0.3s;
+  font-weight: bold;
+  letter-spacing: 1px;
+  }form button:hover{
+    background: #252121;
+  }
+
+.form2 input{
+  
+    height: 50px;
+    width: 80%;
+    padding: 0 15px;
+    font-size: 15px;
+    margin-bottom: 1rem;
+   
+    
+  }
+  .form2{
+    margin-left: 8%;
+  }
+  #ButtonNext{
+    color: #fff;
+  background-color: #D53636;  transition: 0.3s;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-top: 1.7rem;
+  cursor: pointer;
+  width: 30%;
+  }.form2 button:hover{
+
+    background: #252121;
+  }
+  #PreviousButton{
+    
+    color: #fff;
+  background-color: #21205a;  transition: 0.3s;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-top: 1.7rem;
+  cursor: pointer;
+  width: 40%;
+  }
+  #PreviousButton:hover{
+
+    background: #252121;
+  }
+  #ButtonNext:hover{
+
+    background: #252121;
+  }
+
+  .error {
+    border-color: red;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.8rem;
+}.avatar-container {
+    position: relative;
+    width: fit-content;
+}
+
+
+.avatar-container label{
+    margin-bottom: 50px;
+}
+.image-container {
+    height: 150px;
+    width: 150px;
+    z-index: 1;
+    border-radius: 50%;
+    background-color: #fff;
+    background-position: center;
+    background-size: cover;
+    &.avatar-placeholder{
+        background-image: url('https://www.logiquetechno.com/wp-content/uploads/2020/11/retirer-photo-de-profil-facebook.png');
+    }
+}
+.icon-wrapper {
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    padding: .35rem;
+    background-color:#D53636;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 0;
+    top: 75%;
+    z-index: 2;
+    cursor: pointer;
+
+
+
+    .icon {
+        color: white;
+    }
+
+    label {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    input[type='file'] {
+        display: none;
+    }
+}
+.icon-wrapper:hover {
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    padding: .35rem;
+    background-color:black;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 0;
+    top: 75%;
+    z-index: 2;
+    cursor: pointer;
+
+ 
+
+    .icon {
+        color: black;
+    }
+
+    label {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    input[type='file'] {
+        display: none;
+    }
+}

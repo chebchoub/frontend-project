@@ -1,0 +1,65 @@
+ main {
+    max-height: calc(100vh - 50px); /* 80px correspond à la hauteur de votre header */
+    overflow-y: auto; /* Activer le défilement vertical lorsque le contenu dépasse la hauteur maximale */
+    flex-grow: 1;
+
+  }
+  /* Personnalisation de la barre de défilement */
+  main::-webkit-scrollbar {
+    width: 5px; /* Largeur de la barre de défilement */
+  }
+  
+  main::-webkit-scrollbar-track {
+    background: transparent; /* Couleur de fond de la piste */
+  }
+  
+  main::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2); /* Couleur de la barre de défilement */
+    border-radius: 10px; /* Rayon des coins de la barre de défilement */
+  }
+ .tickets {
+    top: 6px;
+    right: 185px;
+    position: absolute;
+    z-index: 2;
+    color: black;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Rubik", sans-serif;
+    font-size: 15px;
+    text-align: center;
+    
+}
+
+  
+#p{
+  font-weight: 600;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: inherit;
+  font-size: 2em;
+  color: black;
+  margin-left: 5px;
+}#ul {
+  max-height: calc(60vh - 50px); /* 80px correspond à la hauteur de votre header */
+  overflow-y: auto; /* Activer le défilement vertical lorsque le contenu dépasse la hauteur maximale */
+  flex-grow: 1;
+
+}  /* Personnalisation de la barre de défilement */
+#ul::-webkit-scrollbar {
+  width: 5px; /* Largeur de la barre de défilement */
+}
+
+#ul::-webkit-scrollbar-track {
+  background: transparent; /* Couleur de fond de la piste */
+}
+
+#ul::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2); /* Couleur de la barre de défilement */
+  border-radius: 10px; /* Rayon des coins de la barre de défilement */
+}
