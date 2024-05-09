@@ -37,6 +37,7 @@ import { HomeTechnicianComponent } from './technician/home-technician/home-techn
 import { DashboardTechnicianComponent } from './technician/dashboard-technician/dashboard-technician.component';
 import { TicketsTechnicienComponent } from './technician/tickets-technicien/tickets-technicien.component';
 import { ProfileTechnicienComponent } from './technician/profile-technicien/profile-technicien.component';
+import { CommentsComponent } from './technician/comments/comments.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // Redirige le chemin vide vers 'home'
@@ -114,6 +115,7 @@ const routes: Routes = [
     { path: 'dashboardTechnician', component:DashboardTechnicianComponent},
     { path: 'ticketsTechnician', component:TicketsTechnicienComponent},
     { path: 'profileTechnician', component:ProfileTechnicienComponent},
+    { path: 'comments', component:CommentsComponent},
 
      
      

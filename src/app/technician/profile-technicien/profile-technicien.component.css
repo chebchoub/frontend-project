@@ -36,11 +36,9 @@
 .image-container {
     height: 150px;
     width: 150px;
-     border-width: 8px;
-
+    border-color: #e2e2e2;
     z-index: 1;
     border-radius: 50%;
-    background-color: #fff;
     background-position: center;
     background-size: cover;
  
@@ -80,9 +78,8 @@
     }
 }
 .icon-wrapper:hover {
-   border-color: black;
-   border-width: 2px;
-}
+
+background-color: #e2e2e2;}
 #bt:hover {
     background-color: #0b0d41; /* Remplacez "your-hover-color" par la couleur de fond que vous souhaitez au survol */
 }
@@ -92,3 +89,49 @@
     margin-left: 25%;
 
 }
+button{
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  .icon2{
+    height: 40px;
+    width: 40px;
+    padding: .35rem;
+    border-radius: 50%;
+    background-color: rgb(240, 240, 240);
+    margin-left: 160%;
+  }.icon2:hover {
+
+    background-color: #e2e2e2;}
+    #bt2:hover {
+        background-color: #0b0d41; /* Remplacez "your-hover-color" par la couleur de fond que vous souhaitez au survol */
+    }
+    #bt2 {
+        background-color:#27284E /* Remplacez "your-hover-color" par la couleur de fond que vous souhaitez au survol */
+        ;width: 200px;
+        margin-left: 35%;
+        margin-top: 10px;
+    
+    }
+
+    #ul
+    {
+        max-height: calc(40vh - 50px); /* 80px correspond à la hauteur de votre header */
+        overflow-y: auto; /* Activer le défilement vertical lorsque le contenu dépasse la hauteur maximale */
+        flex-grow: 1;
+    
+      }
+      /* Personnalisation de la barre de défilement */
+    #ul::-webkit-scrollbar {
+      width: 7px; /* Largeur de la barre de défilement */
+    }
+    
+    #ul::-webkit-scrollbar-track {
+      background: transparent; /* Couleur de fond de la piste */
+    }
+    
+    #ul::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.2); /* Couleur de la barre de défilement */
+      border-radius: 10px; /* Rayon des coins de la barre de défilement */
+    }
+    

@@ -49,6 +49,8 @@ import { HomeTechnicianComponent } from './technician/home-technician/home-techn
 import { DashboardTechnicianComponent } from './technician/dashboard-technician/dashboard-technician.component';
 import { TicketsTechnicienComponent } from './technician/tickets-technicien/tickets-technicien.component';
 import { ProfileTechnicienComponent } from './technician/profile-technicien/profile-technicien.component';
+import { ImageCompressService,ResizeOptions,ImageUtilityService } from 'ng2-image-compress';
+import { CommentsComponent } from './technician/comments/comments.component';
 
 
 @NgModule({
@@ -95,6 +97,8 @@ import { ProfileTechnicienComponent } from './technician/profile-technicien/prof
     DashboardTechnicianComponent,
     TicketsTechnicienComponent,
     ProfileTechnicienComponent,
+    CommentsComponent,
+
     
    
   ],
@@ -105,9 +109,10 @@ import { ProfileTechnicienComponent } from './technician/profile-technicien/prof
     FormsModule,
     ReactiveFormsModule,
     HighchartsChartModule,
+     
 
   ],
-  providers: [    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  providers: [  ImageCompressService,ResizeOptions,  { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
   exports: [RatingTicketComponent
     

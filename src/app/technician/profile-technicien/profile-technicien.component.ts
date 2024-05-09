@@ -3,6 +3,7 @@ import { ServiceTechnicianService } from '../service/service-technician.service'
 import { UserServiceService } from '../../auth/services/user-service.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ImageCompressService, ResizeOptions, ImageUtilityService, IImage, SourceImage } from 'ng2-image-compress';
 
 @Component({
   selector: 'app-profile-technicien',
@@ -11,13 +12,14 @@ import { Router } from '@angular/router';
 })
 export class ProfileTechnicienComponent implements OnInit{
   
-  constructor(public technicienService:ServiceTechnicianService,public userService:UserServiceService,private formBuilder: FormBuilder,private router: Router)
+  constructor(private imgCompressService: ImageCompressService,public technicienService:ServiceTechnicianService,public userService:UserServiceService,private formBuilder: FormBuilder,private router: Router)
   {
 
   }
   ngOnInit(): void {
     this.technicienService.getPageName = "PROFILE";
     this.getTechnicianDetails()
+
     this.updateProfileForm = this.formBuilder.group({
       profilePhoto: ['', Validators.required],
       firstName: ['', Validators.required],
@@ -25,23 +27,35 @@ export class ProfileTechnicienComponent implements OnInit{
 
       email: ['', [Validators.required, Validators.email, this.emailValidator]],
     });
+    this.updatespecialitieForm=this.formBuilder.group({
+      specialitie:[,Validators.required]
+
+    })
     this.file = this.technician.profilePhoto
   }
-
+  updatespecialitieForm:FormBuilder | any;
   technician:any;
+  newSpecialities!:any[];
+  specialitiesBefore!:any[];
+  allSpecialities: string[] = ["Virtualization", "Developer", "OpenStack", "Ansible", "Satellite", "Gboss", "JEE", "AmazonCloud", "OpenShift"];
+
   getTechnicianDetails(): void {
     this.technicienService.getEmailFromToken().subscribe(
       (response) => {
         this.technicienService.getTechnicianByEmail(response).subscribe(technician => {
           this.technician=technician;
           this.technicienService.technicianLogedIn=technician;
+          this.specialitiesBefore = [...this.technician.specialities];
+          console.log(this.specialitiesBefore)
+          this.newSpecialities = this.allSpecialities.filter(speciality => !this.specialitiesBefore.includes(speciality));
+          console.log(this.newSpecialities)
           this.profilePhotoURL = this.technician?.profilePhoto || '';});
           this.updateProfileForm.patchValue({
             email: this.technician.email,
             firstName: this.technician.firstName,
             lastName: this.technician.lastName,
           });
-         
+          
       });
   }
   emailValidator(control: any): { [key: string]: boolean } | null {
@@ -57,36 +71,37 @@ export class ProfileTechnicienComponent implements OnInit{
   showPassword: boolean = false;
   profilePhotoURL: string = '';
   file: string = '';
-  onFileChange(event: any) {
-    const files = event.target.files as FileList;
 
-    if (files.length > 0) {
-      const _file = URL.createObjectURL(files[0]);
-      this.file = _file;
-      this.profilePhotoURL = this.file;
-      this.onSelectFile(event)
-      this.resetInput();
-    }
-
-  }
-  onSelectFile(event: any) {
-
-    if (event.target.files) {
-      var reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onload = (innerEvent: any) => {
-        this.profilePhotoURL = innerEvent.target.result;
-      }
-    }
-  }
   resetInput() {
     const input = document.getElementById('avatar-input-file') as HTMLInputElement;
     if (input) {
       input.value = "";
     }
   }
+  onChange(fileInput: any) {
+    let fileList: FileList;
+
+    let images: Array<IImage> = [];
+
+    // Convertir fileInput.target.files en FileList
+    fileList = fileInput.target.files;
+
+    // Vérifier si fileList est défini et non null
+    if (fileList) {
+      // Convertir FileList en un tableau de fichiers
+      let files: File[] = Array.from(fileList);
+
+      ImageCompressService.filesArrayToCompressedImageSource(files).then(observableImages => {
+        observableImages.subscribe((image) => {
+          this.profilePhotoURL = image.compressedImage.imageDataUrl;
+        }, (error) => {
+          console.log("Error while converting");
+        });
+      });
+    }
+  }
   inputemail: boolean = false;  
-  inputcompanyLogo: boolean = false;
+  inputProfilePhoto: boolean = false;
   inputFirstName: boolean = false;
   inputLastName: boolean = false;
   updateToInput(label: string) {
@@ -101,28 +116,29 @@ export class ProfileTechnicienComponent implements OnInit{
       this.inputLastName = true
 
     }
-    else if (label === "companyLogo") {
-      this.inputcompanyLogo = true
+    else if (label === "ProfilePhoto") {
+      this.inputProfilePhoto = true
 
     }
     this.updateProfileForm.patchValue({
       email: this.technician.email,
       firstName: this.technician.firstName,
       lastName: this.technician.lastName,
+
     });
   }
   submit() {
-   /* const clientRequest: any = {
+     const technicianRequest: any = {
       email: this.updateProfileForm.controls.email.value,
-      phoneNumber: this.updateProfileForm.controls.phoneNumber.value,
-      location: this.updateProfileForm.controls.location.value,
-      companyLogo: this.companyLogoURL
+      firstName: this.updateProfileForm.controls.firstName.value,
+      lastName: this.updateProfileForm.controls.lastName.value,
+      profilePhoto: this.profilePhotoURL,
     }
-    this.technicienService.updateUpdateTechnicien(clientRequest, this.technician.id).subscribe(
+    this.technicienService.updateUpdateTechnicien(technicianRequest, this.technician.id).subscribe(
       (response: any) => {
-        this.toggleModelUpdateValid()    
+        this.toggleModelUpdateValid()
       }
-    );*/
+    );
   }
   showUpdateValid: boolean = false;
   toggleModelUpdateValid() {
@@ -130,11 +146,39 @@ export class ProfileTechnicienComponent implements OnInit{
     this.technicienService.toggleModalConfirmer();
     setTimeout(() => {
       location.reload();
-    }, 3000); 
+    }, 2000); 
   }
+  selectedSpecialities: string[] = []; 
 
+  updateSpecialities(event: any) {
+    const isChecked = event.target.checked;
+    const speciality = event.target.value;
+  
+    if (isChecked) {
+      this.selectedSpecialities.push(speciality);
+    } else {
+      const index = this.selectedSpecialities.indexOf(speciality);
+      if (index !== -1) {
+        this.selectedSpecialities.splice(index, 1);
+      }
+    }
+  }
+  updateSpecialitie()
+  {
+    this.technicienService.updateUpdateTechnicienSpecialitie(this.selectedSpecialities, this.technician.id).subscribe(
+      (response: any) => {
+        this.closeModal()
+        
+        this.toggleModelUpdateValid()
+      }
+    );  }
   openPopUp: string = "";
   toggleModalUpdateProfile(destination: string) {
+    this.openPopUp = destination;
+    this.technicienService.toggleModal();
+  }
+  toggleModalAddspecialitie(destination: string)
+  {
     this.openPopUp = destination;
     this.technicienService.toggleModal();
   }

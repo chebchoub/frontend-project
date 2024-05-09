@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
         this.cookieService.set('jwtToken', response.token, 7, '/', '', true, 'Lax');
         const jwtToken = this.cookieService.get('jwtToken');
         this.checkRole(jwtToken)
-        if (this.role === "ADMIN") {
+        if (this.role === "MANAGER"||this.role ==="SUPERMANAGER") {
           this.router.navigate(['/homeAdmin']);
 
         }

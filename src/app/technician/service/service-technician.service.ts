@@ -8,6 +8,7 @@ import { Observable, map } from 'rxjs';
   providedIn: 'root'
 })
 export class ServiceTechnicianService {
+  
 
   private apiUrl = 'http://localhost:8085/api/v1/technician'; // Mettez votre URL backend ici
 technicianLogedIn:any;;
@@ -24,10 +25,22 @@ technicianLogedIn:any;;
         map(response => response.subject as string) // Extrayez l'adresse e-mail de la propriété "subject"
       );
   }
-  getTicketById(id:string): Observable<any> {
-    return this.http.get<any>(`http://localhost:8080/api/v1/admin/ticket/get/${id}`);
+  getAllTicketWaitingList(technicianId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/getTicketsWaitingList/${technicianId}`);
   }
-   
+  getTicketById(ticketId:string,technicianId:string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/getTicket/${technicianId}/${ticketId}`);
+  }
+  updateUpdateTechnicien(updateRequest: any, technicianId: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/update-technician/${technicianId}`, updateRequest);
+  }
+  updateUpdateTechnicienSpecialitie(specialities: string[], technicianId: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/update-specialities/${technicianId}`, specialities);
+  }
+  addComent(commentRequest: any, ticketId: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${ticketId}/add-comment`, commentRequest);
+  }
+  ticketSelected:any;
   modalOpen: boolean = false;
   toggleModal() {
     this.modalOpen = !this.modalOpen;

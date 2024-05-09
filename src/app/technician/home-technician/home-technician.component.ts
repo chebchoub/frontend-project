@@ -21,7 +21,6 @@ export class HomeTechnicianComponent implements OnInit {
       (response) => {
         this.technicienService.getTechnicianByEmail(response).subscribe(technician => {
           this.technician=technician;
-          console.log(this.technician)
           this.technicienService.technicianLogedIn=technician;
          });
       });

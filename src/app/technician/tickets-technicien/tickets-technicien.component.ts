@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserServiceService } from '../../auth/services/user-service.service';
 import { ServiceTechnicianService } from '../service/service-technician.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 interface ImageItem {
   base64Data: string;
@@ -22,36 +22,48 @@ interface PDFItem {
   templateUrl: './tickets-technicien.component.html',
   styleUrl: './tickets-technicien.component.css'
 })
-export class TicketsTechnicienComponent implements OnInit{
-  
-  constructor(public technicienService:ServiceTechnicianService,public userService:UserServiceService,private formBuilder: FormBuilder,private router: Router)
-  {
+export class TicketsTechnicienComponent implements OnInit {
+
+  constructor(public technicienService: ServiceTechnicianService, public userService: UserServiceService, private formBuilder: FormBuilder, private router: Router) {
 
   }
   ngOnInit(): void {
+    this.refreshTicket()
     this.technicienService.getPageName = "Tickets";
-
     this.getTechnicianDetails()
-
+    this.technician=this.technicienService.technicianLogedIn;
+    this.getAllTickets()
+  
   }
- technician:any;
- tickets!:any[];
- ticket:any;
+  technician: any;
+  ticket: any;
   getTechnicianDetails(): void {
     this.technicienService.getEmailFromToken().subscribe(
       (response) => {
         this.technicienService.getTechnicianByEmail(response).subscribe(technician => {
-          this.technician=technician;
-          this.tickets=technician.ticketWaitingList;
-          this.ticket=technician.ticketWaitingList[0];
-          this.technicienService.technicianLogedIn=technician;
-         });
+          this.technicienService.technicianLogedIn = technician;
+         
+        });
       });
+
   }
-  getTicketDetails(id:string): void {
-    this.technicienService.getTicketById(id).subscribe(ticket => {
-    
-      this.ticket=ticket;
+  tickets!: any[];
+  getAllTickets(): void {
+    this.technicienService.getAllTicketWaitingList(this.technician.id).subscribe(tickets => {
+      this.tickets = tickets;
+      this.ticket = this.tickets[0]
+
+    });
+  }
+  refreshTicket(ticket: any) {
+    this.ticket = ticket; // Mettre à jour la référence du ticket
+}
+
+  getTicketDetails(idTicket: string): void {
+    this.technicienService.getTicketById(idTicket, this.technician.id).subscribe(ticket => {
+      this.ticket = ticket;
+      this.technicienService.ticketSelected=ticket;
+      console.log(this.technicienService.ticketSelected)
 
     });
   }
@@ -63,7 +75,7 @@ export class TicketsTechnicienComponent implements OnInit{
     link.click();
     document.body.removeChild(link);
   }
-  
+
   downloadPDF(pdf: PDFItem) {
     const link = document.createElement('a');
     link.href = pdf.base64Data; // Utiliser les données base64 du PDF comme URL
@@ -72,55 +84,10 @@ export class TicketsTechnicienComponent implements OnInit{
     link.click();
     document.body.removeChild(link);
   }
-  selectedImages: ImageItem[] = [];
-    selectedPDFs: PDFItem[] = [];
-    onImageChanged(event: any) {
-      const input = event.target as HTMLInputElement;
-      if (!input || !input.files || input.files.length === 0) return;
-  
-      for (let i = 0; i < input.files.length; i++) {
-        const file = input.files[i];
-        if (file.type.startsWith('image/')) {
-          const reader = new FileReader();
-          reader.onload = (e: any) => {
-            const imageData = e.target.result; // Récupérer les données sous forme de base64
-            this.selectedImages.push({
-              base64Data: imageData,
-              filename: file.name,
-              fileType: file.type,
-              size: file.size
-            });
-          };
-          reader.readAsDataURL(file); // Commencer la lecture du fichier en tant que base64
-        }
-      }
-  
-  
-      console.log(this.selectedImages);
-    }
-  
-    onPDFChanged(event: any) {
-      const input = event.target as HTMLInputElement;
-      if (!input || !input.files || input.files.length === 0) return;
-  
-      for (let i = 0; i < input.files.length; i++) {
-        const file = input.files[i];
-        if (file.type === 'application/pdf') {
-          const reader = new FileReader();
-          reader.onload = (e: any) => {
-            const pdfData = e.target.result; // Récupérer les données sous forme de base64
-            this.selectedPDFs.push({
-              base64Data: pdfData,
-              filename: file.name,
-              fileType: file.type,
-              size: file.size
-            });
-          };
-          reader.readAsDataURL(file); // Commencer la lecture du fichier en tant que base64
-        }
-      }
-    }
-  searchText='';
+
+
+
+  searchText = '';
   messageForm: FormGroup | any;
 
 }
