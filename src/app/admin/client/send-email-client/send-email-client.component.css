@@ -6,3 +6,9 @@
     ;
     color: white;
 }
+button{
+    transition: 0.3s;
+    font-family: inherit;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }

@@ -10,7 +10,7 @@ import { Observable, map } from 'rxjs';
 export class ServiceTechnicianService {
   
 
-  private apiUrl = 'http://localhost:8085/api/v1/technician'; // Mettez votre URL backend ici
+  private apiUrl = 'http://localhost:8080/api/v1/technician'; // Mettez votre URL backend ici
 technicianLogedIn:any;;
   constructor(private http: HttpClient, private cookieService: CookieService, public userService: UserServiceService) { }
   getTechnicianByEmail(email: string): Observable<any> {
@@ -28,6 +28,9 @@ technicianLogedIn:any;;
   getAllTicketWaitingList(technicianId: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/getTicketsWaitingList/${technicianId}`);
   }
+  getTickets(technicianId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/${technicianId}/getTickets`);
+  }
   getTicketById(ticketId:string,technicianId:string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/getTicket/${technicianId}/${ticketId}`);
   }
@@ -39,6 +42,31 @@ technicianLogedIn:any;;
   }
   addComent(commentRequest: any, ticketId: string): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${ticketId}/add-comment`, commentRequest);
+  }
+  getByPiority(priority: string, technicianId: string): Observable<void[]> {
+    return this.http.get<void[]>(`${this.apiUrl}/${technicianId}/getTicketsByPriority/${priority}`);
+  }
+  getByStatus(status: string, technicianId: string): Observable<void[]> {
+    return this.http.get<void[]>(`${this.apiUrl}/${technicianId}/getTicketsByStatus/${status}`);
+  }
+  getByCategory(category: string, technicianId: string): Observable<void[]> {
+    return this.http.get<void[]>(`${this.apiUrl}/${technicianId}/getTicketsByCategory/${category}`);
+  }
+  getByTicketOpeningDateAsc(technicianId: string): Observable<void[]> {
+    return this.http.get<void[]>(`${this.apiUrl}/getTicketsWaitingList/byOpeningDateAsc/${technicianId}`);
+  }
+
+  getByTicketOpeningDateDesc(technicianId: string): Observable<void[]> {
+    return this.http.get<void[]>(`${this.apiUrl}/getTicketsWaitingList/byOpeningDateDesc/${technicianId}`);
+  }
+  verifPassword(technicianId:string,password: string): Observable<any> {
+    return this.http.post<void>(`${this.apiUrl}/verify-password/${technicianId}?password=${password}`,null);
+  }
+  changePassword(technicianId:string,password: string): Observable<any> {
+    return this.http.put<void>(`${this.apiUrl}/change-password/${technicianId}?newPassword=${password}`,null);
+  }
+  updateTechnicianRating(technicianId: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${technicianId}/rating`, null);
   }
   ticketSelected:any;
   modalOpen: boolean = false;

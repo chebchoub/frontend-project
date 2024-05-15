@@ -1,5 +1,5 @@
 #ul {
-    max-height: calc(90vh - 50px); /* 80px correspond à la hauteur de votre header */
+    max-height: calc(55vh - 50px); /* 80px correspond à la hauteur de votre header */
     overflow-y: auto; /* Activer le défilement vertical lorsque le contenu dépasse la hauteur maximale */
     flex-grow: 1;
 

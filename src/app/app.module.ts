@@ -51,6 +51,15 @@ import { TicketsTechnicienComponent } from './technician/tickets-technicien/tick
 import { ProfileTechnicienComponent } from './technician/profile-technicien/profile-technicien.component';
 import { ImageCompressService,ResizeOptions,ImageUtilityService } from 'ng2-image-compress';
 import { CommentsComponent } from './technician/comments/comments.component';
+import { AddCommentClientComponent } from './Client/add-comment-client/add-comment-client.component';
+import { AddCommentAdminComponent } from './admin/ticket/add-comment-admin/add-comment-admin.component';
+import { EnterPassworddComponent } from './technician/enter-passwordd/enter-passwordd.component';
+import { UpdatePasswordProfileComponent } from './technician/update-password-profile/update-password-profile.component';
+import { ManagersComponent } from './admin/manager/managers/managers.component';
+import { ViewmManagerComponent } from './admin/manager/viewm-manager/viewm-manager.component';
+import { SendEmailCreateManagerComponent } from './admin/manager/send-email-create-manager/send-email-create-manager.component';
+import { RegisterManagerComponent } from './auth/register-manager/register-manager.component';
+import { UserNotificationComponent } from './notification/user-notification/user-notification.component';
 
 
 @NgModule({
@@ -98,6 +107,15 @@ import { CommentsComponent } from './technician/comments/comments.component';
     TicketsTechnicienComponent,
     ProfileTechnicienComponent,
     CommentsComponent,
+    AddCommentClientComponent,
+    AddCommentAdminComponent,
+    EnterPassworddComponent,
+    UpdatePasswordProfileComponent,
+    ManagersComponent,
+    ViewmManagerComponent,
+    SendEmailCreateManagerComponent,
+    RegisterManagerComponent,
+    UserNotificationComponent,
 
     
    

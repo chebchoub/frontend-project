@@ -13,9 +13,9 @@
       </div>
       <div [class.error]="loginForm.controls.password.invalid && (loginForm.controls.password.dirty || loginForm.controls.password.touched||this.loginFormInvalid)">
         <input #y type="password" placeholder="Enter your password" formControlName="password" name="password" required />
-        <span *ngIf="loginForm.controls.password.invalid && (loginForm.controls.password.dirty || loginForm.controls.password.touched||this.loginFormInvalid)" class="error-message">Password is required</span>
-        <div class="flex items-start ">
-          <div class="flex items-center h-5">
+        <span   *ngIf="loginForm.controls.password.invalid && (loginForm.controls.password.dirty || loginForm.controls.password.touched||this.loginFormInvalid)" class="error-message">Password is required</span>
+        <div class="flex items-start "  style="margin-top: 10px;">
+          <div class="flex items-center h-5" >
               <input (click)="y.type=y.type=='password'?'text':'password'" style="width: 15px;height: 15px;" id="remember" type="checkbox" value="" class=" border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
           </div>
            <label  for="remember" id="forget">Show password</label>
@@ -28,14 +28,14 @@
     </form>
     <div class="signup">
       <span class="signup">Don't have an account?
-        <label for="check">Signup</label>
+        <label for="check" routerLink="/clientRegister">Signup</label>
       </span>
     </div>
   </div>
 </div>
 
 
-  <div *ngIf="userService.modalOpen "
+<div *ngIf="userService.modalOpen "
   class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-5 h-[calc(100%-1rem)] max-h-full "
   style="display: flex;justify-content: center;">
 <app-forgot-password></app-forgot-password></div>

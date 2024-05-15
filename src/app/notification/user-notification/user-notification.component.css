@@ -1,0 +1,18 @@
+#ul {
+    max-height: calc(60vh - 50px); /* 80px correspond à la hauteur de votre header */
+    overflow-y: auto; /* Activer le défilement vertical lorsque le contenu dépasse la hauteur maximale */
+    flex-grow: 1;
+  
+  }  /* Personnalisation de la barre de défilement */
+  #ul::-webkit-scrollbar {
+    width: 5px; /* Largeur de la barre de défilement */
+  }
+  
+  #ul::-webkit-scrollbar-track {
+    background: transparent; /* Couleur de fond de la piste */
+  }
+  
+  #ul::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2); /* Couleur de la barre de défilement */
+    border-radius: 10px; /* Rayon des coins de la barre de défilement */
+  }

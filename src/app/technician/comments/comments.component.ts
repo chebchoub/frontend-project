@@ -3,6 +3,7 @@ import { UserServiceService } from '../../auth/services/user-service.service';
 import { ServiceTechnicianService } from '../service/service-technician.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 interface ImageItem {
   base64Data: string;
   filename: string;
@@ -23,7 +24,7 @@ interface PDFItem {
 })
 export class CommentsComponent implements OnInit {
 
-  constructor(public technicienService: ServiceTechnicianService, public userService: UserServiceService, private formBuilder: FormBuilder, private router: Router,private cdr: ChangeDetectorRef) {
+  constructor(public technicienService: ServiceTechnicianService,private cookieService: CookieService, public userService: UserServiceService, private formBuilder: FormBuilder, private router: Router,private cdr: ChangeDetectorRef) {
 
   }
   @Input() ticket: any;
@@ -50,7 +51,6 @@ export class CommentsComponent implements OnInit {
   getAllTickets(): void {
     this.technicienService.getAllTicketWaitingList(this.technician.id).subscribe(tickets => {
       this.tickets = tickets;
-
     });
   }
   getTicketDetails(idTicket: string): void {
@@ -125,8 +125,7 @@ export class CommentsComponent implements OnInit {
     }
   }
   addComment() {
-    console.log(this.messageForm.controls.comment.value)
-    console.log(this.messageForm.controls.comment.value !== "" || this.selectedImages.length != 0 || this.selectedPDFs.length != 0)
+
     if (this.messageForm.controls.comment.value !== "" || this.selectedImages.length != 0 || this.selectedPDFs.length != 0) {
       const messageRequest: any = {
         comment: this.messageForm.controls.comment.value,
@@ -147,11 +146,13 @@ export class CommentsComponent implements OnInit {
       // Envoyer la requête au backend
       this.technicienService.addComent(messageRequest, this.ticket._id).subscribe(
         (response: any) => {
+
         }
       );
-      this.ticket = { ...this.ticket }; // Mettre à jour la référence du ticket
-      this.cdr.detectChanges(); // Détecter manuellement les modification    
-  }
+      location.reload() 
+      this.cookieService.set('ticketID', this.ticket._id, 7, '/', '', true, 'Lax');
+
+    }
 }
 
   searchText = '';

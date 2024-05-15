@@ -64,7 +64,7 @@ export class ViewClientComponent implements OnInit {
   }
   closeModal() {
     this.clientService.closeModal();
-    this.router.navigate(['/homeAdmin/clients']);
+    location.reload()
   }
   // Dans votre composant TypeScript
   incrementTickets() {

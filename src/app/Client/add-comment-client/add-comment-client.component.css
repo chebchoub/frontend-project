@@ -1,0 +1,124 @@
+
+.JustificationImge {
+    width: 100px;
+    border-radius: 10px;
+    flex: 1 1 100%;
+    /* Taille initiale */
+    height: auto;
+    /* Pour conserver les proportions */
+    margin-top: 10px;
+}
+
+  
+/* Style pour agrandir et déplacer l'image au survol */
+.JustificationImge:hover {
+    transform: scale(6);
+    /* Agrandissement de 4 fois et centrage */
+    position: fixed;
+    /* Fixer la position */
+    top: 50%;
+    /* Centrer verticalement */
+    left: 47%;
+    /* Centrer horizontalement */
+    z-index: 9999;
+    /* Assurer que l'image est au-dessus de tout */
+}#bt1:hover {
+    background-color: #0b0d41; /* Remplacez "your-hover-color" par la couleur de fond que vous souhaitez au survol */
+}
+#bt:hover {
+    background-color: #0b0d41; /* Remplacez "your-hover-color" par la couleur de fond que vous souhaitez au survol */
+}
+#bt {
+    background-color:#27284E /* Remplacez "your-hover-color" par la couleur de fond que vous souhaitez au survol */
+    ;width: 15%;
+
+}
+#btClose:hover {
+    background-color: #531c1c; /* Remplacez "your-hover-color" par la couleur de fond que vous souhaitez au survol */
+}
+#btClose {
+    background-color:#A92323 /* Remplacez "your-hover-color" par la couleur de fond que vous souhaitez au survol */
+    ;width: 90px;
+    height: 35px;
+    margin-left: 50%;
+    margin-top: 5%;
+}
+#bt1 {
+    background-color:#27284E /* Remplacez "your-hover-color" par la couleur de fond que vous souhaitez au survol */
+    ;width: 15%;
+    margin-right: 5px;
+}
+#ul {
+    max-height: calc(90vh - 50px); /* 80px correspond à la hauteur de votre header */
+    overflow-y: auto; /* Activer le défilement vertical lorsque le contenu dépasse la hauteur maximale */
+    flex-grow: 1;
+
+  }
+    /* Personnalisation de la barre de défilement */
+  #ul::-webkit-scrollbar {
+    width: 5px; /* Largeur de la barre de défilement */
+  }
+  
+  #ul::-webkit-scrollbar-track {
+    background: transparent; /* Couleur de fond de la piste */
+  }
+  
+  #ul::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2); /* Couleur de la barre de défilement */
+    border-radius: 10px; /* Rayon des coins de la barre de défilement */
+  }
+  
+  #chat {
+    max-height: calc(50vh - 50px); /* 80px correspond à la hauteur de votre header */
+    overflow-y: auto; /* Activer le défilement vertical lorsque le contenu dépasse la hauteur maximale */
+    flex-grow: 1;
+  }
+  
+  /* Personnalisation de la barre de défilement */
+  #chat::-webkit-scrollbar {
+    width: 5px; /* Largeur de la barre de défilement */
+  }
+  
+  #chat::-webkit-scrollbar-track {
+    background: transparent; /* Couleur de fond de la piste */
+  }
+  
+  #chat::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2); /* Couleur de la barre de défilement */
+    border-radius: 10px; /* Rayon des coins de la barre de défilement */
+  }
+  
+.image-container {
+    display: flex;
+    flex-wrap: nowrap; /* Empêche le contenu de passer à la ligne */
+}
+
+.image-item {
+    flex: 0 0 auto; /* Éléments de taille fixe */
+    display: flex; /* Utilise à nouveau flexbox pour aligner le texte et l'icône */
+    align-items: center; /* Aligne les éléments verticalement */
+}
+
+.icon-container {
+    margin-right: 5px; /* Espacement entre l'icône et le texte */
+}
+
+.status-new {
+  color: #FF5733;
+}
+
+.status-in-progress {
+  color: #FFC300;;
+}
+
+.status-resolved {
+  color: #36A2EB;
+}
+
+.status-closed {
+  color:  #4CAF50;
+}
+button{
+  font-weight: bold;
+  letter-spacing: 1px;
+}

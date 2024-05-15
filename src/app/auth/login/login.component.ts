@@ -69,15 +69,7 @@ export class LoginComponent implements OnInit {
     );
 
   }
-  checkAdminVar: boolean = false;
-  checkAdmin(jwtToken: string): any {
-    this.userService.checkAdmin(jwtToken).subscribe(
-      (response) => {
-        this.checkAdminVar = response
-      }
-
-    );
-  }
+  
   role: string = "";
 
   checkRole(jwtToken: string): any {

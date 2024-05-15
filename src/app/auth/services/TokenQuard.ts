@@ -21,7 +21,7 @@ import { Observable, map, of } from "rxjs";
       // Vérifie si le token est expiré en appelant la méthode checkTokenExpired
       return this.userService.checkTokenExpired(token).pipe(
         map(response => {
-          if (response=== 'Le token est valide.') {
+          if (response=== false) {
             return true; // Autorise l'accès si le token est valide
           } else {
             // Redirige vers une autre page si le token est expiré

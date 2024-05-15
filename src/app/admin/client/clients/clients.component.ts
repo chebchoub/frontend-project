@@ -58,7 +58,8 @@ export class ClientsComponent implements OnInit {
   getPageNumbers(): number[] {
     const totalPages = Math.ceil(this.clients.length / this.pageSize);
     return Array.from({ length: totalPages }, (_, i) => i);
-  }  listPREMIUM: boolean = false;
+  }  
+  listPREMIUM: boolean = false;
   getAllContractsByContractType(event: Event): void {
     const target = event.target as HTMLSelectElement; // Conversion de type explicite
     const contractType = target.value;
@@ -67,13 +68,23 @@ export class ClientsComponent implements OnInit {
       this.listPREMIUM = false;
 
     } else {
-      
+      if (contractType === "PREMIUM") {
+        this.listPREMIUM = true;
+      }
+      if (contractType === "STANDARD") {
+        this.listPREMIUM = false;
+      }
       this.clientService.getContractByContractType(contractType).subscribe(clients => {
         this.clients = clients;
-        console.log(this.clients);
-      
+       
       });
     }
+  }
+  getAllContractsByContractPermiumType(premiumType: string) {
+    this.clientService.getContractByPremiumType(premiumType).subscribe(clients => {
+      this.clients = clients;
+     
+    });
   }
   sortByTicketAvailabel: string = 'TicketsAsc'; // Pour stocker le type de tri
 

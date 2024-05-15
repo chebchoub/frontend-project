@@ -19,7 +19,7 @@ export class TechniciansComponent implements OnInit {
       this.contractService.getPageName = 'TECHNICIANS';
     });
   }
-  searchText = '';
+  searchText: string = '';
 
   technicians: any[] = [];
   listeVide: boolean = false;
@@ -68,35 +68,31 @@ export class TechniciansComponent implements OnInit {
 
   sortByTicketWaitingList: string = 'TicketWaitingListAsc'; // Pour stocker le type de tri
   sortByRating: string = 'RatingAsc'; // Pour stocker le type de tri
-  loadTechniciens(): void {
-    if (this.sortByTicketWaitingList === 'TicketWaitingListAsc') {
-      /*this.technicianService.getByTicketWaitingListAsc().subscribe(technicians => {
-        this.technicians = technicians;
-      });*/
-    } else if (this.sortByTicketWaitingList === 'TicketWaitingListDesc') {
-      /*this.technicianService.getByTicketWaitingListDesc().subscribe(technicians => {
-        this.technicians = technicians;
-      });*/
-    }
 
+  loadTechniciensortByrating(): void {
     if (this.sortByRating === 'RatingAsc') {
-      this.technicianService.getByTicketWaitingListAsc().subscribe(technicians => {
+      this.technicianService.getByRatingAsc().subscribe(technicians => {
         this.technicians = technicians;
       });
     } else if (this.sortByRating === 'RatingDesc') {
+      this.technicianService.getByRatingDesc().subscribe(technicians => {
+        this.technicians = technicians;
+      });
+    }
+    
+  }
+  loadTechniciensortByTicketWaitingList(): void {
+    if (this.sortByTicketWaitingList === 'TicketWaitingListAsc') {
       this.technicianService.getByTicketWaitingListAsc().subscribe(technicians => {
         this.technicians = technicians;
       });
-    }
-    if (this.startDateWork === 'startDateWorkAsc') {
-      this.technicianService.getByStartDateWorkAsc().subscribe(technicians => {
-        this.technicians = technicians;
-      });
-    } else if (this.startDateWork === 'TicketWaitingListAsc') {
-      this.technicianService.getByStartDateWorkDesc().subscribe(technicians => {
+    } else if (this.sortByTicketWaitingList === 'TicketWaitingListDesc') {
+      this.technicianService.getByTicketWaitingListDesc().subscribe(technicians => {
         this.technicians = technicians;
       });
     }
+
+    
   }
 
 
@@ -107,7 +103,7 @@ export class TechniciansComponent implements OnInit {
     } else {
       this.sortByTicketWaitingList = 'TicketWaitingListAsc';
     }
-    this.loadTechniciens();
+    this.loadTechniciensortByTicketWaitingList();
   }
   sortByrating(): void {
     if (this.sortByRating === 'RatingAsc') {
@@ -115,7 +111,7 @@ export class TechniciansComponent implements OnInit {
     } else {
       this.sortByRating = 'RatingAsc';
     }
-    this.loadTechniciens();
+    this.loadTechniciensortByrating();
   }
   getBySpeciality(event: Event): void {
     const target = event.target as HTMLSelectElement; // Conversion de type explicite

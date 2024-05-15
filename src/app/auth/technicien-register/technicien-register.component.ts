@@ -28,29 +28,29 @@ export class TechnicienRegisterComponent {
 
     // Récupérer l'email du token
     this.userService.getEmailFromToken(this.jwtToken).subscribe((email: string) => {
-      this.emailTechnician = email;
-  
-      // Initialiser le formulaire avec l'email du technicien
-      
-    
-    console.log(this.emailTechnician)
+    console.log(email)
+    this.emailTechnician=email;
     this.registerForm2 = this.formBuilder.group({
-      email: [this.emailTechnician, [Validators.required, Validators.email]],
+      email: [, [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8), this.validatePassword]],
       confirmpassword: ['', Validators.required],
       profilePhoto: ['', Validators.required]
     });
+    this.registerForm2.patchValue({
+      email:  this.emailTechnician,
+     
+    });
       this.registerForm1 = this.formBuilder.group({
-        firstName: ['', [Validators.required, Validators.maxLength(15), Validators.pattern('^[a-zA-Z]+$')]],
-        lastName: ['', [Validators.required, Validators.maxLength(15), Validators.pattern('^[a-zA-Z]+$')]],
+        firstName: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z ]+$')]],
+        lastName: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z ]+$')]],
       startDateWork: ['', [Validators.required, this.startDateValidator]],
       speciality:[,Validators.required]
     });
     this.registerForm3 = this.formBuilder.group({
       confimerCheckBox: [false, Validators.required]
-  });
+  }); 
 });
-    
+   
   }
   
   startDateValidator(control: any) {

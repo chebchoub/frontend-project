@@ -15,7 +15,7 @@ export class AdminGuard implements CanActivate {
   canActivate(): Observable<boolean> {
     const jwtToken = this.cookieService.get('jwtToken');
     
-    return this.userService.checkAdmin(jwtToken).pipe(
+    return this.userService.checkManager(jwtToken).pipe(
       map(isAdmin => {
         if (isAdmin  ) {
             console.log()

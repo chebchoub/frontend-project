@@ -92,7 +92,6 @@ export class CreateTicketComponent implements OnInit {
             (response: any) => {
               console.log(response);
               this.toggleModValidCreate() 
-              this.router.navigate(['/homeClient/tickets']);
 
             }
           );
@@ -181,6 +180,7 @@ toggleModValidCreate() {
   this.serviceClient.toggleModalConfirmer();
   setTimeout(() => {
     this.showAmertCreated = false;
+    location.reload();
   }, 2000); // 5000 milliseconds = 5 seconds, adjust as needed
 }
 toggleModInvalidCreate() {

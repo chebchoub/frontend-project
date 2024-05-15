@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TicketRequest } from '../dto/ticket-request';
 import { ClientServiceService } from '../service/client-service.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { CookieService } from 'ngx-cookie-service';
 interface ImageItem {
   base64Data: string;
   filename: string;
@@ -25,7 +26,7 @@ interface PDFItem {
   styleUrl: './tickets-client.component.css'
 })
 export class TicketsClientComponent implements OnInit {
-  constructor(private formBuilder: FormBuilder, private router: Router, public serviceClient: ClientServiceService, public sanitizer: DomSanitizer) { }
+  constructor(private cookieService: CookieService,private route: ActivatedRoute,private formBuilder: FormBuilder, private router: Router, public serviceClient: ClientServiceService, public sanitizer: DomSanitizer) { }
   messageForm: FormGroup | any;
   searchText = '';
 
@@ -62,8 +63,20 @@ export class TicketsClientComponent implements OnInit {
     console.log( this.serviceClient.clientLogedIn)
     this.serviceClient.getByTicketOpeningDateDesc(this.client.id).subscribe(tickets => {
       this.tickets = tickets;
-      console.log(this.tickets)
-      this.ticket = this.tickets[0]
+      let ticketId=this.cookieService.get('ticketID');
+      
+        console.log(this.tickets[0]._id)
+        console.log(ticketId)
+      if(ticketId!=="")        
+        {       
+
+          this.getTicketDetails(ticketId||"")       
+
+        }else
+        {
+          this.ticket=this.tickets[0]
+        }
+
     });
   }
   ticket: any;
@@ -127,85 +140,13 @@ export class TicketsClientComponent implements OnInit {
     }
     this.loadContracts();
   }
-  addComment() {
-    console.log(this.messageForm.controls.comment.value !== "" || this.selectedImages.length != 0 || this.selectedPDFs.length != 0)
-    if (this.messageForm.controls.comment.value !== "" || this.selectedImages.length != 0 || this.selectedPDFs.length != 0) {
-      const messageRequest: any = {
-        comment: this.messageForm.controls.comment.value,
-        images: this.selectedImages.map(image => ({
-          base64Data: image.base64Data,
-          filename: image.filename,
-          fileType: image.fileType,
-          size: image.size
-        })),
-        files: this.selectedPDFs.map(pdf => ({
-          base64Data: pdf.base64Data,
-          filename: pdf.filename,
-          fileType: pdf.fileType,
-          size: pdf.size
-        }))
-      };
-      console.log(messageRequest)
-      // Envoyer la requête au backend
-      this.serviceClient.addComent(messageRequest, this.ticket._id).subscribe(
-        (response: any) => {
-
-        }
-      );
-
-    }
-  }
+  
 
 
 
-  selectedImages: ImageItem[] = [];
-  selectedPDFs: PDFItem[] = [];
-  onImageChanged(event: any) {
-    const input = event.target as HTMLInputElement;
-    if (!input || !input.files || input.files.length === 0) return;
+ 
 
-    for (let i = 0; i < input.files.length; i++) {
-      const file = input.files[i];
-      if (file.type.startsWith('image/')) {
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          const imageData = e.target.result; // Récupérer les données sous forme de base64
-          this.selectedImages.push({
-            base64Data: imageData,
-            filename: file.name,
-            fileType: file.type,
-            size: file.size
-          });
-        };
-        reader.readAsDataURL(file); // Commencer la lecture du fichier en tant que base64
-      }
-    }
-
-
-    console.log(this.selectedImages);
-  }
-
-  onPDFChanged(event: any) {
-    const input = event.target as HTMLInputElement;
-    if (!input || !input.files || input.files.length === 0) return;
-
-    for (let i = 0; i < input.files.length; i++) {
-      const file = input.files[i];
-      if (file.type === 'application/pdf') {
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          const pdfData = e.target.result; // Récupérer les données sous forme de base64
-          this.selectedPDFs.push({
-            base64Data: pdfData,
-            filename: file.name,
-            fileType: file.type,
-            size: file.size
-          });
-        };
-        reader.readAsDataURL(file); // Commencer la lecture du fichier en tant que base64
-      }
-    }
-  }
+        
   downloadImage(image: ImageItem) {
     const link = document.createElement('a');
     link.href = image.base64Data; // Utiliser les données base64 de l'image comme URL
@@ -235,7 +176,28 @@ export class TicketsClientComponent implements OnInit {
     this.serviceClient.toggleModal();
 
   }
+  toggleModalAddRating(destination: string, ticketId: string) {
+    this.serviceClient.ticketIDClosed = ticketId;
+    this.openPopUp = destination;
+    this.serviceClient.toggleModalConfirmer();
+
+  }
   closeModal() {
     this.serviceClient.closeModal();
   }
+  confirmDelete(): void {
+    this.serviceClient.markAsClosed(this.ticket._id).subscribe(
+      (response: any) => {
+        this.toggleModalAddRating("rating",this.ticket._id)
+      },
+      (error: any) => {
+        // Handle error if needed
+      }
+    );
+  }
+  cancelDelete(): void {
+    this.serviceClient.ticketIDClosed = "";
+    this.closeModal()
+  }
+
 }

@@ -22,12 +22,18 @@ export class ServiceTechnicianService {
   getTechnicianById(id:string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/get/${id}`);
   }
-  getByTicketWaitingListAsc(): Observable<void[]> {
+  getByRatingAsc(): Observable<void[]> {
     return this.http.get<void[]>(`${this.apiUrl}/getByTicketResolvedRatingAsc`);
   }
 
-  getByTicketWaitingListDesc(): Observable<void[]> {
+  getByRatingDesc(): Observable<void[]> {
     return this.http.get<void[]>(`${this.apiUrl}/getByTicketResolvedRatingDesc`);
+  }
+  getByTicketWaitingListAsc(): Observable<void[]> {
+    return this.http.get<void[]>(`${this.apiUrl}/getByTicketWaitingListAsc`);
+  }
+  getByTicketWaitingListDesc(): Observable<void[]> {
+    return this.http.get<void[]>(`${this.apiUrl}/getByTicketWaitingListDesc`);
   }
   getByStartDateWorkAsc(): Observable<void[]> {
     return this.http.get<void[]>(`${this.apiUrl}/getByStartDateWorkAsc`);

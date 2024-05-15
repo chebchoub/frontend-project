@@ -10,7 +10,7 @@ import { UserServiceService } from '../../auth/services/user-service.service';
   providedIn: 'root'
 })
 export class ClientServiceService {
-  private apiUrl = 'http://localhost:8083/api/v1/client'; // Mettez votre URL backend ici
+  private apiUrl = 'http://localhost:8080/api/v1/client'; // Mettez votre URL backend ici
   clientLogedIn:any;;
   constructor(private http: HttpClient, private cookieService: CookieService, public userService: UserServiceService) { }
   getClientByEmail(email: string): Observable<any> {
@@ -26,9 +26,6 @@ export class ClientServiceService {
       );
   }
 
-  upload(formData: FormData): Observable<any> {
-    return this.http.post<any>(`http://localhost:8083/api/v1/fileController/upload`, formData);
-  }
   createTicket(ticket: any, clientId: string): Observable<void> {
     return this.http.post<void>(`${this.apiUrl}/create-ticket/${clientId}`, ticket);
   }
@@ -67,9 +64,13 @@ export class ClientServiceService {
     return this.http.put<any>(`${this.apiUrl}/updateClient/${ticketId}`, updateRequest);
   }
   ticketIDClosed: string = "";
-  markAsClosed(rating: number, ticketId: string): Observable<any> {
+  addRating(rating: number, ticketId: string): Observable<any> {
     // Utilisez HttpClient's put method pour inclure le rating dans l'URL
-    return this.http.put<any>(`${this.apiUrl}/${ticketId}/markAsClosed/${rating}`, null);
+    return this.http.put<any>(`${this.apiUrl}/${ticketId}/give-rating?rating=${rating}`, null);
+  }
+  markAsClosed(ticketId: string): Observable<any> {
+    // Utilisez HttpClient's put method pour inclure le rating dans l'URL
+    return this.http.put<any>(`${this.apiUrl}/${ticketId}/markAsClosed`, null);
   }
   verifPassword(clientId:string,password: string): Observable<any> {
     return this.http.post<void>(`${this.apiUrl}/verify-password/${clientId}?password=${password}`,null);

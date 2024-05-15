@@ -31,21 +31,24 @@ export class RatingTicketComponent implements OnInit {
   // Method to submit the rating to the backend
   rateTechnician(value: number) {
     console.log(value)  // Pass the rating value to your backend API
-    this.serviceClient.markAsClosed(value, this.serviceClient.ticketIDClosed).subscribe(
+    this.serviceClient.addRating(value, this.serviceClient.ticketIDClosed).subscribe(
       (response: any) => {
         console.log(response)      
-        // Fermer la modal après 3 secondes
-        setTimeout(() => {
-          this.closeModalEvent.emit();
-        }, 1000);
-        this.router.navigate(['/homeClient/tickets']);
-
+      
 
       },
       (error: any) => {
         // Handle error if needed
       }
     );
+    setTimeout(() => {
+      location.reload();
+    }, 1000);
   }
-
+  closeModal() {
+    this.serviceClient.closeModalConfimer();
+    setTimeout(() => {
+      location.reload();
+    }, 1000);
+  }
 }

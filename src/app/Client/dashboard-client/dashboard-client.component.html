@@ -79,7 +79,7 @@
         </div>
         <div>
           <span class="block text-2xl font-bold">{{this.nbrRESOLVEDTicket}}</span>
-          <span class="block text-gray-500">Ticket resolved</span>
+          <span class="block text-gray-500">Ticket closed</span>
         </div>
       </div>
     
@@ -89,7 +89,7 @@
    
    
       
-      <div class="row-span-3 bg-white shadow rounded-lg" >
+      <div class="row-span-3 bg-white shadow rounded-lg" style="height: 100%;" >
         <div class="grid grid-cols-3 px-6 py-5 font-semibold border-b border-gray-100">
             <span>Status</span>  
             <span style="margin-left: -85px;">Title</span>
@@ -102,6 +102,9 @@
           <!-- Refer here for full dropdown menu code: https://tailwindui.com/components/application-ui/elements/dropdowns -->
         </div>
         <div class="overflow-y-auto"  id="ul">
+          <p *ngIf="this.tickets.length==0" style="margin-left: 40%;margin-top: 10%;color: red;font-size: 20px;" >
+            No ticket
+          </p>
           <ul class="p-6 space-y-6 transition hover:bg-blue-100"  *ngFor="let ticket of this.tickets"> 
             <li class="grid grid-cols-2 " >
                <div>
@@ -113,28 +116,8 @@
                <span class="text-gray-600" style="margin-left: -180px; display: inline-block; max-width: 180%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{{ ticket.titre }}">{{ ticket.titre }}</span>
             </li>
           </ul>
-          <ul class="p-6 space-y-6 transition hover:bg-blue-100"  *ngFor="let ticket of this.tickets"> 
-            <li class="grid grid-cols-2 " >
-               <div>
-                <div class="text-md   font-bold " style="color: #FFC300;"  *ngIf="ticket.status==='IN_PROGRESS'">IN_PROGRESS </div>
-                <div class="text-md font-bold"  style="color: #FF5733;"  *ngIf="ticket.status==='NEW'">NEW</div>
-                <div class="text-md  font-bold" style="color: #36A2EB;" *ngIf="ticket.status==='RESOLVED'">RESOLVED</div>
-                <div class="text-md   font-bold" style="color: #4CAF50;" *ngIf="ticket.status==='CLOSED'">CLOSED</div>
-               </div>
-               <span class="text-gray-600" style="margin-left: -180px; display: inline-block; max-width: 180%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{{ ticket.titre }}">{{ ticket.titre }}</span>
-            </li>
-          </ul>
-          <ul class="p-6 space-y-6 transition hover:bg-blue-100"  *ngFor="let ticket of this.tickets"> 
-            <li class="grid grid-cols-2 " >
-               <div>
-                <div class="text-md   font-bold " style="color: #FFC300;"  *ngIf="ticket.status==='IN_PROGRESS'">IN_PROGRESS </div>
-                <div class="text-md font-bold"  style="color: #FF5733;"  *ngIf="ticket.status==='NEW'">NEW</div>
-                <div class="text-md  font-bold" style="color: #36A2EB;" *ngIf="ticket.status==='RESOLVED'">RESOLVED</div>
-                <div class="text-md   font-bold" style="color: #4CAF50;" *ngIf="ticket.status==='CLOSED'">CLOSED</div>
-               </div>
-               <span class="text-gray-600" style="margin-left: -180px; display: inline-block; max-width: 180%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{{ ticket.titre }}">{{ ticket.titre }}</span>
-            </li>
-          </ul>
+          
+         
         </div>
       </div>
       
@@ -143,15 +126,15 @@
           <!-- Premier graphique -->
           <div class="px-6 py-5 font-semibold border-b border-white">Ticket By Priority</div>
           <div class="flex items-center justify-center px-4 py-5 text-gray-400 text-3xl font-semibold border-dashed rounded-md">
-            <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions2"></highcharts-chart>
+            <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions2" style="width: 350px;"></highcharts-chart>
           </div>
         </div>
         
-        <div class="bg-white shadow rounded-lg">
+        <div class="bg-white shadow rounded-lg"> 
           <!-- Deuxième graphique -->
           <div class="px-6 py-5 font-semibold border-b border-gray-100">Ticket by category</div>
-          <div class="flex items-center justify-center px-4 py-5 text-gray-400 text-3xl font-semibold border-dashed rounded-md" w>
-            <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions1"></highcharts-chart>
+          <div class="flex items-center justify-center px-4 py-5 text-gray-400 text-3xl font-semibold border-dashed rounded-md">
+            <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions1" style="width: 500px;"></highcharts-chart>
           </div>
         </div>
       </section>

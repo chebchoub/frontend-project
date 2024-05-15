@@ -28,12 +28,19 @@ export class UserServiceService {
   registerTechnician(request: TechnicienRequest,token:string): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/register-technician/${token}`, request);
   }
+  registerManager(request: TechnicienRequest,token:string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/register-manager/${token}`, request);
+  }
   login(request: AuthenticationRequest): Observable<AuthenticationResponse> {
     return this.http.post<AuthenticationResponse>(`http://localhost:8080/api/v1/auth/authenticate`, request);
   }
-  checkAdmin(jwtToken: string): Observable<any> {
+  checkManager(jwtToken: string): Observable<any> {
 
-    return this.http.get<any>(`http://localhost:8080/api/v1/auth/check-admin/${jwtToken}`, );
+    return this.http.get<any>(`http://localhost:8080/api/v1/auth/check-manager/${jwtToken}`, );
+  }
+  checkSuperManager(jwtToken: string): Observable<any> {
+
+    return this.http.get<any>(`http://localhost:8080/api/v1/auth/check-super-manager/${jwtToken}`, );
   }
   checkRole(jwtToken: string): Observable<string[]> {
     return this.http.get<string[]>(`http://localhost:8080/api/v1/auth/getRole/${jwtToken}`);

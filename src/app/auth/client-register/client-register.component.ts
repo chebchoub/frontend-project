@@ -26,7 +26,7 @@ export class ClientRegisterComponent {
   }
   ngOnInit(): void {
     this.registerForm1 = this.formBuilder.group({
-      entreprise: ['', [Validators.required, Validators.maxLength(15)]],
+      entreprise: ['', [Validators.required, Validators.maxLength(50)]],
       phoneNumber: ['', [Validators.required, this.validatePhoneNumber]],
       location: ['', Validators.required],
       companyLogo: ['', Validators.required],

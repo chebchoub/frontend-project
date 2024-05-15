@@ -11,4 +11,9 @@
 }
 #bt {
     background-color:#27284E /* Remplacez "your-hover-color" par la couleur de fond que vous souhaitez au survol */
-}
+}button{
+    transition: 0.3s;
+    font-family: inherit;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }

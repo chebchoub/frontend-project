@@ -145,8 +145,8 @@
           <!-- Refer here for full dropdown menu code: https://tailwindui.com/components/application-ui/elements/dropdowns -->
         </div>
         <div class="overflow-y-auto" >
-          <ul class="p-6 space-y-6"  > 
-            <li class="flex items-center" *ngFor="let client of clients">
+          <ul class="p-6 space-y-6  hover:bg-blue-100"*ngFor="let client of clients"  > 
+            <li class="flex items-center " (click)="toggleModalview('view',client.id)"    id="ul" >
               <div class="mr-3  rounded-full overflow-hidden " *ngIf="client.contract.premiumType==='GOLD'" style="border-width: 3px;border-color: #FFD700;display: flex;justify-content: center;width: 50px;height: 50px;">
                 <img  [src]="client.companyLogo" />
               </div>
@@ -183,3 +183,8 @@
     </section>
 
   </main>
+  <div *ngIf="clientService.modalOpen && this.openPopUp=='view'"
+    class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-5 h-[calc(100%-1rem)] max-h-full "
+    style="display: flex;justify-content: center;">
+    <app-view-client></app-view-client>
+</div>

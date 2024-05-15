@@ -38,46 +38,56 @@ import { DashboardTechnicianComponent } from './technician/dashboard-technician/
 import { TicketsTechnicienComponent } from './technician/tickets-technicien/tickets-technicien.component';
 import { ProfileTechnicienComponent } from './technician/profile-technicien/profile-technicien.component';
 import { CommentsComponent } from './technician/comments/comments.component';
+import { ViewmManagerComponent } from './admin/manager/viewm-manager/viewm-manager.component';
+import { ManagersComponent } from './admin/manager/managers/managers.component';
+import { SuperManagerGuard } from './auth/services/SuperManagerGuard';
+import { CombinedGuard } from './auth/services/CombinedGuard ';
+import { ManagerServiceService } from './admin/services/manager-service.service';
+import { RegisterManagerComponent } from './auth/register-manager/register-manager.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // Redirige le chemin vide vers 'home'
   { path: 'home', component: HomeComponent },
 
   { path: 'clientRegister', component: ClientRegisterComponent },
-  { path: 'technicienRegister', component: TechnicienRegisterComponent},
+  { path: 'technicienRegister', component: TechnicienRegisterComponent,canActivate: [TokenGuard]},
+  { path: 'managerRegister', component: RegisterManagerComponent,canActivate: [TokenGuard]},
 
   { path: 'login', component: LoginComponent },
   { path: 'updatePassword', component: UpdatePasswordComponent },
   { path: 'erreurPage', component: ErreurPageComponent },
   {
-      path: 'homeAdmin', component: HomeadminComponent,   canActivate: [AdminGuard],
+      path: 'homeAdmin', component: HomeadminComponent,   canActivate: [CombinedGuard],
       children: [
         { path: '', redirectTo: 'dashboardAdmin', pathMatch: 'full' }, // Redirection de homeAdmin vers dashboardAdmin
 
-        { path: 'dashboardAdmin', component: DashboardComponent,canActivate: [AdminGuard] },
+        { path: 'dashboardAdmin', component: DashboardComponent,canActivate: [CombinedGuard]},
 
-          { path: 'clients', component: ClientsComponent ,canActivate: [AdminGuard] },
+          { path: 'clients', component: ClientsComponent ,canActivate: [CombinedGuard] },
           {
-              path: 'contracts', component: ContratsComponent,canActivate: [AdminGuard] 
+              path: 'contracts', component: ContratsComponent,canActivate: [CombinedGuard] 
              
           },
           {
-            path: 'contractCheck/:id', component: ContratsComponent,canActivate: [AdminGuard] 
+            path: 'contractCheck/:id', component: ContratsComponent,canActivate: [CombinedGuard] 
 
           },
-          { path: 'technicians', component: TechniciansComponent ,canActivate: [AdminGuard] },
-          { path: 'tickets', component: TicketsComponent,canActivate: [AdminGuard]  },
-          { path: 'editTickets', component: EditTicketComponent ,canActivate: [AdminGuard] },
+          { path: 'technicians', component: TechniciansComponent ,canActivate: [CombinedGuard] },
+          { path: 'tickets', component: TicketsComponent,canActivate: [CombinedGuard]  },
+          { path: 'editTickets', component: EditTicketComponent ,canActivate: [CombinedGuard] },
 
-          { path: 'editTechnicians', component: UpdateTechnicianComponent ,canActivate: [AdminGuard] },
-          { path: 'createTechnicians', component: CreateTechnicianComponent ,canActivate: [AdminGuard] },
-          { path: 'viewTechnician', component: ViewTechnicianComponent ,canActivate: [AdminGuard] },
-          { path: 'assigned', component: AssignedTicketComponent ,canActivate: [AdminGuard] },
+          { path: 'editTechnicians', component: UpdateTechnicianComponent ,canActivate: [CombinedGuard] },
+          { path: 'createTechnicians', component: CreateTechnicianComponent ,canActivate: [CombinedGuard] },
+          { path: 'viewTechnician', component: ViewTechnicianComponent ,canActivate: [CombinedGuard] },
+          { path: 'assigned', component: AssignedTicketComponent ,canActivate: [CombinedGuard] },
 
-            { path: 'createContract', component: CreateContratComponent ,canActivate: [AdminGuard] },
-            { path: 'editContract', component: EditContractComponent,canActivate: [AdminGuard]  },
-            { path: 'viewContract', component: ViewContractComponent ,canActivate: [AdminGuard] },
-            {path:'viewClient',component:ViewClientComponent,canActivate: [AdminGuard] },
+            { path: 'createContract', component: CreateContratComponent ,canActivate: [CombinedGuard] },
+            { path: 'editContract', component: EditContractComponent,canActivate: [CombinedGuard]  },
+            { path: 'viewContract', component: ViewContractComponent ,canActivate: [CombinedGuard] },
+            {path:'viewClient',component:ViewClientComponent,canActivate: [CombinedGuard] },
+
+            { path: 'managers', component: ManagersComponent ,canActivate: [SuperManagerGuard] },
+            { path: 'viewManager', component: ViewmManagerComponent ,canActivate: [SuperManagerGuard] },
   { path: 'updatePassword', component: UpdatePasswordComponent },
 
 
@@ -95,27 +105,26 @@ const routes: Routes = [
 
       { path: 'contract', component:ContractComponent,canActivate: [ClientGuard]},
       {path: 'tickets', component: TicketsClientComponent,canActivate: [ClientGuard]},      
+      {path: 'tickets/:id', component: TicketsClientComponent,canActivate: [ClientGuard]},      
+
       { path: 'createTicket', component:CreateTicketComponent,canActivate: [ClientGuard]},
       { path: 'profile', component:ProfileClientComponent,canActivate: [ClientGuard]},
       { path: 'updateProfilePassword', component: UpdateProfilePasswordComponent,canActivate: [ClientGuard] },
-
-     
-
-
-      // Route enfant pour les détails du contrat
-  ]
+      { path: 'rating', component:RatingTicketComponent,canActivate: [ClientGuard]},  ]
 
 }
 ,
 {
-  path: 'homeTechnician', component: HomeTechnicianComponent,
+  path: 'homeTechnician', component: HomeTechnicianComponent,canActivate: [TechnicienGuard],
   children: [
     { path: '', redirectTo: 'dashboardTechnician', pathMatch: 'full' }, // Redirection de homeClient vers dashboardClient
 
-    { path: 'dashboardTechnician', component:DashboardTechnicianComponent},
-    { path: 'ticketsTechnician', component:TicketsTechnicienComponent},
-    { path: 'profileTechnician', component:ProfileTechnicienComponent},
-    { path: 'comments', component:CommentsComponent},
+    { path: 'dashboardTechnician', component:DashboardTechnicianComponent,canActivate: [TechnicienGuard]},
+    { path: 'ticketsTechnician', component:TicketsTechnicienComponent,canActivate: [TechnicienGuard]},
+    { path: 'ticketsTechnician/:id', component:TicketsTechnicienComponent,canActivate: [TechnicienGuard]},
+
+    { path: 'profileTechnician', component:ProfileTechnicienComponent,canActivate: [TechnicienGuard]},
+    { path: 'comments', component:CommentsComponent,canActivate: [TechnicienGuard]},
 
      
      

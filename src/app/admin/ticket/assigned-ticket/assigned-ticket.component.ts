@@ -169,6 +169,9 @@ export class AssignedTicketComponent implements OnInit {
   }
   closeModal() {
     this.ticketService.closeModal();
+    setTimeout(() => {
+      location.reload();
+    }, 500); 
   }
 
   

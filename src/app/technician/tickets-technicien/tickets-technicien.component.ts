@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserServiceService } from '../../auth/services/user-service.service';
 import { ServiceTechnicianService } from '../service/service-technician.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 interface ImageItem {
   base64Data: string;
   filename: string;
@@ -24,15 +25,16 @@ interface PDFItem {
 })
 export class TicketsTechnicienComponent implements OnInit {
 
-  constructor(public technicienService: ServiceTechnicianService, public userService: UserServiceService, private formBuilder: FormBuilder, private router: Router) {
+  constructor(private route: ActivatedRoute,public technicienService: ServiceTechnicianService, public userService: UserServiceService, private cookieService: CookieService,private formBuilder: FormBuilder, private router: Router) {
 
   }
   ngOnInit(): void {
-    this.refreshTicket()
+
     this.technicienService.getPageName = "Tickets";
     this.getTechnicianDetails()
     this.technician=this.technicienService.technicianLogedIn;
-    this.getAllTickets()
+
+     this.getAllTickets()
   
   }
   technician: any;
@@ -51,22 +53,102 @@ export class TicketsTechnicienComponent implements OnInit {
   getAllTickets(): void {
     this.technicienService.getAllTicketWaitingList(this.technician.id).subscribe(tickets => {
       this.tickets = tickets;
-      this.ticket = this.tickets[0]
+      let ticketId=this.cookieService.get('ticketID');
+      
+        console.log(this.tickets[0]._id)
+        console.log(ticketId)
+      if(ticketId!=="")        
+        {       
+
+          this.getTicketDetails(ticketId||"")     
+          this.cookieService.set('ticketID', '', 7, '/', '', true, 'Lax');
+
+        }else
+        {
+          this.ticket=this.tickets[0]
+        }
+  
 
     });
   }
-  refreshTicket(ticket: any) {
-    this.ticket = ticket; // Mettre à jour la référence du ticket
-}
-
-  getTicketDetails(idTicket: string): void {
+    getTicketDetails(idTicket: string): void {
     this.technicienService.getTicketById(idTicket, this.technician.id).subscribe(ticket => {
       this.ticket = ticket;
-      this.technicienService.ticketSelected=ticket;
-      console.log(this.technicienService.ticketSelected)
 
     });
   }
+  getAllTicketDesc(): void {
+    this.technicienService.getByTicketOpeningDateDesc(this.technician.id).subscribe(tickets => {
+      this.tickets = tickets;
+      let ticketId=this.cookieService.get('ticketID');
+      
+        console.log(this.tickets[0]._id)
+        console.log(ticketId)
+      if(ticketId!=="")        
+        {       
+
+          this.getTicketDetails(ticketId||"")       
+
+        }else
+        {
+          this.ticket=this.tickets[0]
+        }
+
+    });
+  }
+  getAllTicketByPriority(event: Event): void {
+    const target = event.target as HTMLSelectElement; // Conversion de type explicite
+    const priority = target.value;
+    if (priority === "ALL") {
+      this.getAllTickets(); // Méthode pour récupérer tous les contrats
+
+    } else {
+
+      this.technicienService.getByPiority(priority, this.technician.id).subscribe(tickets => {
+        this.tickets = tickets;
+
+      });
+    }
+  }
+
+  getAllTicketByStatus(event: Event): void {
+    const target = event.target as HTMLSelectElement; // Conversion de type explicite
+    const status = target.value;
+    if (status === "ALL") {
+      this.getAllTickets(); // Méthode pour récupérer tous les contrats
+
+    } else {
+
+      this.technicienService.getByStatus(status, this.technician.id).subscribe(tickets => {
+        this.tickets = tickets;
+
+      });
+    }
+  }
+  sortByOpeningDate: string = 'OpeningDateAsc'; // Pour stocker le type de tri
+
+  loadContracts(): void {
+
+    if (this.sortByOpeningDate === 'OpeningDateAsc') {
+      this.technicienService.getByTicketOpeningDateAsc(this.technician.id).subscribe(tickets => {
+        this.tickets = tickets;
+      });
+    } else if (this.sortByOpeningDate === 'OpeningDateDesc') {
+      this.technicienService.getByTicketOpeningDateDesc(this.technician.id).subscribe(tickets => {
+        this.tickets = tickets;
+      });
+    }
+  }
+  sortTiketByOpeningDate(): void {
+    if (this.sortByOpeningDate === 'OpeningDateAsc') {
+      this.sortByOpeningDate = 'OpeningDateDesc';
+    } else {
+      this.sortByOpeningDate = 'OpeningDateAsc';
+    }
+    this.loadContracts();
+  }
+  
+
   downloadImage(image: ImageItem) {
     const link = document.createElement('a');
     link.href = image.base64Data; // Utiliser les données base64 de l'image comme URL

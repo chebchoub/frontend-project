@@ -217,7 +217,6 @@ export class DashboardComponent implements OnInit {
   getAllTickets(): void {
     this.ticketService.getAllTicket().subscribe(tickets => {
       this.tickets = tickets;
-      console.log(this.tickets);
     });
   } sortByTicketAvailabel: string = 'TicketsAsc'; // Pour stocker le type de tri
 
@@ -256,4 +255,14 @@ export class DashboardComponent implements OnInit {
     });
 
   }
+  openPopUp: string = "";
+
+  toggleModalview(destination: string, idContract: string) {
+    this.openPopUp = destination;
+    this.clientService.selectedClientId = idContract;
+    // Naviguer vers la nouvelle URL avec l'ID du contrat
+    // Afficher le popup
+    this.clientService.toggleModal();
+  }
+
 }

@@ -34,7 +34,9 @@ export class ServiceClientsService {
   getByTicketsAvailableAsc(): Observable<void[]> {
     return this.http.get<void[]>(`${this.apiUrl}/getByTicketsAvailableAsc`);
   }
-
+  getContractByPremiumType(premiumType: string): Observable<void[]> {
+    return this.http.get<void[]>(`${this.apiUrl}/getByPremiumType/${premiumType}`);
+  }
   // Méthode pour récupérer les contrats triés par nombre de tickets (descendant)
   getByTicketsAvailableDesc(): Observable<void[]> {
     return this.http.get<void[]>(`${this.apiUrl}/getByTicketsAvailableDesc`);

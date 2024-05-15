@@ -38,10 +38,9 @@ main {
 
   
 #p{
-  font-weight: 700;
+  font-weight: 650;
   text-align: center;
   text-transform: uppercase;
-  font-family: inherit;
   font-size: 2em;
   color: black;
   margin-left: 5px;

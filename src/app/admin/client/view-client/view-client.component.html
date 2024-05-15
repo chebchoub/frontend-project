@@ -76,7 +76,7 @@
                         </div>
                         <h1 class="text-xl font-bold" style="margin-left: -25px;">{{this.client.contract.entreprise}}</h1>
                         <div class="text-sm leading-normal  text-gray-400 font-bold uppercase" style="margin-top: 5px;"
-                        *ngIf="this.client.contract.premiumType=='GOLD'">
+                        *ngIf="this.client.contract.premiumType=='GOLD' ||this.client.contract.premiumType=='SILVER' " >
                         <form class="max-w-xs mx-auto" [formGroup]="ticketsAvailableForm" style="margin-left: 5px;">
                           <div class="relative flex items-center max-w-[8rem]">
                             <button type="button" id="decrement-button" (click)="decrementTickets()"

@@ -92,7 +92,7 @@ export class DashboardClientComponent implements OnInit {
               plotOptions: {
                 pie: {
                   innerSize: '80%',
-                  borderWidth: 5,
+                  borderWidth: 10,
                   borderColor: '',
                   slicedOffset:0,
     

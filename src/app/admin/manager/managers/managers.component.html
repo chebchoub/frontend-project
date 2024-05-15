@@ -1,0 +1,241 @@
+<div class="bg-white dark:bg-gray-800 relative shadow-md  rounded-lg overflow-hidden ">
+    <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+        <div class="w-full md:w-1/2">
+            <div class="flex items-center">
+                <label for="simple-search" class="sr-only">Search</label>
+                <div class="relative w-full">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none ">
+                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
+                            viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <input type="text" placeholder="Search..."[(ngModel)]="searchText"
+                        class="pl-10 pr-4 py-2 border border-gray-300 rounded-md " >
+                </div>
+            </div>
+        </div>
+        <div
+            class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+            <button type="button" (click)="toggleModalSendEmailCreate('sendEmailCreate')" id="bt"
+            data-modal-target="createProductModal" data-modal-toggle="createProductModal"
+            class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+            <svg style="color: antiquewhite;" class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                    clip-rule="evenodd"></path>
+            </svg>
+
+            Add new manager
+        </button>
+         
+        </div>
+
+    </div>
+    <div class="overflow-x-auto">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-4 py-4"> Profile Picture</th>
+                    <th scope="col" class="px-4 py-3">First name</th>
+                    <th scope="col" class="px-4 py-3">Last name</th>
+                    <th scope="col" class="px-4 py-3">Email</th>
+                    <th scope="col" class="px-4 py-3">
+                        Actions
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody tabindex="0"
+            *ngFor="let manager of managers.slice(calculateRange().start, calculateRange().end) | search: searchText">
+            <tr class="focus:outline-none h-16 border border-gray-100 rounded">
+
+                <td class="">
+                    <div class="flex items-center pl-5">
+                        <span class="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden">
+                            <img [src]="manager.profilePhoto"
+                                alt="user profile photo" class="h-full w-full object-cover">
+                        </span>
+                    </div>
+
+                </td>
+                <td class="">
+                    <div class="flex items-center pl-4">
+                        <p class="text-base font-medium leading-none text-gray-700 ">
+                            {{manager.firstName}}
+                        </p>
+                    </div>
+                </td>
+                <td class="">
+                    <div class="flex items-center pl-4">
+                        <p class="text-base font-medium leading-none text-gray-700 ">
+                            {{manager.lastName}}
+                        </p>
+                    </div>
+                </td>
+
+
+                <td class="">
+                    <div class="flex items-center" style="padding-left:25px;">
+                        <p class="text-base font-medium leading-none text-gray-700">
+                            {{manager.email}}
+
+                        </p>
+
+                    </div>
+                </td>
+                <td>
+                    <button (click)="toggleModalDelete('delete',manager.email)"
+                        class="py-2 px-2.5 text-sm focus:outline-none leading-none text-red-700 bg-red-100 hover:bg-red-200 rounded"><svg
+                            width="30px" height="30px" viewBox="-0.72 -0.72 25.44 25.44" fill="none"
+                            xmlns="http://www.w3.org/2000/svg" stroke="#a72828">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path d="M10 11V17" stroke="#a72828" stroke-width="1.848" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <path d="M14 11V17" stroke="#a72828" stroke-width="1.848" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <path d="M4 7H20" stroke="#a72828" stroke-width="1.848" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <path d="M6 7H12H18V18C18 19.6569 16.6569 21 15 21H9C7.34315 21 6 19.6569 6 18V7Z"
+                                    stroke="#a72828" stroke-width="1.848" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z"
+                                    stroke="#a72828" stroke-width="1.848" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                            </g>
+                        </svg></button>
+                   
+                    <button (click)="toggleModalSendEmail('sendEmail',manager,'','')"
+                        class="py-2 px-2.5 text-sm focus:outline-none leading-none text-blue-700 bg-blue-100 hover:bg-blue-200 rounded "
+                        style="margin-left: 10px"><svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path d="M4 7.00005L10.2 11.65C11.2667 12.45 12.7333 12.45 13.8 11.65L20 7"
+                                    stroke="#2A4157" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <rect x="3" y="5" width="18" height="14" rx="2" stroke="#2A4157" stroke-width="2"
+                                    stroke-linecap="round"></rect>
+                            </g>
+                        </svg></button>
+
+                </td>
+
+
+
+           
+            </tr>
+        </tbody>
+         
+        </table>
+        <nav *ngIf="this.managers.length>0 "
+            class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
+            aria-label="Table navigation">
+            <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
+                Showing
+                <span class="font-semibold text-gray-900 dark:text-white">1{{
+                    calculateRange().start-calculateRange().end}}</span>
+                of
+                <span class="font-semibold text-gray-900 dark:text-white">{{this.managers.length}}</span>
+            </span>
+            <ul class="inline-flex items-stretch -space-x-px">
+                <li>
+                    <a (click)="currentPage = currentPage > 0 ? currentPage - 1 : 0"
+                        [class.cursor-not-allowed]="currentPage === 0"
+                        class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <span class="sr-only">Previous</span>
+                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                </li>
+                <ng-container *ngFor="let pageNumber of getPageNumbers()">
+                    <a (click)="currentPage = pageNumber"
+                        class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                        [class.hidden]="pageNumber >= this.getTotalPages()|| pageNumber < 0">
+                        {{ pageNumber + 1 }}
+                    </a>
+                </ng-container>
+                <li>
+                    <a (click)="currentPage = currentPage < this.getTotalPages() - 1 ? currentPage + 1 : currentPage"
+                        class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <span class="sr-only">Next</span>
+                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    
+</div>
+
+<div *ngIf="serviceManager.modalOpen && this.openPopUp=='sendEmailCreate'"
+    class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-5 h-[calc(100%-1rem)] max-h-full "
+    style="display: flex;justify-content: center;">
+<app-send-email-create-manager></app-send-email-create-manager>
+</div>
+<div *ngIf="emailService.modalOpen && this.openPopUp=='sendEmail'"
+    class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-5 h-[calc(100%-1rem)] max-h-full "
+    style="display: flex;justify-content: center;">
+    <app-send-email></app-send-email>
+</div>
+<div *ngIf="serviceManager.modalOpen && this.openPopUp=='delete'"
+    class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-5 h-[calc(100%-1rem)] max-h-full "
+    style="display: flex;justify-content: center;">
+    <div class="fixed top-0 right-0 left-0 z-40 bg-black bg-opacity-50 h-screen"></div>
+
+    <div id="popup-modal" tabindex="-1"
+        class=" overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+        style="display: flex;justify-content: center;margin-top: -150px;">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <button (click)="closeModal()" type="button"
+                    class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-hide="popup-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <div class="p-4 md:p-5 text-center">
+                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to
+                        archive this contract?
+                        <br>
+                        {{this.serviceManager.selectedMangerEmail}}
+                    </h3>
+                    <button (click)="confirmDelete()" type="button"
+                        class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                        Yes, I'm sure
+                    </button>
+                    <button (click)="cancelDelete()" type="button"
+                        class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                        No, cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -45,17 +45,17 @@ export class ProfileTechnicienComponent implements OnInit{
         this.technicienService.getTechnicianByEmail(response).subscribe(technician => {
           this.technician=technician;
           this.technicienService.technicianLogedIn=technician;
+
           this.specialitiesBefore = [...this.technician.specialities];
-          console.log(this.specialitiesBefore)
           this.newSpecialities = this.allSpecialities.filter(speciality => !this.specialitiesBefore.includes(speciality));
-          console.log(this.newSpecialities)
           this.profilePhotoURL = this.technician?.profilePhoto || '';});
           this.updateProfileForm.patchValue({
             email: this.technician.email,
             firstName: this.technician.firstName,
             lastName: this.technician.lastName,
           });
-          
+          console.log( this.updateProfileForm)
+
       });
   }
   emailValidator(control: any): { [key: string]: boolean } | null {
