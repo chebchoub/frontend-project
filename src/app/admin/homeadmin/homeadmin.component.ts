@@ -6,6 +6,7 @@ import { UserServiceService } from '../../auth/services/user-service.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ManagerServiceService } from '../services/manager-service.service';
 import { ServiceUserNotifService } from '../../notification/services/service-user-notif.service';
+import { TicketServiceService } from '../services/ticket-service.service';
 
 @Component({
   selector: 'app-homeadmin',
@@ -28,7 +29,8 @@ export class HomeadminComponent implements OnInit, OnDestroy {
     public contractService: ServiceContratService,
     public userService: UserServiceService,
     private cookieService: CookieService,
-    private managerService: ManagerServiceService
+    private managerService: ManagerServiceService,
+    private ticketService:TicketServiceService
   ) { }
 
   ngOnInit(): void {
@@ -80,11 +82,21 @@ export class HomeadminComponent implements OnInit, OnDestroy {
     );
 
 
-
+    this.getAllTicketByStatus("NEW")
 
 
   }
+  tickets!:any [];
+  getAllTicketByStatus(status: string): void {
 
+
+      this.ticketService.getByStatus(status).subscribe(tickets => {
+        this.tickets = tickets;
+
+
+      });
+    
+  }
   ngOnDestroy(): void {
     if (this.notificationSubscription) {
       this.notificationSubscription.unsubscribe();

@@ -13,6 +13,9 @@
           </a>
           <a   title="Tickets" routerLink="/homeTechnician/ticketsTechnician"  style="height: 40px;" (click)="this.navigation(2)"
             class="inline-flex items-center justify-center py-3 text-black-400  hover:text-gray hover:bg-white rounded-lg">
+            <div class="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-4 bg-red-600   rounded-full" style="margin-left: 1.5%">
+              <span class=" font-bold text-white">{{this.technician.ticketWaitingList.length}}</span>
+            </div>
             <span class="sr-only">Tickets</span>
             <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g id="SVGRepo_bgCarrier" stroke-width="3"></g>
@@ -26,6 +29,7 @@
                   fill="#808080"></path>
               </g>
             </svg>
+            
           </a>
           
           <a style="height: 40px;" (click)="this.navigation(3)" title="Contracts" routerLink="/homeTechnician/profileTechnician"

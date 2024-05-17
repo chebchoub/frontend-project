@@ -34,7 +34,7 @@ export class TicketsTechnicienComponent implements OnInit {
     this.getTechnicianDetails()
     this.technician=this.technicienService.technicianLogedIn;
 
-     this.getAllTickets()
+     this.getAllTicketDesc()
   
   }
   technician: any;
@@ -51,7 +51,7 @@ export class TicketsTechnicienComponent implements OnInit {
   }
   tickets!: any[];
   getAllTickets(): void {
-    this.technicienService.getAllTicketWaitingList(this.technician.id).subscribe(tickets => {
+    this.technicienService.getTickets(this.technician.id).subscribe(tickets => {
       this.tickets = tickets;
       let ticketId=this.cookieService.get('ticketID');
       
@@ -166,7 +166,25 @@ export class TicketsTechnicienComponent implements OnInit {
     link.click();
     document.body.removeChild(link);
   }
+  calculateTimeDifference(createdAt: string): string {
+    const notificationDate = new Date(createdAt);
+    const currentDate = new Date();
+    const differenceInMilliseconds = currentDate.getTime() - notificationDate.getTime();
+    const differenceInSeconds = Math.floor(differenceInMilliseconds / 1000);
+    const differenceInMinutes = Math.floor(differenceInSeconds / 60);
+    const differenceInHours = Math.floor(differenceInMinutes / 60);
+    const differenceInDays = Math.floor(differenceInHours / 24);
 
+    if (differenceInDays > 0) {
+      return `${differenceInDays} days ago`;
+    } else if (differenceInHours > 0) {
+      return `${differenceInHours} hours ago`;
+    } else if (differenceInMinutes > 0) {
+      return `${differenceInMinutes} minutes ago`;
+    } else {
+      return 'a few moments ago';
+    }
+  }
 
 
   searchText = '';

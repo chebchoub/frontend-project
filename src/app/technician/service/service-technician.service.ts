@@ -53,11 +53,11 @@ technicianLogedIn:any;;
     return this.http.get<void[]>(`${this.apiUrl}/${technicianId}/getTicketsByCategory/${category}`);
   }
   getByTicketOpeningDateAsc(technicianId: string): Observable<void[]> {
-    return this.http.get<void[]>(`${this.apiUrl}/getTicketsWaitingList/byOpeningDateAsc/${technicianId}`);
+    return this.http.get<void[]>(`${this.apiUrl}/${technicianId}/openingDateAsc`);
   }
 
   getByTicketOpeningDateDesc(technicianId: string): Observable<void[]> {
-    return this.http.get<void[]>(`${this.apiUrl}/getTicketsWaitingList/byOpeningDateDesc/${technicianId}`);
+    return this.http.get<void[]>(`${this.apiUrl}/${technicianId}/openingDateDesc`);
   }
   verifPassword(technicianId:string,password: string): Observable<any> {
     return this.http.post<void>(`${this.apiUrl}/verify-password/${technicianId}?password=${password}`,null);

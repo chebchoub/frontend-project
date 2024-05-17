@@ -5,6 +5,7 @@ import { TicketRequest } from '../dto/ticket-request';
 import { ClientServiceService } from '../service/client-service.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
+import { ServiceTechnicianService } from '../../admin/services/service-technician.service';
 interface ImageItem {
   base64Data: string;
   filename: string;
@@ -26,15 +27,14 @@ interface PDFItem {
   styleUrl: './add-comment-client.component.css'
 })
 export class AddCommentClientComponent implements OnInit {
-  constructor(private cookieService: CookieService,private formBuilder: FormBuilder, private router: Router, public serviceClient: ClientServiceService, public sanitizer: DomSanitizer) { }
+  constructor(private cookieService: CookieService,private formBuilder: FormBuilder, private router: Router, public serviceClient: ClientServiceService, public sanitizer: DomSanitizer,private technicianService:ServiceTechnicianService) { }
   messageForm: FormGroup | any;
   searchText = '';
   @Input() ticket: any;
+  @Input() technicianImage: any;
 
   ngOnInit(): void {
     this.getClientDetails()
-    console.log(this.ticket)
-
     this.messageForm = this.formBuilder.group({
       comment: ['', [Validators.required]],
     });
@@ -66,13 +66,17 @@ export class AddCommentClientComponent implements OnInit {
     });
   }
 
-  getTicketDetails(ticketId: string): void {
-    this.serviceClient.getTicketById(ticketId).subscribe(ticket => {
 
-      this.ticket = ticket;
-      console.log(this.ticket)
+  technician:any;
 
+  getTechnicianDetails(id:string): void {
+    this.technicianService.getTechnicianById(id).subscribe(techicien => {
+      this.technician=techicien;
+      console.log(techicien)
+    }, error => {
+      console.error('Error deleting techicien:', error);
     });
+
   }
   getAllTicketByPriority(event: Event): void {
     const target = event.target as HTMLSelectElement; // Conversion de type explicite

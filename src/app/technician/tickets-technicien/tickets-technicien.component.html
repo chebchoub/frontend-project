@@ -44,9 +44,10 @@
                 (change)="getAllTicketByStatus($event)">
     
                     <option class="text-sm text-indigo-800" value="ALL">ALL</option>
-                    <option class="text-sm text-indigo-800" value="NEW">NEW</option>
                     <option class="text-sm text-indigo-800" value="IN_PROGRESS">IN_PROGRESS</option>
                     <option class="text-sm text-indigo-800" value="RESOLVED">RESOLVED</option>
+                    <option class="text-sm text-indigo-800" value="CLOSED">CLOSED</option>
+
                 </select>
             </form>
         </div>
@@ -164,8 +165,8 @@
           </div>
           </div>
         
-            <p class="text-md text-gray-400" style="margin-left: 60%;"> {{ticket.openingDate | date:
-                'yyyy-MM-dd'}}</p> 
+            <p class="text-md text-gray-400" style="margin-left: 60%;" *ngIf="ticket.status==='RESOLVED' ||ticket.status==='IN_PROGRESS'"> {{this.calculateTimeDifference(ticket.openingDate)}}</p> 
+            <p class="text-md text-gray-400" style="margin-left: 40%;" *ngIf="ticket.status==='CLOSED'"> {{this.calculateTimeDifference(ticket.ClosingDate)}}</p> 
         </div>
           
         </li>
@@ -195,18 +196,17 @@
           <div class="flex flex-col">
             <h3 class="font-semibold text-lg">Opening Date</h3>
             <p class="text-light text-gray-400">{{ticket.openingDate | date:
-              'yyyy-MM-dd' }}</p>
-          </div>
+              'yyyy-MM-dd' }}</p>          </div>
         </div>
         <div class="flex space-x-4 items-center">
           <div class="flex flex-col">
             <h3 class="font-semibold text-lg">Closing Date</h3>
-            <p class="text-light text-gray-400">{{ticket.closingDate | date:
-              'yyyy-MM-dd' }}</p>
+            <p class="text-light text-gray-400">ticket.ClosingDate</p>
+
           </div>
         </div>
       </div>
-      <div class="flex justify-between items-center    grid gap-4  sm:grid-cols-4 " *ngIf="ticket.status!=='CLOSED'">
+      <div class="flex justify-between items-center    grid gap-4  sm:grid-cols-5 " *ngIf="ticket.status!=='CLOSED'">
        
         <div class="flex space-x-4 items-center">
           <div class="flex flex-col">
@@ -225,6 +225,14 @@
             <h3 class="font-semibold text-lg">Opening Date</h3>
             <p class="text-light text-gray-400">{{ticket.openingDate | date:
               'yyyy-MM-dd' }}</p>
+          </div>
+        </div>
+        <div class="flex space-x-4 items-center">
+          <div class="flex flex-col">
+            <h3 class="font-semibold text-lg">Client</h3>
+            <p class="text-light text-gray-400">
+              {{ticket.client.contract.entreprise}}
+            </p>
           </div>
         </div>
         <div class="flex space-x-4 items-center">

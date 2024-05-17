@@ -5,6 +5,7 @@ import { TicketRequest } from '../dto/ticket-request';
 import { ClientServiceService } from '../service/client-service.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
+import { ServiceTechnicianService } from '../../admin/services/service-technician.service';
 interface ImageItem {
   base64Data: string;
   filename: string;
@@ -26,7 +27,7 @@ interface PDFItem {
   styleUrl: './tickets-client.component.css'
 })
 export class TicketsClientComponent implements OnInit {
-  constructor(private cookieService: CookieService,private route: ActivatedRoute,private formBuilder: FormBuilder, private router: Router, public serviceClient: ClientServiceService, public sanitizer: DomSanitizer) { }
+  constructor(private cookieService: CookieService,private route: ActivatedRoute,private formBuilder: FormBuilder, private router: Router, public serviceClient: ClientServiceService, public sanitizer: DomSanitizer,private technicianService:ServiceTechnicianService) { }
   messageForm: FormGroup | any;
   searchText = '';
 
@@ -54,19 +55,15 @@ export class TicketsClientComponent implements OnInit {
   getAllTickets(): void {
     this.serviceClient.getAllTicketByClient(this.client.id).subscribe(tickets => {
       this.tickets = tickets;
-      console.log(this.tickets)
       this.ticket = this.tickets[0]
 
     });
   }
   getAllTicketDesc(): void {
-    console.log( this.serviceClient.clientLogedIn)
     this.serviceClient.getByTicketOpeningDateDesc(this.client.id).subscribe(tickets => {
       this.tickets = tickets;
       let ticketId=this.cookieService.get('ticketID');
       
-        console.log(this.tickets[0]._id)
-        console.log(ticketId)
       if(ticketId!=="")        
         {       
 
@@ -75,19 +72,31 @@ export class TicketsClientComponent implements OnInit {
         }else
         {
           this.ticket=this.tickets[0]
+          this.getTechnicianDetails(this.ticket.technicianId)
+
         }
 
     });
   }
   ticket: any;
-
+  technicianImage:string="";
   getTicketDetails(ticketId: string): void {
     this.serviceClient.getTicketById(ticketId).subscribe(ticket => {
 
       this.ticket = ticket;
-      console.log(this.ticket)
-
+      this.getTechnicianDetails(this.ticket.technicianId)
     });
+  }
+  technician:any;
+
+  getTechnicianDetails(id:string): void {
+    this.technicianService.getTechnicianById(id).subscribe(techicien => {
+      this.technician=techicien;
+      this.technicianImage=techicien.profilePhoto;
+    }, error => {
+      console.error('Error deleting techicien:', error);
+    });
+
   }
   getAllTicketByPriority(event: Event): void {
     const target = event.target as HTMLSelectElement; // Conversion de type explicite

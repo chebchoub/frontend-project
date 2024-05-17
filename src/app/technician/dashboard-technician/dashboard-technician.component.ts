@@ -30,7 +30,6 @@ export class DashboardTechnicianComponent implements OnInit{
   this.technicienService.getPageName = "dashboard";
   this.getTechnicianDetails()
   this.technician=this.technicienService.technicianLogedIn;
-   this.getAllTicketDesc()
    this.getAllTicket()
    this.getAllTicketByStatus("NEW")
    this.getAllTicketByStatus("IN_PROGRESS")
@@ -42,7 +41,7 @@ export class DashboardTechnicianComponent implements OnInit{
  tickets!:any[];
  getAllTicketDesc(): void {
   this.technicienService.getByTicketOpeningDateDesc(this.technician.id).subscribe(tickets => {
-    this.tickets = tickets;
+    this.Alltickets = tickets;
     let ticketId=this.cookieService.get('ticketID');
     
       
@@ -52,7 +51,7 @@ export class DashboardTechnicianComponent implements OnInit{
 }
 Alltickets!:any[];
  getAllTicket(): void {
-  this.technicienService.getTickets(this.technician.id).subscribe(tickets => {
+  this.technicienService.getByTicketOpeningDateDesc(this.technician.id).subscribe(tickets => {
     this.Alltickets = tickets;
     console.log(this.Alltickets)
 
@@ -211,11 +210,11 @@ loadContracts(): void {
 
   if (this.sortByOpeningDate === 'OpeningDateAsc') {
     this.technicienService.getByTicketOpeningDateAsc(this.technician.id).subscribe(tickets => {
-      this.tickets = tickets;
+      this.Alltickets = tickets;
     });
   } else if (this.sortByOpeningDate === 'OpeningDateDesc') {
     this.technicienService.getByTicketOpeningDateDesc(this.technician.id).subscribe(tickets => {
-      this.tickets = tickets;
+      this.Alltickets = tickets;
     });
   }
 }

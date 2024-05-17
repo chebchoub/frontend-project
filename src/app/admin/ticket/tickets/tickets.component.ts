@@ -48,6 +48,8 @@ export class TicketsComponent implements OnInit {
 
       } else {
         this.ticket = this.tickets[0]
+        this.getTechnicianDetails(this.ticket.technicianId)
+
       }
     });
     setTimeout(() => {
@@ -64,8 +66,8 @@ export class TicketsComponent implements OnInit {
     this.ticketService.getAllTicket().subscribe(tickets => {
 
       this.tickets = tickets;
-
       this.ticket = this.tickets[0]
+      this.getTechnicianDetails(this.ticket.technicianId)
 
     });
   }
@@ -75,8 +77,17 @@ export class TicketsComponent implements OnInit {
     this.ticketService.getTicketById(id).subscribe(ticket => {
 
       this.ticket = ticket;
-
+      this.getTechnicianDetails(this.ticket.technicianId)
     });
+  }
+  technicianImage:string="";
+  getTechnicianDetails(id:string): void {
+    this.technicianService.getTechnicianById(id).subscribe(techicien => {
+      this.technicianImage=techicien.profilePhoto;
+    }, error => {
+      console.error('Error deleting techicien:', error);
+    });
+
   }
   month: string = "";
   day: string = "";
@@ -119,8 +130,6 @@ export class TicketsComponent implements OnInit {
       this.ticketService.getByStatus(status).subscribe(tickets => {
         this.tickets = tickets;
         this.ticket = this.tickets[0]
-
-
       });
     }
   }
@@ -213,5 +222,23 @@ export class TicketsComponent implements OnInit {
   selectedImages: ImageItem[] = [];
   selectedPDFs: PDFItem[] = [];
 
+  calculateTimeDifference(createdAt: string): string {
+    const notificationDate = new Date(createdAt);
+    const currentDate = new Date();
+    const differenceInMilliseconds = currentDate.getTime() - notificationDate.getTime();
+    const differenceInSeconds = Math.floor(differenceInMilliseconds / 1000);
+    const differenceInMinutes = Math.floor(differenceInSeconds / 60);
+    const differenceInHours = Math.floor(differenceInMinutes / 60);
+    const differenceInDays = Math.floor(differenceInHours / 24);
 
+    if (differenceInDays > 0) {
+      return `${differenceInDays} days ago`;
+    } else if (differenceInHours > 0) {
+      return `${differenceInHours} hours ago`;
+    } else if (differenceInMinutes > 0) {
+      return `${differenceInMinutes} minutes ago`;
+    } else {
+      return 'a few moments ago';
+    }
+  }
 }

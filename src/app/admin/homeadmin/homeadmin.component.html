@@ -13,6 +13,9 @@
         </a>
         <a routerLink="/homeAdmin/tickets" style="height: 40px;" (click)="this.navigation(2)"  title="Tickets"
           class="inline-flex items-center justify-center py-3 text-black-400  hover:text-gray hover:bg-white rounded-lg">
+          <div class="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-4 bg-red-600   rounded-full" style="margin-left: 1.5%">
+            <span class=" font-bold text-white">{{this.tickets.length}}</span>
+          </div>
           <span class="sr-only">Tickets</span>
           <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="SVGRepo_bgCarrier" stroke-width="3"></g>
@@ -118,8 +121,8 @@
           </div>
           <span class="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden">
             <img
-              src="https://media.licdn.com/dms/image/D4D03AQGEDMylf3Pwdg/profile-displayphoto-shrink_800_800/0/1668677193556?e=1715817600&v=beta&t=WLb-T7Yhx_2QnBzUpgnIcxJiLOO3evy28gji0j3WBL8"
-              alt="user profile photo" class="h-full w-full object-cover">
+            src="assets\1668677193556.jpg"
+            alt="user profile photo" class="h-full w-full object-cover">
           </span>
           <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor" class="hidden sm:block h-6 w-6 text-gray-300">
             <path fill-rule="evenodd"

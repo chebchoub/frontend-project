@@ -30,12 +30,12 @@ export class AddCommentAdminComponent implements OnInit{
   searchText='';
   messageForm: FormGroup | any;
   @Input() ticket: any;
+  @Input() technicianImage: any;
+
+  technicianId:string="";
 
   ngOnInit(): void {
-    this.ticketService.getByTicketOpeningDateDesc().subscribe(tickets => {
-      this.tickets = tickets;
-      this.ticket=this.tickets[0]
-    });
+
     setTimeout(() => {
       this.contractService.getPageName = 'Tickets';
     }); 
@@ -56,12 +56,16 @@ export class AddCommentAdminComponent implements OnInit{
     });
   }
 
-  getTicketDetails(id:string): void {
-    this.ticketService.getTicketById(id).subscribe(ticket => {
-    
-      this.ticket=ticket;
+  technician:any;
 
+  getTechnicianDetails(id:string): void {
+    this.technicianService.getTechnicianById(id).subscribe(techicien => {
+      this.technician=techicien;
+      console.log(this.technician)
+    }, error => {
+      console.error('Error deleting techicien:', error);
     });
+
   }
   month:string="";
   day:string="";

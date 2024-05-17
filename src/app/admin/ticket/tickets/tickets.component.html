@@ -181,8 +181,8 @@
 
           </div>
           </div>
-          <p class="text-md text-gray-400" *ngIf="ticket.status==='CLOSED'" style="margin-left: 60%;"> {{ticket.closingDate | date:
-            'yyyy-MM-dd'}}</p> 
+          <p class="text-md text-gray-400" style="margin-left: 60%;" *ngIf="ticket.status==='RESOLVED' ||ticket.status==='IN_PROGRESS'"> {{this.calculateTimeDifference(ticket.openingDate)}}</p> 
+            <p class="text-md text-gray-400" style="margin-left: 40%;" *ngIf="ticket.status==='CLOSED'"> {{this.calculateTimeDifference(ticket.ClosingDate)}}</p> 
         </div>
           
         </li>
@@ -289,7 +289,7 @@
       </div>
       <section>
         <h1 class="font-bold text-2xl m-2 text-black-400">Tracking Ticket</h1>
-        <app-add-comment-admin [ticket]="ticket" ></app-add-comment-admin>
+        <app-add-comment-admin [ticket]="ticket" [technicianImage]="technicianImage" ></app-add-comment-admin>
     </section>
     <div *ngIf="ticketService.modalOpen && this.openPopUp=='assigned'"
     class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-5 h-[calc(100%-1rem)] max-h-full "
