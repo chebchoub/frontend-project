@@ -41,6 +41,24 @@ export class ServiceClientsService {
   getByTicketsAvailableDesc(): Observable<void[]> {
     return this.http.get<void[]>(`${this.apiUrl}/getByTicketsAvailableDesc`);
   }
+  // archiver Clients methods
+  getAllClientsArchive(): Observable<void[]> {
+    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getAll-clients-archived`);
+  }
+  getContractByContractTypeClientArchived(contractType: string): Observable<void[]> {
+    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getByContractTypeClientArchived/${contractType}`);
+  }
+  // Méthode pour récupérer les contrats triés par nombre de tickets (ascendant)
+  getByTicketsAvailableAscClientArchived(): Observable<void[]> {
+    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getByTicketsAvailableAscClientArchived`);
+  }
+  getContractByPremiumTypeClientArchived(premiumType: string): Observable<void[]> {
+    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getByPremiumTypeClientArchived/${premiumType}`);
+  }
+  // Méthode pour récupérer les contrats triés par nombre de tickets (descendant)
+  getByTicketsAvailableDescClientArchived(): Observable<void[]> {
+    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getByTicketsAvailableDescClientArchived`);
+  }
   modalOpen: boolean = false;
   selectedClientId: string = "";
   toggleModal() {

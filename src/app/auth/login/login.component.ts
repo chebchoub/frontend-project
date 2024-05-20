@@ -7,6 +7,7 @@ import { AuthenticationResponse } from '../model/authentication-response';
 import { AdminGuard } from '../services/AdminGuard';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { ClientServiceService } from '../../Client/service/client-service.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup | any;
   loginFormInvalid: boolean = false;
   loginFormInvalidBackend: boolean = false;
-
+  accountArchived: boolean = false;
   loginUser() {
     this.cookieService.delete('jwtToken');
 
@@ -52,7 +53,7 @@ export class LoginComponent implements OnInit {
         this.cookieService.set('jwtToken', response.token, 7, '/', '', true, 'Lax');
         const jwtToken = this.cookieService.get('jwtToken');
         this.checkRole(jwtToken)
-        if (this.role === "MANAGER"||this.role ==="SUPERMANAGER") {
+        if (this.role === "MANAGER" || this.role === "SUPERMANAGER") {
           this.router.navigate(['/homeAdmin']);
 
         }
@@ -63,13 +64,22 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/homeTechnician']);
         }
       },
-      (error) => {
-        this.loginFormInvalidBackend = true;
+      (error: HttpErrorResponse) => {
+        if (error.status === 403) {
+          this.loginFormInvalidBackend=true;
+          console.error('Invalid credentials');
+        } else if (error.status === 500) {
+          this.toggleModAlert()
+          console.error('User is archived');
+        } else {
+          console.error('Unexpected error:', error);
+        }
       }
+
     );
 
   }
-  
+
   role: string = "";
 
   checkRole(jwtToken: string): any {
@@ -82,9 +92,21 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+  
   openPopUp: string = "";
   toggleModalForgotPassword() {
     this.userService.toggleModal();
 
+  }
+  toggleModAlert() {
+    this.accountArchived = true;
+    this.userService.toggleModalConfirmer();
+    setTimeout(() => {
+      this.accountArchived = false;
+    }, 3000); // 5000 milliseconds = 5 seconds, adjust as needed
+  }
+ 
+  closeModal() {
+    this.userService.closeModalConfimer();
   }
 }

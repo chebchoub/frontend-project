@@ -13,6 +13,7 @@ export class ServiceTechnicianService {
   getAllTechnician(): Observable<void[]> {
     return this.http.get<void[]>(`${this.apiUrl}/getByNonArchiver`);
   }
+
   deleteTechnician(id: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/delete/${id}`,"");
   }
@@ -50,6 +51,29 @@ export class ServiceTechnicianService {
   }
   sendEmailToCreate(email: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/send-register-mail`, email);
+  }
+
+  //get archived
+  getAllArchivedTechnicians(): Observable<void[]> {
+    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getAll-technicians-archived`);
+  }
+    getBySpecialityarchived(speciality: string): Observable<void[]> {
+    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getBySpeciality-archived/${speciality}`);
+  }
+
+  getByRatingAscarchived(): Observable<void[]> {
+    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getByTicketResolvedRatingAsc-archived`);
+  }
+
+  getByRatingDescarchived(): Observable<void[]> {
+    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getByTicketResolvedRatingDesc-archived`);
+  }
+  getByStartDateWorkAscarchived(): Observable<void[]> {
+    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getByStartDateWorkAsc-archived`);
+  }
+
+  getByStartDateWorkDescarchived(): Observable<void[]> {
+    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getByStartDateWorkDesc-archived`);
   }
   modalOpen: boolean = false;
   selectedTechniciaId: string = "";

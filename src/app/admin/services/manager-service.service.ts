@@ -15,6 +15,9 @@ export class ManagerServiceService {
   getAllManager(): Observable<void[]> {
     return this.http.get<void[]>(`${this.apiUrl}/getByNonArchiver`);
   }
+  ArchivedManager(): Observable<void[]> {
+    return this.http.get<void[]>(`${this.apiUrl}/getAll-managers-archived`);
+  }
   getEmailFromToken(): Observable<string> {
     const jwtToken = this.cookieService.get('jwtToken');
 

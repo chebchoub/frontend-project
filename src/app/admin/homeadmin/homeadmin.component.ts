@@ -138,7 +138,15 @@ export class HomeadminComponent implements OnInit, OnDestroy {
     );
 
   }
+  dropdownVisible: boolean = false;
 
+  showDropdown() {
+    this.dropdownVisible = true;
+  }
+
+  hideDropdown() {
+    this.dropdownVisible = false;
+  }
   openPopUp: string = ";"
 
   toggleModalNotification() {

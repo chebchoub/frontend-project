@@ -16,7 +16,7 @@ export class ManagersComponent implements OnInit{
   ngOnInit(): void {
     this.getAllManager();
     setTimeout(() => {
-      this.contractService.getPageName = 'Manages';
+      this.contractService.getPageName = 'Managers';
     });
   }
   searchText :string= '';

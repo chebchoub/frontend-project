@@ -58,6 +58,37 @@ export class ServiceContratService {
   getByTicketsDesc(): Observable<void[]> {
     return this.http.get<void[]>(`${this.apiUrl}/getByTicketsDesc`);
   }
+
+  //archvied methodes
+  getAllContractsArchived(): Observable<void[]> {
+    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getAll-contracts-archived`)
+  }
+
+  getContractByContractTypeArchived(contractType: string): Observable<void[]> {
+    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getContractByContractTypeArchived/${contractType}`);
+  }
+  getContractByPremiumTypeArchived(premiumType: string): Observable<void[]> {
+    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getByPremiumTypeArchived/${premiumType}`);
+  }
+  getByEndDateAscArchived(): Observable<void[]> {
+    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getByEndDateAscArchived`);
+  }
+
+  // Méthode pour récupérer les contrats triés par date de fin (descendant)
+  getByEndDateDescArchived(): Observable<void[]> {
+    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getByEndDateDescArchived`);
+  }
+
+  // Méthode pour récupérer les contrats triés par nombre de tickets (ascendant)
+  getByTicketsAscArchived(): Observable<void[]> {
+    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getByTicketsAscArchived`);
+  }
+
+  // Méthode pour récupérer les contrats triés par nombre de tickets (descendant)
+  getByTicketsDescArchived(): Observable<void[]> {
+    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getByTicketsDescArchived`);
+  }
+
   modalOpen: boolean = false;
   selectedContractId: string = "";
   toggleModal() {

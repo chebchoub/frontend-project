@@ -1,25 +1,25 @@
 import { Component, OnInit } from '@angular/core';
+import { EmailServiceService } from '../../../services/email-service.service';
+import { ServiceClientsService } from '../../../services/service-clients.service';
 import { Router } from '@angular/router';
-import { ServiceContratService } from '../../services/service-contrat.service';
-import { FormGroup } from '@angular/forms';
-import { ServiceClientsService } from '../../services/service-clients.service';
-import { EmailServiceService } from '../../services/email-service.service';
+import { ServiceContratService } from '../../../services/service-contrat.service';
+
 @Component({
-  selector: 'app-clients',
-  templateUrl: './clients.component.html',
-  styleUrls: ['./clients.component.css']
+  selector: 'app-clients-archived',
+  templateUrl: './clients-archived.component.html',
+  styleUrl: './clients-archived.component.css'
 })
-export class ClientsComponent implements OnInit {
+export class ClientsArchivedComponent implements OnInit {
   searchText='';
   ngOnInit(): void {
     this.getAllClients();
     setTimeout(() => {
-      this.contractService.getPageName = 'CLIENTS';
+      this.contractService.getPageName = 'archived CLIENTS';
     });  }
   constructor(public emailService:EmailServiceService,private router: Router, public clientService: ServiceClientsService,private contractService:ServiceContratService) { }
   clients!: any[];
   getAllClients(): void {
-    this.clientService.getAllClients().subscribe(clients => {
+    this.clientService.getAllClientsArchive().subscribe(clients => {
 
       this.clients = clients;
       
@@ -33,7 +33,7 @@ export class ClientsComponent implements OnInit {
     this.clientService.deleteClient(this.clientService.selectedClientId).subscribe(() => {
       console.log('Contract deleted successfully.');
       this.getAllClients();
-      location.reload();
+      this.closeModal()
     }, error => {
       console.error('Error deleting contract:', error);
     });
@@ -74,14 +74,14 @@ export class ClientsComponent implements OnInit {
       if (contractType === "STANDARD") {
         this.listPREMIUM = false;
       }
-      this.clientService.getContractByContractType(contractType).subscribe(clients => {
+      this.clientService.getContractByContractTypeClientArchived(contractType).subscribe(clients => {
         this.clients = clients;
        
       });
     }
   }
   getAllContractsByContractPermiumType(premiumType: string) {
-    this.clientService.getContractByPremiumType(premiumType).subscribe(clients => {
+    this.clientService.getContractByPremiumTypeClientArchived(premiumType).subscribe(clients => {
       this.clients = clients;
      
     });
@@ -91,11 +91,11 @@ export class ClientsComponent implements OnInit {
   loadContracts(): void {
 
     if (this.sortByTicketAvailabel === 'TicketsAsc') {
-      this.clientService.getByTicketsAvailableAsc().subscribe(clients => {
+      this.clientService.getByTicketsAvailableAscClientArchived().subscribe(clients => {
         this.clients = clients;
       });
     } else if (this.sortByTicketAvailabel === 'TicketsDesc') {
-      this.clientService.getByTicketsAvailableDesc().subscribe(clients => {
+      this.clientService.getByTicketsAvailableDescClientArchived().subscribe(clients => {
         this.clients = clients;
       });
     }

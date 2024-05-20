@@ -86,13 +86,33 @@
             </g>
           </svg>
         </a>
-        <a routerLink="/homeAdmin/managers" style="height: 40px; margin-bottom: 20px;" (click)="this.navigation(3)" title="Manager" *ngIf="this.checkSuperManager==true"
+        <a routerLink="/homeAdmin/managers" style="height: 40px; margin-bottom: 0px;" (click)="this.navigation(3)" title="Manager" *ngIf="this.checkSuperManager==true"
         class="inline-flex items-center justify-center py-3 text-black-400  hover:text-gray hover:bg-white rounded-lg">
         <span class="sr-only">Manager</span>
         <svg width="30px" height="30px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#808080"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path fill="none" d="M0 0h24v24H0z"></path> <path d="M12 14v2a6 6 0 0 0-6 6H4a8 8 0 0 1 8-8zm0-1c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6zm0-2c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm9 6h1v5h-8v-5h1v-1a3 3 0 0 1 6 0v1zm-2 0v-1a1 1 0 0 0-2 0v1h2z"></path> </g> </g></svg>
       </a>
+      <div class="dropdown">
+        <button class="dropbtn">
+          <a  style="height: 40px;margin-left: 4px;"  title="archives" 
+            class="inline-flex items-center justify-center py-3 text-black-400 hover:text-gray rounded-lg"
+           >
+            <span class="sr-only">archives</span>
+            <svg width="40px" height="35px"  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#808080"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g stroke="#808080" stroke-width="2"> <path stroke-linejoin="round" d="M3 5a1 1 0 011-1h16a1 1 0 011 1v3H3V5z"></path> <path stroke-linecap="round" d="M9.5 13h5"></path> <path stroke-linejoin="round" d="M4 8h16v11a1 1 0 01-1 1H5a1 1 0 01-1-1V8z"></path> </g> </g></svg>       
+          
+          </a>
+        </button>
+        <div class="dropdown-content bg-white rounded-lg" >
+          <a routerLink="/homeAdmin/clientsArchived" class="font-bold ">Archived clients</a>
+          <a routerLink="/homeAdmin/contractsArchived" class="font-bold ">Archived contracts </a>
+          <a routerLink="/homeAdmin/techniciensArchvied" class="font-bold "> Archived technicians</a>
+          <a routerLink="/homeAdmin/managersArchvied" class="font-bold ">Archived managers</a>
 
+        </div>
+      </div>
+   
+   
       </nav>
+    
 
     </div>
   </aside>
@@ -179,3 +199,36 @@
 class="overflow-y-auto overflow-x-hidden fixed   md:inset-5 h-[calc(100%-1rem)]  "
 style="width: 30%;margin-left: 70%;margin-top: 3%;">
 <app-user-notification></app-user-notification></div>
+
+<div *ngIf="dropdownVisible"
+class="overflow-y-auto overflow-x-hidden fixed   md:inset-5 h-[calc(100%-1rem)]  "
+style="width: 10%;margin-top: 30%;">
+<ul class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+    <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+        <div class="flex items-center ps-3">
+            <input id="list-radio-license" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+            <label for="list-radio-license" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Driver License </label>
+        </div>
+    </li>
+    <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+        <div class="flex items-center ps-3">
+            <input id="list-radio-id" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+            <label for="list-radio-id" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">State ID</label>
+        </div>
+    </li>
+    <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+        <div class="flex items-center ps-3">
+            <input id="list-radio-military" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+            <label for="list-radio-military" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">US Military</label>
+        </div>
+    </li>
+    <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+        <div class="flex items-center ps-3">
+            <input id="list-radio-passport" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+            <label for="list-radio-passport" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">US Passport</label>
+        </div>
+    </li>
+</ul>
+
+
+</div>

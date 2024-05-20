@@ -60,6 +60,10 @@ import { ViewmManagerComponent } from './admin/manager/viewm-manager/viewm-manag
 import { SendEmailCreateManagerComponent } from './admin/manager/send-email-create-manager/send-email-create-manager.component';
 import { RegisterManagerComponent } from './auth/register-manager/register-manager.component';
 import { UserNotificationComponent } from './notification/user-notification/user-notification.component';
+import { ManagerArchivedComponent } from './admin/archive/managesArchived/manager-archived/manager-archived.component';
+import { TechnicienArchivedComponent } from './admin/archive/technicienArchived/technicien-archived/technicien-archived.component';
+import { ClientsArchivedComponent } from './admin/archive/ClientsArchived/clients-archived/clients-archived.component';
+import { ContractsArchivedComponent } from './admin/archive/contractsArchived/contracts-archived/contracts-archived.component';
 
 
 @NgModule({
@@ -116,7 +120,10 @@ import { UserNotificationComponent } from './notification/user-notification/user
     SendEmailCreateManagerComponent,
     RegisterManagerComponent,
     UserNotificationComponent,
-
+    ManagerArchivedComponent,
+    TechnicienArchivedComponent,
+    ClientsArchivedComponent,
+    ContractsArchivedComponent
     
    
   ],
