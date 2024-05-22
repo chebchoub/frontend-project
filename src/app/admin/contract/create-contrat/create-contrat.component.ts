@@ -151,7 +151,6 @@ if (this.validateStandardContract()||this.validatePremiumContract())
 
   closeModal() {
     this.contractService.closeModal();
-    this.router.navigate(['/homeAdmin/contracts']);
 
   }
   closeModalConfimer() {

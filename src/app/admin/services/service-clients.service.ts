@@ -21,11 +21,15 @@ export class ServiceClientsService {
   getClientContracts(clientId: string): Observable<void[]> {
     return this.http.get<void[]>(`${this.apiUrl}/getContract/${clientId}`);
   }
-  addContractToClient(clientId: string, contractId: string): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/addContract/${clientId}/${contractId}`, {});
-  }
+
   deleteClient(clientId: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/delete/${clientId}`);
+  }
+  unarchiveclient(clientId: string): Observable<any> {
+    return this.http.post<any>(`http://localhost:8080/api/v1/admin/super-manager/unarchive-client/${clientId}`,null);
+  }
+  addContractToClient(clientId:string,contractSerialNumber:string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/addContract/${clientId}/${contractSerialNumber}`,null);
   }
   getContractByContractType(contractType: string): Observable<void[]> {
     return this.http.get<void[]>(`${this.apiUrl}/getByContractType/${contractType}`);
@@ -60,9 +64,17 @@ export class ServiceClientsService {
     return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getByTicketsAvailableDescClientArchived`);
   }
   modalOpen: boolean = false;
+  modalOpenAddContract: boolean = false;
+
   selectedClientId: string = "";
   toggleModal() {
     this.modalOpen = !this.modalOpen;
+  }
+  toggleModalAddConttract() {
+    this.modalOpenAddContract = !this.modalOpenAddContract;
+  }
+  closeModalAddConttract() {
+    this.modalOpenAddContract = false;
   }
   closeModal() {
     this.modalOpen = false;

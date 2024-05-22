@@ -64,7 +64,6 @@ export class ViewClientComponent implements OnInit {
   }
   closeModal() {
     this.clientService.closeModal();
-    location.reload()
   }
   // Dans votre composant TypeScript
   incrementTickets() {
@@ -130,6 +129,12 @@ export class ViewClientComponent implements OnInit {
     // Naviguer vers la nouvelle URL avec l'ID du contrat
     // Afficher le popup
     this.contractService.toggleModal();
+  }
+  openPopUptoggleModalAddcontract:string="";
+  toggleModalAddcontract(destination: string) {
+    this.openPopUptoggleModalAddcontract = destination;
+    this.clientService.selectedClientId=this.client.id;
+    this.clientService.toggleModalAddConttract();
   }
 
   toggleModalSendEmail(destination: string,client:any) {

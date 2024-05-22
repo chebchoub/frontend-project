@@ -153,19 +153,30 @@ export class ContractsArchivedComponent implements OnInit {
     // Afficher le popup
     this.contractService.toggleModal();
   }
-  toggleModalDelete(destination: string, idContract: string) {
+  toggleModalunarchiveContract(destination: string, idContract: string) {
     this.openPopUp = destination;
     this.contractService.selectedContractId = idContract;
-    // Naviguer vers la nouvelle URL avec l'ID du contrat
-    // Afficher le popup
+
     this.contractService.toggleModal();
   }
 
-
-
-
   closeModal() {
     this.contractService.closeModal();
+  }
+  confirmDelete(): void {
+    this.contractService.unarchivecontract(this.contractService.selectedContractId).subscribe(() => {
+      console.log('Contract unrechive successfully.');
+      this.getAllContracts();
+      this.closeModal()
+
+    }, error => {
+      console.error('Error deleting contract:', error);
+    });
+
+  }
+  cancelDelete(): void {
+    this.contractService.selectedContractId = "";
+    this.closeModal()
   }
 
 

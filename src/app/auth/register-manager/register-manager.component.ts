@@ -18,15 +18,19 @@ export class RegisterManagerComponent {
 
   constructor(private formBuilder: FormBuilder, public userService: UserServiceService, private router: Router, private cookieService: CookieService, private route: ActivatedRoute) {
   }
+
   registerForm1: FormGroup | any;
   registerForm2: FormGroup | any;
   jwtToken!: string;
   managerEmail!: string;
+  test:boolean=false;
   ngOnInit(): void {
+    
     this.jwtToken = this.route.snapshot.queryParamMap.get('token') || "";
 
     // Récupérer l'email du token
     this.userService.getEmailFromToken(this.jwtToken).subscribe((email: string) => {
+      this.test=true;
       console.log(email)
       this.managerEmail = email;
       this.registerForm1 = this.formBuilder.group({
@@ -129,7 +133,7 @@ export class RegisterManagerComponent {
 
     }
   }
-  file: string = '';
+  file: string = 'https://pbs.twimg.com/media/CSQojp5UkAEVh8U.jpg';
   onFileChange(event: any) {
     const files = event.target.files as FileList;
 

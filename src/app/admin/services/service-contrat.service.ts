@@ -24,11 +24,13 @@ export class ServiceContratService {
   editContract(contractRequest: ContractRequest, id: string): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/edit/${id}`, contractRequest);
   }
-
+ 
   deleteContract(id: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/delete/${id}`);
   }
-
+  unarchivecontract(id: string): Observable<any> {
+    return this.http.post<any>(`http://localhost:8080/api/v1/admin/super-manager/unarchive-contract/${id}`,null);
+  }
   getContractById(contractId: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/get/${contractId}`);
   }

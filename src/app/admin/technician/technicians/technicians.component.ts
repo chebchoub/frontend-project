@@ -152,11 +152,23 @@ export class TechniciansComponent implements OnInit {
   }
   openPopUp: string = "";
   toggleModalDelete(destination: string, idTechnicien: string) {
-    this.openPopUp = destination;
-    this.technicianService.selectedTechniciaId = idTechnicien;
-    // Naviguer vers la nouvelle URL avec l'ID du contrat
-    // Afficher le popup
-    this.technicianService.toggleModal();
+  
+    this.getTechnicianDetails(idTechnicien)
+    
+    if(this.technicien.ticketWaitingList.length>0)
+      {
+        this.openPopUp = "Alertdelete";
+        this.technicianService.toggleModal();
+
+      }
+      else{
+        this.openPopUp = destination;
+
+        this.technicianService.selectedTechniciaId = idTechnicien;
+
+        this.technicianService.toggleModal();
+
+      }
   }
   closeModal() {
     this.technicianService.closeModal();
@@ -201,4 +213,15 @@ export class TechniciansComponent implements OnInit {
     const day = ('0' + date.getDate()).slice(-2);
     return `${year}-${month}-${day}`;
   }
+  technicien:any;
+
+  getTechnicianDetails(id:string): void {
+    this.technicianService.getTechnicianById(id).subscribe(techicien => {
+      this.technicien=techicien;
+    }, error => {
+      console.error( error);
+    });
+
+  }
+  
 }

@@ -30,12 +30,13 @@ export class ClientsArchivedComponent implements OnInit {
    
   }
   confirmDelete(): void {
-    this.clientService.deleteClient(this.clientService.selectedClientId).subscribe(() => {
-      console.log('Contract deleted successfully.');
+    this.clientService.unarchiveclient(this.clientService.selectedClientId).subscribe(() => {
+      console.log('Contract unarchived successfully.');
       this.getAllClients();
       this.closeModal()
+      location.reload()
     }, error => {
-      console.error('Error deleting contract:', error);
+      console.error('Error unarchived client:', error);
     });
 
   }
@@ -119,9 +120,8 @@ export class ClientsArchivedComponent implements OnInit {
   }
   closeModal() {
     this.clientService.closeModal();
-    this.router.navigate(['/homeAdmin/clients']);
   }
-  toggleModalDelete(destination: string, idContract: string) {
+  toggleModalUnarchviedClient(destination: string, idContract: string) {
     this.openPopUp = destination;
     this.clientService.selectedClientId = idContract;
     // Naviguer vers la nouvelle URL avec l'ID du contrat

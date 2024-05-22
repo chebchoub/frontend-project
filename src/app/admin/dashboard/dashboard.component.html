@@ -147,18 +147,23 @@
         <div class="overflow-y-auto" >
           <ul class="p-6 space-y-6  hover:bg-blue-100"*ngFor="let client of clients"  > 
             <li class="flex items-center " (click)="toggleModalview('view',client.id)"    id="ul" >
-              <div class="mr-3  rounded-full overflow-hidden " *ngIf="client.contract.premiumType==='GOLD'" style="border-width: 3px;border-color: #FFD700;display: flex;justify-content: center;width: 50px;height: 50px;">
+              <div class="mr-3  rounded-full overflow-hidden " *ngIf="client.contract.archived==true" style="border-width: 3px;border-color: red;display: flex;justify-content: center;width: 50px;height: 50px;">
                 <img  [src]="client.companyLogo" />
               </div>
-              <div class="mr-3  rounded-full overflow-hidden " *ngIf="client.contract.premiumType==='SILVER'" style="border-width: 3px;border-color: #cccccc;display: flex;justify-content: center;width: 50px;height: 50px;">
+              <div class="mr-3  rounded-full overflow-hidden " *ngIf="client.contract.premiumType==='GOLD'&&client.contract.archived==false" style="border-width: 3px;border-color: #FFD700;display: flex;justify-content: center;width: 50px;height: 50px;">
                 <img  [src]="client.companyLogo" />
               </div>
-              <div class="mr-3  rounded-full overflow-hidden " *ngIf="client.contract.premiumType==='PLATINIUM'" style="border-width: 3px;border-color: #ac44f9;display: flex;justify-content: center;width: 50px;height: 50px;">
+              <div class="mr-3  rounded-full overflow-hidden " *ngIf="client.contract.premiumType==='SILVER'&&client.contract.archived==false" style="border-width: 3px;border-color: #cccccc;display: flex;justify-content: center;width: 50px;height: 50px;">
+                <img  [src]="client.companyLogo" />
+              </div>
+              <div class="mr-3  rounded-full overflow-hidden " *ngIf="client.contract.premiumType==='PLATINIUM'&&client.contract.archived==false" style="border-width: 3px;border-color: #ac44f9;display: flex;justify-content: center;width: 50px;height: 50px;">
                 <img  [src]="client.companyLogo" />
               </div>
               <span class="text-gray-600 font-bold" >{{client.contract.entreprise}}</span>
-              <span class="ml-auto block text-2xl font-bold" *ngIf="client.contract.premiumType !== 'PLATINIUM'">{{client.ticketsAvailable}}</span>
-              <span class="ml-auto  block text-2xl font-bold" *ngIf="client.contract.premiumType === 'PLATINIUM'" >∞</span>
+              <span class="ml-auto block text-2xl font-bold" *ngIf="client.contract.archived==true">0</span>
+
+              <span class="ml-auto block text-2xl font-bold" *ngIf="client.contract.premiumType !== 'PLATINIUM'&&client.contract.archived==false">{{client.ticketsAvailable}}</span>
+              <span class="ml-auto  block text-2xl font-bold" *ngIf="client.contract.premiumType === 'PLATINIUM'&&client.contract.archived==false" >∞</span>
 
             </li>
             

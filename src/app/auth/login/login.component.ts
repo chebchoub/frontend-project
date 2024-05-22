@@ -41,42 +41,44 @@ export class LoginComponent implements OnInit {
 
     }
 
+    else {
+      const userCredentials: AuthenticationRequest = {
+        email: this.loginForm.controls.email.value,
+        password: this.loginForm.controls.password.value
+      };
 
+      this.userService.login(userCredentials).subscribe(
+        (response: AuthenticationResponse) => {
+          this.cookieService.set('jwtToken', response.token, 7, '/', '', true, 'Lax');
+          const jwtToken = this.cookieService.get('jwtToken');
+          this.checkRole(jwtToken)
+          if (this.role === "MANAGER" || this.role === "SUPERMANAGER") {
+            this.router.navigate(['/homeAdmin']);
 
-    const userCredentials: AuthenticationRequest = {
-      email: this.loginForm.controls.email.value,
-      password: this.loginForm.controls.password.value
-    };
-
-    this.userService.login(userCredentials).subscribe(
-      (response: AuthenticationResponse) => {
-        this.cookieService.set('jwtToken', response.token, 7, '/', '', true, 'Lax');
-        const jwtToken = this.cookieService.get('jwtToken');
-        this.checkRole(jwtToken)
-        if (this.role === "MANAGER" || this.role === "SUPERMANAGER") {
-          this.router.navigate(['/homeAdmin']);
-
+          }
+          else if (this.role === "CLIENT") {
+            this.router.navigate(['/homeClient']);
+          }
+          else if (this.role === "TECHNICALENGINEER") {
+            this.router.navigate(['/homeTechnician']);
+          }
+        },
+        (error: HttpErrorResponse) => {
+          if (error.status === 403) {
+            this.loginFormInvalidBackend = true;
+            console.error('Invalid credentials');
+          } else if (error.status === 500) {
+            this.toggleModAlert()
+            console.error('User is archived');
+          } else {
+            console.error('Unexpected error:', error);
+          }
         }
-        else if (this.role === "CLIENT") {
-          this.router.navigate(['/homeClient']);
-        }
-        else if (this.role === "TECHNICALENGINEER") {
-          this.router.navigate(['/homeTechnician']);
-        }
-      },
-      (error: HttpErrorResponse) => {
-        if (error.status === 403) {
-          this.loginFormInvalidBackend=true;
-          console.error('Invalid credentials');
-        } else if (error.status === 500) {
-          this.toggleModAlert()
-          console.error('User is archived');
-        } else {
-          console.error('Unexpected error:', error);
-        }
-      }
 
-    );
+      );
+    }
+
+
 
   }
 
@@ -92,7 +94,7 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-  
+
   openPopUp: string = "";
   toggleModalForgotPassword() {
     this.userService.toggleModal();
@@ -105,7 +107,7 @@ export class LoginComponent implements OnInit {
       this.accountArchived = false;
     }, 3000); // 5000 milliseconds = 5 seconds, adjust as needed
   }
- 
+
   closeModal() {
     this.userService.closeModalConfimer();
   }

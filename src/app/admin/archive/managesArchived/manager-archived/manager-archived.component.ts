@@ -51,7 +51,32 @@ export class ManagerArchivedComponent implements OnInit{
     const totalPages = Math.ceil(this.managers.length / this.pageSize);
     return Array.from({ length: totalPages }, (_, i) => i);
   }
-  
+
+  confirmDelete(): void {
+    this.serviceManager.unarchiveManager(this.serviceManager.selectedMangerEmail).subscribe(() => {
+      console.log('manager deleted successfully.');
+      this.getAllManager();
+      this.closeModal()
+      location.reload();
+
+    }, error => {
+      console.error('Error :', error);
+    });
+  }
+  cancelDelete(): void {
+    this.serviceManager.selectedMangerEmail = "";
+    this.closeModal()
+  }
+  openPopUp:string="";
+
+  toggleModalunarchiveManager(destination: string, manageremail: string) {
+    this.openPopUp = destination;
+    this.serviceManager.selectedMangerEmail = manageremail;
+    this.serviceManager.toggleModal();
+  }
+  closeModal() {
+    this.serviceManager.closeModal();
+  }
   
  
 }

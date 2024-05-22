@@ -135,7 +135,7 @@
                         </thead>
                         <tbody tabindex="0"
                         *ngFor="let technician of technicians.slice(calculateRange().start, calculateRange().end)| search: searchText">
-                        <tr class="focus:outline-none h-16 border border-gray-100 rounded">
+                        <tr class="focus:outline-none h-16 border border-gray-100 rounded" *ngIf="this.technicienID!==technician._id">
         
                             <td class="">
                                 <div class="flex items-center pl-5">

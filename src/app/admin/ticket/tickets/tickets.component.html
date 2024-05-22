@@ -177,11 +177,14 @@
                 </svg>
           </button>
                 <button id="btClose" *ngIf="ticket.status=='NEW'" (click)="toggleModalAssigned('assigned',ticket._id)"  class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
-                    Assigned to</button>    
+                    Assigned to</button>
+                    <button id="btClose"  style="width: 180px;" *ngIf="ticket.status=='IN_PROGRESS'" (click)="toggleModalAssigned('assigned',ticket._id)"  class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                      Change Assignment
+                    </button>    
 
           </div>
           </div>
-          <p class="text-md text-gray-400" style="margin-left: 60%;" *ngIf="ticket.status==='RESOLVED' ||ticket.status==='IN_PROGRESS'"> {{this.calculateTimeDifference(ticket.openingDate)}}</p> 
+          <p class="text-md text-gray-400" style="margin-left: 60%;" *ngIf="ticket.status==='RESOLVED' "> {{this.calculateTimeDifference(ticket.openingDate)}}</p> 
             <p class="text-md text-gray-400" style="margin-left: 40%;" *ngIf="ticket.status==='CLOSED'"> {{this.calculateTimeDifference(ticket.ClosingDate)}}</p> 
         </div>
           

@@ -13,6 +13,8 @@ import { TicketServiceService } from '../../services/ticket-service.service';
 export class AssignedTicketComponent implements OnInit {
   constructor(public ticketService:TicketServiceService,public emailService: EmailServiceService, private route: ActivatedRoute, private router: Router, public technicianService: ServiceTechnicianService, public contractService: ServiceContratService) { }
   ngOnInit(): void {
+   
+    this.getTicketDetails(this.technicianService.selectedTicketId)
     this.getAllTechnician();
     setTimeout(() => {
       this.contractService.getPageName = 'TECHNICIENS';
@@ -30,6 +32,15 @@ export class AssignedTicketComponent implements OnInit {
       if (this.technicians.length == 0) {
         this.listeVide = true; // Correction de l'opérateur d'affectation
       }
+    });
+  }
+  ticket: any;
+  technicienID:string="";
+  getTicketDetails(id: string): void {
+    this.ticketService.getTicketById(id).subscribe(ticket => {
+      this.ticket = ticket;
+      this.technicienID=this.ticket.technicianId;
+      console.log(this.technicienID)
     });
   }
   currentPage: number = 0;
@@ -148,13 +159,30 @@ export class AssignedTicketComponent implements OnInit {
 
   }
   confirmAssign(): void {
-    this.technicianService.addTicketToTechnicien(this.technicianService.selectedTicketId,this.technicianService.selectedTechniciaId).subscribe(() => {
-      console.log('ticket Assigned successfully.');
-      this.getAllTechnician();
-      this.closeModal()
-    }, error => {
-      console.error('Error deleting techicien:', error);
-    });
+    if(this.technicienID!=="" && this.technicienID!==this.technicianService.selectedTechniciaId)
+      {
+        this.technicianService.reassignTicketToTechnician(this.technicianService.selectedTicketId,this.technicianService.selectedTechniciaId).subscribe(() => {
+          console.log('ticket Assigned successfully.');
+          this.getAllTechnician();
+    
+          setTimeout(() => {
+            location.reload();
+          }, 500);     }, error => {
+          console.error('Error deleting techicien:', error);
+        });
+      }
+      else{
+        this.technicianService.addTicketToTechnicien(this.technicianService.selectedTicketId,this.technicianService.selectedTechniciaId).subscribe(() => {
+          console.log('ticket Assigned successfully.');
+          this.getAllTechnician();
+    
+          setTimeout(() => {
+            location.reload();
+          }, 500);     }, error => {
+          console.error('Error deleting techicien:', error);
+        });
+      }
+ 
   }
   cancelAssign(): void {
     this.contractService.selectedContractId = "";
@@ -169,9 +197,7 @@ export class AssignedTicketComponent implements OnInit {
   }
   closeModal() {
     this.ticketService.closeModal();
-    setTimeout(() => {
-      location.reload();
-    }, 500); 
+    
   }
 
   

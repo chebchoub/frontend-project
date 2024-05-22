@@ -64,6 +64,7 @@ import { ManagerArchivedComponent } from './admin/archive/managesArchived/manage
 import { TechnicienArchivedComponent } from './admin/archive/technicienArchived/technicien-archived/technicien-archived.component';
 import { ClientsArchivedComponent } from './admin/archive/ClientsArchived/clients-archived/clients-archived.component';
 import { ContractsArchivedComponent } from './admin/archive/contractsArchived/contracts-archived/contracts-archived.component';
+import { AddContractToClientComponent } from './admin/client/add-contract-to-client/add-contract-to-client.component';
 
 
 @NgModule({
@@ -123,7 +124,8 @@ import { ContractsArchivedComponent } from './admin/archive/contractsArchived/co
     ManagerArchivedComponent,
     TechnicienArchivedComponent,
     ClientsArchivedComponent,
-    ContractsArchivedComponent
+    ContractsArchivedComponent,
+    AddContractToClientComponent
     
    
   ],

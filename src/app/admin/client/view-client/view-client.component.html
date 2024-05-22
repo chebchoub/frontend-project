@@ -12,7 +12,29 @@
                 <div class="col-span-4 sm:col-span-3">
                   <div class=" bg-white shadow-lg rounded-xl p-6">
                       <div class="flex flex-col items-center">
-                        <div class="transform mt-4" *ngIf="client.contract.premiumType === 'GOLD'">
+                        <div class="transform mt-4" *ngIf="this.client.contract.archived==true">
+                          <div style="display: flex;justify-content: center;margin-left: -23%;">
+
+                              <div class="avatar-container">
+                                <span class="tickets font-bold"  style="background-color: red;">
+                                  0
+                              </span>
+                                  <div class="image-container" style="border-color:red;"  *ngIf=" this.companyLogoURL; else placeholder" 
+                                 
+                                  [ngStyle]="{backgroundImage: 'url(' + this.companyLogoURL + ')'}">
+                                  </div>
+                              
+                                  <ng-template #placeholder>
+                                      <div class="image-container avatar-placeholder">
+                                      </div>
+                                  </ng-template>
+
+                              </div>
+                              
+                          </div>
+                          
+                      </div>
+                        <div class="transform mt-4" *ngIf="client.contract.premiumType === 'GOLD' &&this.client.contract.archived==false">
                             <div style="display: flex;justify-content: center;margin-left: -23%;">
 
                                 <div class="avatar-container">
@@ -34,7 +56,7 @@
                             </div>
                             
                         </div>
-                        <div class="transform mt-4" *ngIf="client.contract.premiumType === 'PLATINIUM'">
+                        <div class="transform mt-4" *ngIf="client.contract.premiumType === 'PLATINIUM'&&this.client.contract.archived==false">
                             <div style="display: flex;justify-content: center;margin-left: -23%;">
 
                                 <div class="avatar-container">
@@ -54,7 +76,7 @@
                                 
                             </div>
                                                    </div>
-                        <div class="transform mt-4" *ngIf="client.contract.premiumType === 'SILVER'">
+                        <div class="transform mt-4" *ngIf="client.contract.premiumType === 'SILVER'&&this.client.contract.archived==false">
                             <div style="display: flex;justify-content: center;margin-left: -23%;">
 
                                 <div class="avatar-container">
@@ -76,7 +98,7 @@
                         </div>
                         <h1 class="text-xl font-bold" style="margin-left: -25px;">{{this.client.contract.entreprise}}</h1>
                         <div class="text-sm leading-normal  text-gray-400 font-bold uppercase" style="margin-top: 5px;"
-                        *ngIf="this.client.contract.premiumType=='GOLD' ||this.client.contract.premiumType=='SILVER' " >
+                        *ngIf="this.client.contract.archived==false" >
                         <form class="max-w-xs mx-auto" [formGroup]="ticketsAvailableForm" style="margin-left: 5px;">
                           <div class="relative flex items-center max-w-[8rem]">
                             <button type="button" id="decrement-button" (click)="decrementTickets()"
@@ -145,7 +167,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-span-4 sm:col-span-9 bg-white  shadow-lg rounded-xl">
+                <div class="col-span-4 sm:col-span-9 bg-white  shadow-lg rounded-xl" *ngIf="this.client.contract.archived==false">
                   <button style="margin-left: 96%;margin-top: 1%" type="button"
                   class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                   data-modal-toggle="crud-modal" (click)="closeModal()">
@@ -261,6 +283,24 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-span-4 sm:col-span-9 bg-white  shadow-lg rounded-xl" *ngIf="this.client.contract.archived==true">
+                  <button style="margin-left: 96%;margin-top: 1%" type="button"
+                  class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                  data-modal-toggle="crud-modal" (click)="closeModal()">
+                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                  </svg>
+                  <span class="sr-only">Close modal</span>
+                </button>
+                    <div class="p-6">
+                        <span class="font-bold  text-red-700 text-2xl  mb-2" style="text-align: center;">His contract is archived</span>        
+                        <div class=" py-2 sm:grid sm:grid-cols-2 font-semibold text-lg " >
+                          <svg  (click)="toggleModalAddcontract('addContractToClient')" class="icon2" width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Edit / Add_Plus"> <path id="Vector" d="M6 12H12M12 12H18M12 12V18M12 12V6" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
+                          <span style="    margin-left: -90%;"> Add  new Contract</span>
+                      </div>     
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -310,6 +350,10 @@
     </div>
   </div>
 </div>
+<div *ngIf="clientService.modalOpenAddContract && this.openPopUptoggleModalAddcontract=='addContractToClient'"
+  class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-5 h-[calc(100%-1rem)] max-h-full "
+  style="display: flex;justify-content: center;">
+<app-add-contract-to-client></app-add-contract-to-client></div>
 <div *ngIf="contractService.modalOpen && this.openPopUp=='edit'"
   class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-5 h-[calc(100%-1rem)] max-h-full "
   style="display: flex;justify-content: center;">

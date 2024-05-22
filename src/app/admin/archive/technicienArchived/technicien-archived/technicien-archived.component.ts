@@ -49,12 +49,11 @@ export class TechnicienArchivedComponent implements OnInit {
     return Array.from({ length: totalPages }, (_, i) => i);
   }
   confirmDelete(): void {
-    this.technicianService.deleteTechnician(this.technicianService.selectedTechniciaId).subscribe(() => {
-      console.log('Technicien deleted successfully.');
+    this.technicianService.unarchivetechnician(this.technicianService.selectedTechniciaId).subscribe(() => {
+      console.log('unarchive technician successfully.');
       this.getAllTechnician();
       this.closeModal()
-      this.router.navigate(['./homeAdmin/technicians',]);
-
+      location.reload()
     }, error => {
       console.error('Error deleting techicien:', error);
     });
@@ -150,30 +149,16 @@ export class TechnicienArchivedComponent implements OnInit {
     this.loadTechniciens2();
   }
   openPopUp: string = "";
-  toggleModalDelete(destination: string, idTechnicien: string) {
+  toggleModalunarchiveTechnicien(destination: string, idTechnicien: string) {
     this.openPopUp = destination;
     this.technicianService.selectedTechniciaId = idTechnicien;
-    // Naviguer vers la nouvelle URL avec l'ID du contrat
-    // Afficher le popup
+
     this.technicianService.toggleModal();
   }
   closeModal() {
     this.technicianService.closeModal();
   }
-  toggleModalEdit(destination: string, idTechnicien: string) {
-    this.openPopUp = destination;
-    this.technicianService.selectedTechniciaId = idTechnicien;
-    // Naviguer vers la nouvelle URL avec l'ID du contrat
-    this.router.navigate(['homeAdmin/editTechnicians']);
-    // Afficher le popup
-    this.technicianService.toggleModal();
-  }
-  toggleModalCreate(destination: string) {
-    this.openPopUp = destination;
-
-    this.technicianService.toggleModal();
-
-  }
+ 
   toggleModalview(destination: string, idTechnicien: string) {
     this.openPopUp = destination;
     this.technicianService.selectedTechniciaId = idTechnicien;

@@ -20,6 +20,9 @@ export class ServiceTechnicianService {
   editTechnician(technicianRequest: any, id: string): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/edit/${id}`, technicianRequest);
   }
+  unarchivetechnician(id: string): Observable<any> {
+    return this.http.post<any>(`http://localhost:8080/api/v1/admin/super-manager/unarchive-technician/${id}`,null);
+  }
   getTechnicianById(id:string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/get/${id}`);
   }
@@ -48,6 +51,9 @@ export class ServiceTechnicianService {
   }
   addTicketToTechnicien(ticketId: string,technicenId:string): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/addTicketToTechnician/${ticketId}/${technicenId}`,null);
+  }
+  reassignTicketToTechnician(ticketId: string,technicenId:string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/reassignTicketToTechnician/${ticketId}/${technicenId}`,null);
   }
   sendEmailToCreate(email: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/send-register-mail`, email);

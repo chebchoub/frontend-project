@@ -27,16 +27,12 @@
                 <div class="avatar-container">
                     <span  *ngIf="registerForm1.controls.profilePhoto.errors?.required && (registerForm1.controls.profilePhoto.dirty || registerForm1.controls.profilePhoto.touched||this.invalidform)" class="error-message">Profile picture is required</span>
 
-                    <div class="image-container" *ngIf="file; else placeholder" 
+                    <div class="image-container"
                     [ngClass]="{'box-shadow-avatar': !!file}"
                     [ngStyle]="{backgroundImage: 'url(' + file + ')'}">
                     </div>
                 
-                    <ng-template #placeholder>
-                        <div class="image-container avatar-placeholder">
-                        </div>
-                    </ng-template>
-                
+                    
                     <label for="avatar-input-file">
                         <div class="icon-wrapper">
                             <input type="file" id="avatar-input-file" formControlName="profilePhoto" accept="image/*" (change)="onFileChange($event)" />
