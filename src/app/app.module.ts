@@ -65,6 +65,7 @@ import { TechnicienArchivedComponent } from './admin/archive/technicienArchived/
 import { ClientsArchivedComponent } from './admin/archive/ClientsArchived/clients-archived/clients-archived.component';
 import { ContractsArchivedComponent } from './admin/archive/contractsArchived/contracts-archived/contracts-archived.component';
 import { AddContractToClientComponent } from './admin/client/add-contract-to-client/add-contract-to-client.component';
+import { CommonModule, DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -139,7 +140,7 @@ import { AddContractToClientComponent } from './admin/client/add-contract-to-cli
      
 
   ],
-  providers: [  ImageCompressService,ResizeOptions,  { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  providers: [  CommonModule,DatePipe,ImageCompressService,ResizeOptions,  { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
   exports: [RatingTicketComponent
     

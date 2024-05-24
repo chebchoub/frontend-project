@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ServiceContratService } from '../../services/service-contrat.service';
 import { Location } from '@angular/common';
+import { ServiceClientsService } from '../../services/service-clients.service';
 
 @Component({
   selector: 'app-edit-contract',
@@ -12,13 +13,15 @@ import { Location } from '@angular/common';
 })
 export class EditContractComponent implements OnInit {
 
-  constructor(private location: Location, private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, public contractService: ServiceContratService) { }
+  constructor(private clientService: ServiceClientsService, private location: Location, private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, public contractService: ServiceContratService) { }
 
   contractForm: FormGroup | any;
   contractId!: string;
+  clietnId!: string;
 
   ngOnInit(): void {
     this.contractId = this.contractService.selectedContractId;
+    this.clietnId = this.clientService.selectedClientId;
     this.initForm();
     this.getContractDetails();
     this.contractForm = this.formBuilder.group({
@@ -27,16 +30,7 @@ export class EditContractComponent implements OnInit {
       endDate: ['', Validators.required],
       description: ['', Validators.required],
       premiumType: ['', Validators.required], // Assurez-vous que 'premiumType' est défini ici
-      maintenance: ['', [Validators.required, Validators.min(0)]],     
-      tickets: ['', [Validators.required, (control: AbstractControl) => {
-        const ticketsValue = control.value;
-  
-        if (ticketsValue !== 5) {
-          return { invalidTickets: true };
-        }
-  
-        return null;
-      }]],
+      maintenance: ['', [Validators.required, Validators.min(0)]],
       contractType: ['STANDARD'] // Initialisez le contrôle contractType avec une valeur par défaut
       // Autres champs et validations
     }, { validators: [this.validateDates, this.validateStartDateBeforeEndDate] });
@@ -96,7 +90,6 @@ export class EditContractComponent implements OnInit {
         premiumType: contract.premiumType,
         maintenance: contract.maintenance,
         description: contract.description,
-        tickets:contract.tickets
         // Patchez d'autres champs ici selon vos besoins
       });
     });
@@ -109,24 +102,42 @@ export class EditContractComponent implements OnInit {
     const day = ('0' + date.getDate()).slice(-2);
     return `${year}-${month}-${day}`;
   }
+  ticketAvailable:number=0;
   submitForm(): void {
-  
-      const updatedContract = this.contractForm.value;
-  
-      this.contractService.editContract(updatedContract, this.contractId).subscribe(() => {
-        console.log('Contract updated successfully.');
-        this.closeModal();
-        this.getAllContracts()
 
-        this.router.navigate(['/homeAdmin/contracts']);
-        // Mettre à jour la liste des contrats après la modification réussie
-       
-      }, error => {
-        console.error('Error updating contract:', error);
-        // Gérer les erreurs de mise à jour du contrat ici
-      });
-    
+    const updatedContract = this.contractForm.value;
+    if (this.contractForm.controls.contractType.value === "STANDARD") {
+      this.ticketAvailable=0
+    }
+    else if (this.contractForm.controls.contractType.value === "PREMIUM") {
+      if(this.contractForm.controls.premiumType.value === "SILVER"){
+        this.ticketAvailable=5}
+        else if(this.contractForm.controls.premiumType.value === "GOLD"){
+          this.ticketAvailable=10
+         
+        
+      }
+    }
+    this.contractService.editContract(updatedContract, this.contractId).subscribe(() => {
+      console.log('Contract updated successfully.');
+      this.clientService.updateClientTicketsAvailable(this.clietnId,this.ticketAvailable)
+        .subscribe(() => {
+          console.log('Mise à jour réussie.');
+          location.reload();
+        }, (error) => {
+          console.error('Erreur lors de la mise à jour :', error);
+        });
+      this.closeModal();
+      this.getAllContracts()
+      // Mettre à jour la liste des contrats après la modification réussie
+
+    }, error => {
+      console.error('Error updating contract:', error);
+      // Gérer les erreurs de mise à jour du contrat ici
+    });
+
   }
+
   
   getAllContracts(): void {
     this.contractService.getAllContracts().subscribe(contracts => {
@@ -149,8 +160,7 @@ export class EditContractComponent implements OnInit {
       this.contractForm.controls.endDate.valid &&
       this.contractForm.controls.description.valid &&
       this.contractForm.controls.maintenance.valid &&
-      this.contractForm.controls.premiumType.valid &&
-      this.contractForm.controls.tickets.valid
+      this.contractForm.controls.premiumType.valid 
 
     );
   }
@@ -170,7 +180,6 @@ export class EditContractComponent implements OnInit {
 
   closeModal() {
     this.contractService.closeModal();
-    this.router.navigate(['/homeAdmin/contracts']);
 
   }
   closeModalConfimer() {

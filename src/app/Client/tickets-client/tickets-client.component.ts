@@ -6,6 +6,7 @@ import { ClientServiceService } from '../service/client-service.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
 import { ServiceTechnicianService } from '../../admin/services/service-technician.service';
+import { DatePipe } from '@angular/common';
 interface ImageItem {
   base64Data: string;
   filename: string;
@@ -27,7 +28,7 @@ interface PDFItem {
   styleUrl: './tickets-client.component.css'
 })
 export class TicketsClientComponent implements OnInit {
-  constructor(private cookieService: CookieService,private route: ActivatedRoute,private formBuilder: FormBuilder, private router: Router, public serviceClient: ClientServiceService, public sanitizer: DomSanitizer,private technicianService:ServiceTechnicianService) { }
+  constructor(private datePipe:DatePipe,private cookieService: CookieService,private route: ActivatedRoute,private formBuilder: FormBuilder, private router: Router, public serviceClient: ClientServiceService, public sanitizer: DomSanitizer,private technicianService:ServiceTechnicianService) { }
   messageForm: FormGroup | any;
   searchText = '';
 
@@ -173,11 +174,24 @@ export class TicketsClientComponent implements OnInit {
     link.click();
     document.body.removeChild(link);
   }
+  isContractEndDatePastOrToday(endDate: string): boolean {
+    const today = new Date();
+    const formattedEndDate = new Date(this.datePipe.transform(endDate, 'yyyy-MM-dd') || '');
+    return formattedEndDate <= today;
+  }
+
   openPopUp: string = "";
   toggleModalCreate(destination: string) {
-    this.openPopUp = destination;
-    this.serviceClient.toggleModal();
-
+    if(this.isContractEndDatePastOrToday(this.client.contract.endDate))
+      {
+        this.openPopUp="terminated"
+      }else
+      {
+        this.openPopUp = destination;
+   
+      }
+      this.serviceClient.toggleModal();
+   
   }
   toggleModalClose(destination: string, ticketId: string) {
     this.serviceClient.ticketIDClosed = ticketId;

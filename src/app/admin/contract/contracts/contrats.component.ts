@@ -151,7 +151,6 @@ export class ContratsComponent implements OnInit {
     openPopUp: string = "";
     toggleModalCreate(destination: string) {
       this.openPopUp = destination;
-      this.router.navigate(['homeAdmin/createContract']);
 
       this.contractService.toggleModal();
 
@@ -160,7 +159,6 @@ export class ContratsComponent implements OnInit {
     this.openPopUp = destination;
     this.contractService.selectedContractId = idContract;
     // Naviguer vers la nouvelle URL avec l'ID du contrat
-    this.router.navigate(['homeAdmin/editContract']);
     // Afficher le popup
     this.contractService.toggleModal();
   } 

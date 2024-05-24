@@ -4,7 +4,39 @@
             <div class="col-span-4 sm:col-span-3">
                 <div class=" bg-white shadow-lg rounded-xl p-6">
                     <div class="flex flex-col items-center">
-                        <div class="transform mt-4" *ngIf="client.contract.premiumType === 'GOLD'">
+                        <div class="transform mt-4" *ngIf="isContractEndDatePastOrToday(client.contract.endDate)">
+                            <div style="display: flex;justify-content: center;margin-left: -23%;">
+
+                                <div class="avatar-container">
+                                    <span  *ngIf="updateProfileForm.controls.profilePhoto.errors?.required && (updateProfileForm.controls.profilePhoto.dirty || updateProfileForm.controls.profilePhoto.touched||this.invalidform)" class="error-message">Profile picture is required</span>
+                                    <span class="tickets font-bold"  style="background-color: red;">
+                                       0
+                                    </span>
+                                    <div class="image-container" style="border-color:red"  *ngIf=" this.companyLogoURL; else placeholder" 
+                                    [ngClass]="{'box-shadow-avatar': !!this.file}"
+                                    [ngStyle]="{backgroundImage: 'url(' + this.companyLogoURL + ')'}">
+                                    </div>
+                                
+                                    <ng-template #placeholder>
+                                        <div class="image-container avatar-placeholder">
+                                        </div>
+                                    </ng-template>
+                                
+                                    <label for="avatar-input-file">
+                                        <div class="icon-wrapper">
+                                            <input type="file" id="avatar-input-file"  formControlName="profilePhoto" accept="image/*" (change)="onFileChange($event)" />
+                                            <svg  class="icon" fontIcon="edit" (click)="updateToInput('companyLogo')"  width="50px" height="50px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(90)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.4998 5.49994L18.3282 8.32837M3 20.9997L3.04745 20.6675C3.21536 19.4922 3.29932 18.9045 3.49029 18.3558C3.65975 17.8689 3.89124 17.4059 4.17906 16.9783C4.50341 16.4963 4.92319 16.0765 5.76274 15.237L17.4107 3.58896C18.1918 2.80791 19.4581 2.80791 20.2392 3.58896C21.0202 4.37001 21.0202 5.63634 20.2392 6.41739L8.37744 18.2791C7.61579 19.0408 7.23497 19.4216 6.8012 19.7244C6.41618 19.9932 6.00093 20.2159 5.56398 20.3879C5.07171 20.5817 4.54375 20.6882 3.48793 20.9012L3 20.9997Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                                        </div>
+                                    </label>
+                
+                                    
+                                </div>
+                                
+                            </div>
+                            <h1 class="text-xl font-bold">{{this.client.contract.entreprise}}</h1>
+                            <p class="text-gray-700 " style="margin-left: -20px;">{{this.client.contract.premiumType}} CONTRACT</p>
+                        </div>
+                        <div class="transform mt-4" *ngIf="client.contract.premiumType === 'GOLD'&&!isContractEndDatePastOrToday(client.contract.endDate)">
                             <div style="display: flex;justify-content: center;margin-left: -23%;">
 
                                 <div class="avatar-container">
@@ -36,7 +68,7 @@
                             <h1 class="text-xl font-bold">{{this.client.contract.entreprise}}</h1>
                             <p class="text-gray-700 " style="margin-left: -20px;">{{this.client.contract.premiumType}} CONTRACT</p>
                         </div>
-                        <div class="transform mt-4" *ngIf="client.contract.premiumType === 'PLATINIUM'">
+                        <div class="transform mt-4" *ngIf="client.contract.premiumType === 'PLATINIUM'&&!isContractEndDatePastOrToday(client.contract.endDate)">
                             <div style="display: flex;justify-content: center;margin-left: -23%;">
 
                                 <div class="avatar-container">
@@ -144,7 +176,7 @@
             <div class="col-span-4 sm:col-span-9">
                 <div class=" shadow-lg rounded-xl  p-6">
                     <span class="font-bold  text-black text-2xl  mb-2">Contract information</span>
-                    
+                    <span class=" text-black text-2xl  mb-2 ml-4 text-red-600">( You contract is terminated )</span>
 
                    
                     <dl class="sm:divide-y sm:divide-gray-200">

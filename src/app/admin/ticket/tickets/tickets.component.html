@@ -184,8 +184,8 @@
 
           </div>
           </div>
-          <p class="text-md text-gray-400" style="margin-left: 60%;" *ngIf="ticket.status==='RESOLVED' "> {{this.calculateTimeDifference(ticket.openingDate)}}</p> 
-            <p class="text-md text-gray-400" style="margin-left: 40%;" *ngIf="ticket.status==='CLOSED'"> {{this.calculateTimeDifference(ticket.ClosingDate)}}</p> 
+          <p class="text-md text-gray-400" style="margin-left: 60%;" *ngIf="ticket.status!=='CLOSED' "> {{this.calculateTimeDifference(ticket.openingDate)}}</p> 
+            <p class="text-md text-gray-400" style="margin-left: 40%;" *ngIf="ticket.status==='CLOSED'"> {{this.calculateTimeDifference(ticket.closingDate)}}</p> 
         </div>
           
         </li>

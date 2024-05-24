@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ClientServiceService } from '../service/client-service.service';
 import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-profile-client',
@@ -11,7 +12,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class ProfileClientComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private router: Router, public serviceClient: ClientServiceService, public sanitizer: DomSanitizer) { }
+  constructor( private datePipe:DatePipe,private formBuilder: FormBuilder, private router: Router, public serviceClient: ClientServiceService, public sanitizer: DomSanitizer) { }
   ngOnInit(): void {
     this.serviceClient.getPageName = "Profile";
 
@@ -84,6 +85,11 @@ export class ProfileClientComponent implements OnInit {
 
     }
   }
+  isContractEndDatePastOrToday(endDate: string): boolean {
+    const today = new Date();
+    const formattedEndDate = new Date(this.datePipe.transform(endDate, 'yyyy-MM-dd') || '');
+    return formattedEndDate <= today;
+  }
 
   // Fonction de validation personnalisée pour le numéro de téléphone
   validatePhoneNumber(control: any) {
@@ -132,6 +138,7 @@ export class ProfileClientComponent implements OnInit {
       }
     }
   }
+
   submit() {
     const clientRequest: any = {
       email: this.updateProfileForm.controls.email.value,

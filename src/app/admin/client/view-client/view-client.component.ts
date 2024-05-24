@@ -4,6 +4,7 @@ import { ServiceContratService } from '../../services/service-contrat.service';
 import { ServiceClientsService } from '../../services/service-clients.service';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EmailServiceService } from '../../services/email-service.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-view-client',
@@ -27,7 +28,12 @@ export class ViewClientComponent implements OnInit {
     }
     )
   }
-  constructor(public emailService:EmailServiceService,private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, public clientService: ServiceClientsService, public contractService: ServiceContratService) {
+  constructor(private datePipe: DatePipe,public emailService:EmailServiceService,private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, public clientService: ServiceClientsService, public contractService: ServiceContratService) {
+  }
+  isContractEndDatePastOrToday(endDate: string): boolean {
+    const today = new Date();
+    const formattedEndDate = new Date(this.datePipe.transform(endDate, 'yyyy-MM-dd') || '');
+    return formattedEndDate <= today;
   }
   companyLogoURL: string = '';
 
@@ -108,9 +114,10 @@ export class ViewClientComponent implements OnInit {
   closeModalConfimer() {
     this.clientService.closeModalConfimer();
   } 
-  toggleModalEdit(destination: string, idContract: string) {
+  toggleModalEdit(destination: string, idContract: string,idclient:string) {
     this.openPopUp = destination;
     this.contractService.selectedContractId = idContract;
+    this.clientService.selectedClientId=idclient;
     // Naviguer vers la nouvelle URL avec l'ID du contrat
     this.router.navigate(['homeAdmin/client']);
     // Afficher le popup

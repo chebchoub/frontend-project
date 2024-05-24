@@ -66,9 +66,19 @@
             <span class="sr-only">User Menu</span>
             <div class="hidden md:flex md:flex-col md:items-end md:leading-tight">
               <span class="font-semibold">{{this.client.contract.entreprise}} </span>
-              <span class="text-sm text-gray-600">{{this.client.contract.premiumType}} contract</span>
+              <span class="text-sm text-gray-600" *ngIf="!isContractEndDatePastOrToday(client.contract.endDate)">{{this.client.contract.premiumType}} contract</span>
+              <span class="text-sm text-gray-600" *ngIf="isContractEndDatePastOrToday(client.contract.endDate)">The contract is terminated</span>
+
             </div>
-            <span *ngIf="client.contract.premiumType === 'GOLD'" class="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden" style="border-width: 4px;border-color: #FFD700;">
+            <span *ngIf="isContractEndDatePastOrToday(client.contract.endDate)" class="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden" style="border-width: 4px;border-color: red;">
+              <span class="tickets font-bold" style="background-color: red;">
+               0
+            </span>
+            <img
+            [src]="this.client.companyLogo"
+            alt="user profile photo" class="h-full w-full object-cover">
+            </span>
+            <span *ngIf="client.contract.premiumType === 'GOLD'&&!isContractEndDatePastOrToday(client.contract.endDate)" class="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden" style="border-width: 4px;border-color: #FFD700;">
               <span class="tickets font-bold" style="background-color: #FFD700;">
                 {{client.ticketsAvailable}}
             </span>
@@ -76,7 +86,7 @@
                 [src]="this.client.companyLogo"
                 alt="user profile photo" class="h-full w-full object-cover">
             </span>
-            <span *ngIf="client.contract.premiumType === 'SILVER'" class="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden" style="border-width: 2px;border-color: #cccccc;">
+            <span *ngIf="client.contract.premiumType === 'SILVER'&&!isContractEndDatePastOrToday(client.contract.endDate)" class="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden" style="border-width: 2px;border-color: #cccccc;">
               <span class="tickets font-bold"  style="background-color: #cccccc;">
                 {{client.ticketsAvailable}}
             </span>
@@ -84,7 +94,7 @@
                 [src]="this.client.companyLogo"
                 alt="user profile photo" class="h-full w-full object-cover">
             </span>
-            <span *ngIf="client.contract.premiumType === 'PLATINIUM'" class="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden" style="border-width: 2px;border-color: #ac44f9;">
+            <span *ngIf="client.contract.premiumType === 'PLATINIUM'&&!isContractEndDatePastOrToday(client.contract.endDate)" class="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden" style="border-width: 2px;border-color: #ac44f9;">
               <span class="tickets font-bold"   style="background-color: #ac44f9;">
 
                 ∞            </span>

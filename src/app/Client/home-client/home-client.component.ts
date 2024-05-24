@@ -4,6 +4,7 @@ import { UserServiceService } from '../../auth/services/user-service.service';
 import { UserNotificationComponent } from '../../notification/user-notification/user-notification.component';
 import { ServiceUserNotifService } from '../../notification/services/service-user-notif.service';
 import { Subscription, interval, switchMap } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-home-client',
@@ -11,7 +12,7 @@ import { Subscription, interval, switchMap } from 'rxjs';
   styleUrl: './home-client.component.css'
 })
 export class HomeClientComponent implements OnInit,OnDestroy{
-  constructor( public serviceClient: ClientServiceService,public userService:UserServiceService   , public notificationService: ServiceUserNotifService,
+  constructor( private datePipe:DatePipe, public serviceClient: ClientServiceService,public userService:UserServiceService   , public notificationService: ServiceUserNotifService,
   )
   
   {
@@ -48,6 +49,12 @@ export class HomeClientComponent implements OnInit,OnDestroy{
       });
    
   }
+  isContractEndDatePastOrToday(endDate: string): boolean {
+    const today = new Date();
+    const formattedEndDate = new Date(this.datePipe.transform(endDate, 'yyyy-MM-dd') || '');
+    return formattedEndDate <= today;
+  }
+
   navigation(index: number) {
     if (index === 1) {
       this.serviceClient.getPageName = "Dashboard";

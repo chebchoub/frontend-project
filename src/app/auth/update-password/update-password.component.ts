@@ -63,8 +63,6 @@ export class UpdatePasswordComponent {
       }
 
   }
-
-
   openPopUp: string = "";
   showValiderAlert: boolean = false;
   showInvalidAlert: boolean = false;

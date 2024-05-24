@@ -9,17 +9,61 @@
         
             <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
               
-                <div class="col-span-4 sm:col-span-3">
-                  <div class=" bg-white shadow-lg rounded-xl p-6">
-                      <div class="flex flex-col items-center">
-                        <div class="transform mt-4" *ngIf="this.client.contract.archived==true">
+              <div class="col-span-4 sm:col-span-3">
+                <div class=" bg-white shadow-lg rounded-xl p-6">
+                    <div class="flex flex-col items-center">
+                      <div class="transform mt-4" *ngIf="this.client.contract.archived==true">
+                        <div style="display: flex;justify-content: center;margin-left: -23%;">
+
+                            <div class="avatar-container">
+                              <span class="tickets font-bold"  style="background-color: red;">
+                                0
+                            </span>
+                                <div class="image-container" style="border-color:red;"  *ngIf=" this.companyLogoURL; else placeholder" 
+                               
+                                [ngStyle]="{backgroundImage: 'url(' + this.companyLogoURL + ')'}">
+                                </div>
+                            
+                                <ng-template #placeholder>
+                                    <div class="image-container avatar-placeholder">
+                                    </div>
+                                </ng-template>
+
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    <div class="transform mt-4" *ngIf="this.client.contract.archived==false&&isContractEndDatePastOrToday(client.contract.endDate)">
+                      <div style="display: flex;justify-content: center;margin-left: -23%;">
+
+                          <div class="avatar-container">
+                            <span class="tickets font-bold"  style="background-color: red;">
+                              0
+                          </span>
+                              <div class="image-container" style="border-color:red;"  *ngIf=" this.companyLogoURL; else placeholder" 
+                             
+                              [ngStyle]="{backgroundImage: 'url(' + this.companyLogoURL + ')'}">
+                              </div>
+                          
+                              <ng-template #placeholder>
+                                  <div class="image-container avatar-placeholder">
+                                  </div>
+                              </ng-template>
+
+                          </div>
+                          
+                      </div>
+                      
+                  </div>
+                      <div class="transform mt-4" *ngIf="client.contract.premiumType === 'GOLD' &&this.client.contract.archived==false&&!isContractEndDatePastOrToday(client.contract.endDate)">
                           <div style="display: flex;justify-content: center;margin-left: -23%;">
 
                               <div class="avatar-container">
-                                <span class="tickets font-bold"  style="background-color: red;">
-                                  0
-                              </span>
-                                  <div class="image-container" style="border-color:red;"  *ngIf=" this.companyLogoURL; else placeholder" 
+                                  <span class="tickets font-bold"  style="background-color: #FFD700;">
+                                      {{this.client.ticketsAvailable}}
+                                  </span>
+                                  <div class="image-container" style="border-color:#FFD700;"  *ngIf=" this.companyLogoURL; else placeholder" 
                                  
                                   [ngStyle]="{backgroundImage: 'url(' + this.companyLogoURL + ')'}">
                                   </div>
@@ -34,139 +78,117 @@
                           </div>
                           
                       </div>
-                        <div class="transform mt-4" *ngIf="client.contract.premiumType === 'GOLD' &&this.client.contract.archived==false">
-                            <div style="display: flex;justify-content: center;margin-left: -23%;">
+                      <div class="transform mt-4" *ngIf="client.contract.premiumType === 'PLATINIUM'&&this.client.contract.archived==false&&!isContractEndDatePastOrToday(client.contract.endDate)">
+                          <div style="display: flex;justify-content: center;margin-left: -23%;">
 
-                                <div class="avatar-container">
-                                    <span class="tickets font-bold"  style="background-color: #FFD700;">
-                                        {{this.client.ticketsAvailable}}
-                                    </span>
-                                    <div class="image-container" style="border-color:#FFD700;"  *ngIf=" this.companyLogoURL; else placeholder" 
-                                   
-                                    [ngStyle]="{backgroundImage: 'url(' + this.companyLogoURL + ')'}">
-                                    </div>
-                                
-                                    <ng-template #placeholder>
-                                        <div class="image-container avatar-placeholder">
-                                        </div>
-                                    </ng-template>
-
-                                </div>
-                                
-                            </div>
-                            
-                        </div>
-                        <div class="transform mt-4" *ngIf="client.contract.premiumType === 'PLATINIUM'&&this.client.contract.archived==false">
-                            <div style="display: flex;justify-content: center;margin-left: -23%;">
-
-                                <div class="avatar-container">
-                                    <span class="tickets font-bold text-3xl" style="background-color: #ac44f9;">
-                                        ∞
-                                    </span>
-                                    <div class="image-container"  style="border-color:#ac44f9;"  *ngIf=" this.companyLogoURL; else placeholder" 
-                                    [ngStyle]="{backgroundImage: 'url(' + this.companyLogoURL + ')'}">
-                                    </div>
-                                
-                                    <ng-template #placeholder>
-                                        <div class="image-container avatar-placeholder">
-                                        </div>
-                                    </ng-template>
-      
-                                </div>
-                                
-                            </div>
-                                                   </div>
-                        <div class="transform mt-4" *ngIf="client.contract.premiumType === 'SILVER'&&this.client.contract.archived==false">
-                            <div style="display: flex;justify-content: center;margin-left: -23%;">
-
-                                <div class="avatar-container">
-                                    <span class="tickets font-bold"  style="background-color: #cccccc;">
-                                        {{this.client.ticketsAvailable}}
-
-                                    </span>
-                                    <div class="image-container" style="border-color:#cccccc;"  *ngIf=" this.companyLogoURL; else placeholder" 
-                                    [ngStyle]="{backgroundImage: 'url(' + this.companyLogoURL + ')'}">
-                                    </div>
-                                
-                                    <ng-template #placeholder>
-                                        <div class="image-container avatar-placeholder">
-                                        </div>
-                                    </ng-template>                          
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <h1 class="text-xl font-bold" style="margin-left: -25px;">{{this.client.contract.entreprise}}</h1>
-                        <div class="text-sm leading-normal  text-gray-400 font-bold uppercase" style="margin-top: 5px;"
-                        *ngIf="this.client.contract.archived==false" >
-                        <form class="max-w-xs mx-auto" [formGroup]="ticketsAvailableForm" style="margin-left: 5px;">
-                          <div class="relative flex items-center max-w-[8rem]">
-                            <button type="button" id="decrement-button" (click)="decrementTickets()"
-                              data-input-counter-decrement="quantity-input"
-                              class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
-                              <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M1 1h16" />
-                              </svg>
-                            </button>
-                            <input type="text" id="ticketsAvailable" formControlName="ticketsAvailable" data-input-counter
-                              data-input-counter-min="1" data-input-counter-max="50" style="font-size: 1.5em;"
-                              aria-describedby="helper-text-explanation"
-                              class="bg-gray-50 border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                              required />
-                            <span
-                              *ngIf="ticketsAvailableForm.get('ticketsAvailable').invalid && ticketsAvailableForm.get('ticketsAvailable').touched && ticketsAvailableForm.get('ticketsAvailable').errors?.required"
-                              class="error-message" style="color: red; font-size: 0.8rem;">
-                              ticketsAvailable is required.
-                            </span>
-                            <span
-                              *ngIf="ticketsAvailableForm.get('ticketsAvailable').invalid && ticketsAvailableForm.get('ticketsAvailable').touched && ticketsAvailableForm.get('ticketsAvailable').errors?.min"
-                              class="error-message" style="color: red; font-size: 0.8rem;">
-                              ticketsAvailable must be greater than or equal to 0.
-                            </span>
-                            <button type="button" id="increment-button" (click)="incrementTickets()"
-                              data-input-counter-increment="quantity-input"
-                              class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
-                              <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M9 1v16M1 9h16" />
-                              </svg>
-                            </button>
+                              <div class="avatar-container">
+                                  <span class="tickets font-bold text-3xl" style="background-color: #ac44f9;">
+                                      ∞
+                                  </span>
+                                  <div class="image-container"  style="border-color:#ac44f9;"  *ngIf=" this.companyLogoURL; else placeholder" 
+                                  [ngStyle]="{backgroundImage: 'url(' + this.companyLogoURL + ')'}">
+                                  </div>
+                              
+                                  <ng-template #placeholder>
+                                      <div class="image-container avatar-placeholder">
+                                      </div>
+                                  </ng-template>
+    
+                              </div>
+                              
                           </div>
-                        </form>
-                        <div class="text-sm leading-normal mt-2  text-gray-400 font-bold uppercase" style="margin-left: -20px;">
-                        <button type="button" (click)="this.toggleModalCreate('confirmUpdate')"
-                          class="py-3 px-4 text-sm focus:outline-none leading-none text-gray-700 bg-blue-100 hover:bg-blue-200 rounded">
-                          Edit Tickets Available
-                        </button>
-                        </div>  
-                        </div>
+                                                 </div>
+                      <div class="transform mt-4" *ngIf="client.contract.premiumType === 'SILVER'&&this.client.contract.archived==false&&!isContractEndDatePastOrToday(client.contract.endDate)">
+                          <div style="display: flex;justify-content: center;margin-left: -23%;">
+
+                              <div class="avatar-container">
+                                  <span class="tickets font-bold"  style="background-color: #cccccc;">
+                                      {{this.client.ticketsAvailable}}
+
+                                  </span>
+                                  <div class="image-container" style="border-color:#cccccc;"  *ngIf=" this.companyLogoURL; else placeholder" 
+                                  [ngStyle]="{backgroundImage: 'url(' + this.companyLogoURL + ')'}">
+                                  </div>
+                              
+                                  <ng-template #placeholder>
+                                      <div class="image-container avatar-placeholder">
+                                      </div>
+                                  </ng-template>                          
+                              </div>
+                          </div>
+                          
                       </div>
-                        <hr class="my-6 border-t border-gray-300 ">
-                        <div class="flex flex-col">
-                            <form >
-                                <label for="email" class="font-semibold text-lg">Email</label>
-                                <div class="mb-2  grid gap-4  sm:grid-cols-2">                     
-                                        <input   [value]="this.client.email" style="width: 230px;" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent   appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  disabled/>
-                                    </div>
-                                <label class="font-semibold text-lg">Password</label>
-                                <div class="mb-2  grid gap-4  sm:grid-cols-2">                     
-                                    <input  type="password" name="floating_email" id="floating_email" [value]="this.client.email" style="width: 230px;" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent   appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  disabled/>
-                                </div>                          
-                                <label class="font-semibold text-lg">Phone number</label>
-                                <div class="mb-2  grid gap-4  sm:grid-cols-2">                     
-                                    <input  type="text" name="floating_email" id="floating_email" [value]="this.client.phoneNumber" style="width: 230px;" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent   appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  disabled/>
-                                </div>              
-                                <label class="font-semibold text-lg">Location</label>
-                                <div class="mb-2  grid gap-4  sm:grid-cols-2">                     
-                                    <input  type="text" name="floating_email" id="floating_email" [value]="this.client.location" style="width: 230px;" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent   appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  disabled/>    
-                                </div>      
-                            </form>
+                      <h1 class="text-xl font-bold" style="margin-left: -25px;">{{this.client.contract.entreprise}}</h1>
+                      <div class="text-sm leading-normal  text-gray-400 font-bold uppercase" style="margin-top: 5px;"
+                      *ngIf="this.client.contract.archived==false&&!isContractEndDatePastOrToday(client.contract.endDate)&&this.client.contract.premiumType==='GOLD' || this.client.contract.premiumType==='SILVER'" >
+                      <form class="max-w-xs mx-auto" [formGroup]="ticketsAvailableForm" style="margin-left: 5px;">
+                        <div class="relative flex items-center max-w-[8rem]">
+                          <button type="button" id="decrement-button" (click)="decrementTickets()"
+                            data-input-counter-decrement="quantity-input"
+                            class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+                            <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true"
+                              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M1 1h16" />
+                            </svg>
+                          </button>
+                          <input type="text" id="ticketsAvailable" formControlName="ticketsAvailable" data-input-counter
+                            data-input-counter-min="1" data-input-counter-max="50" style="font-size: 1.5em;"
+                            aria-describedby="helper-text-explanation"
+                            class="bg-gray-50 border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            required />
+                          <span
+                            *ngIf="ticketsAvailableForm.get('ticketsAvailable').invalid && ticketsAvailableForm.get('ticketsAvailable').touched && ticketsAvailableForm.get('ticketsAvailable').errors?.required"
+                            class="error-message" style="color: red; font-size: 0.8rem;">
+                            ticketsAvailable is required.
+                          </span>
+                          <span
+                            *ngIf="ticketsAvailableForm.get('ticketsAvailable').invalid && ticketsAvailableForm.get('ticketsAvailable').touched && ticketsAvailableForm.get('ticketsAvailable').errors?.min"
+                            class="error-message" style="color: red; font-size: 0.8rem;">
+                            ticketsAvailable must be greater than or equal to 0.
+                          </span>
+                          <button type="button" id="increment-button" (click)="incrementTickets()"
+                            data-input-counter-increment="quantity-input"
+                            class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+                            <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true"
+                              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 1v16M1 9h16" />
+                            </svg>
+                          </button>
                         </div>
+                      </form>
+                      <div class="text-sm leading-normal mt-2  text-gray-400 font-bold uppercase" style="margin-left: -20px;">
+                      <button type="button" (click)="this.toggleModalCreate('confirmUpdate')"
+                        class="py-3 px-4 text-sm focus:outline-none leading-none text-gray-700 bg-blue-100 hover:bg-blue-200 rounded">
+                        Edit Tickets Available
+                      </button>
+                      </div>  
+                      </div>
                     </div>
-                </div>
+                      <hr class="my-6 border-t border-gray-300 ">
+                      <div class="flex flex-col">
+                          <form >
+                              <label for="email" class="font-semibold text-lg">Email</label>
+                              <div class="mb-2  grid gap-4  sm:grid-cols-2">                     
+                                      <input   [value]="this.client.email" style="width: 230px;" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent   appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  disabled/>
+                                  </div>
+                              <label class="font-semibold text-lg">Password</label>
+                              <div class="mb-2  grid gap-4  sm:grid-cols-2">                     
+                                  <input  type="password" name="floating_email" id="floating_email" [value]="this.client.email" style="width: 230px;" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent   appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  disabled/>
+                              </div>                          
+                              <label class="font-semibold text-lg">Phone number</label>
+                              <div class="mb-2  grid gap-4  sm:grid-cols-2">                     
+                                  <input  type="text" name="floating_email" id="floating_email" [value]="this.client.phoneNumber" style="width: 230px;" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent   appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  disabled/>
+                              </div>              
+                              <label class="font-semibold text-lg">Location</label>
+                              <div class="mb-2  grid gap-4  sm:grid-cols-2">                     
+                                  <input  type="text" name="floating_email" id="floating_email" [value]="this.client.location" style="width: 230px;" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent   appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  disabled/>    
+                              </div>      
+                          </form>
+                      </div>
+                  </div>
+              </div>
                 <div class="col-span-4 sm:col-span-9 bg-white  shadow-lg rounded-xl" *ngIf="this.client.contract.archived==false">
                   <button style="margin-left: 96%;margin-top: 1%" type="button"
                   class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -265,7 +287,7 @@
                             </g>
                           </svg></button>
                       
-                        <button (click)="toggleModalEdit('edit',client.contract.id)"
+                        <button (click)="toggleModalEdit('edit',client.contract.id,client.id)"
                           class="py-2 px-2.5 text-sm focus:outline-none leading-none text-green-700 bg-green-100 hover:bg-green-200 rounded "
                           style="margin-left: 10px"><svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">

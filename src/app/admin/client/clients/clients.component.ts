@@ -4,6 +4,7 @@ import { ServiceContratService } from '../../services/service-contrat.service';
 import { FormGroup } from '@angular/forms';
 import { ServiceClientsService } from '../../services/service-clients.service';
 import { EmailServiceService } from '../../services/email-service.service';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
@@ -16,7 +17,7 @@ export class ClientsComponent implements OnInit {
     setTimeout(() => {
       this.contractService.getPageName = 'CLIENTS';
     });  }
-  constructor(public emailService:EmailServiceService,private router: Router, public clientService: ServiceClientsService,private contractService:ServiceContratService) { }
+  constructor(private datePipe: DatePipe,public emailService:EmailServiceService,private router: Router, public clientService: ServiceClientsService,private contractService:ServiceContratService) { }
   clients!: any[];
   getAllClients(): void {
     this.clientService.getAllClients().subscribe(clients => {
@@ -39,6 +40,12 @@ export class ClientsComponent implements OnInit {
     });
 
   }
+  isContractEndDatePastOrToday(endDate: string): boolean {
+    const today = new Date();
+    const formattedEndDate = new Date(this.datePipe.transform(endDate, 'yyyy-MM-dd') || '');
+    return formattedEndDate <= today;
+  }
+
   cancelDelete(): void {
     this.clientService.selectedClientId= "";
     this.closeModal()
@@ -119,7 +126,7 @@ export class ClientsComponent implements OnInit {
   }
   closeModal() {
     this.clientService.closeModal();
-    this.router.navigate(['/homeAdmin/clients']);
+    this.getAllClients()
   }
   toggleModalDelete(destination: string, idContract: string) {
     this.openPopUp = destination;

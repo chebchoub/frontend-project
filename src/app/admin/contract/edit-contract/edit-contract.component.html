@@ -75,15 +75,7 @@
                     </span>
 
                   </div>
-                  <div class="col-span-2 sm:col-span-1" *ngIf="contractForm.get('contractType')?.value === 'PREMIUM' && contractForm.get('premiumType')?.value !== 'PLATINIUM'  ">
-                    <label for="tickets" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tickets  <span style="color: red;"> *</span></label>
-                    <input type="number" name="tickets" id="tickets" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  formControlName="tickets" placeholder="Enter tickets">
-                    <span *ngIf="contractForm.get('tickets').invalid && contractForm.get('tickets').touched && contractForm.get('tickets').errors?.invalidTickets" class="error-message" style="color: red;
-                    font-size: 0.8rem;">
-                        Tickets must be equal to 5.
-
-                    </span>
-                </div>
+                  
 
                   <div class="col-span-2">
                       <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>

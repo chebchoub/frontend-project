@@ -115,7 +115,7 @@
         style="width: 390px;">
         <div class="bg-white relative shadow rounded-lg">
             <div class="flex justify-center">
-                <div *ngIf="client.contract.archived==true"
+                <div *ngIf="client.contract.archived==true&&!isContractEndDatePastOrToday(client.contract.endDate)"
                     class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md transition duration-200 transform hover:scale-110"
                     style="border-color: red;">
                     <span class="tickets flex items-center justify-center font-bold" style="background-color: red;">
@@ -123,7 +123,17 @@
                     </span>
                     <img [src]="client.companyLogo" alt=""style="border-color:red; border-width: 6px;" class="rounded-full mx-auto absolute  w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110">
                 </div>
-                <div *ngIf="client.contract.contractType === 'STANDARD'&&this.client.contract.archived==false"
+                    <div *ngIf="isContractEndDatePastOrToday(client.contract.endDate) && client.contract.archived == false"
+                    class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md transition duration-200 transform hover:scale-110"
+                    style="border-color: red;">
+                    <span class="tickets flex items-center justify-center font-bold" style="background-color: red;">
+                    0
+                    </span>
+                    <img [src]="client.companyLogo" alt="" style="border-color:red; border-width: 6px;"
+                    class="rounded-full mx-auto absolute w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110">
+                </div>
+                
+                <div *ngIf="client.contract.contractType === 'STANDARD'&&this.client.contract.archived==false&&!isContractEndDatePastOrToday(client.contract.endDate)"
                     class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md transition duration-200 transform hover:scale-110"
                     style="border-color: #6f9fd8;">
                     <span class="tickets flex items-center justify-center font-bold" style="background-color: #6f9fd8;">
@@ -132,7 +142,7 @@
                     <img [src]="client.companyLogo" alt=""style="border-color:#6f9fd8; border-width: 6px;" class="rounded-full mx-auto absolute  w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110">
                 </div>
                 
-                <div *ngIf="client.contract.premiumType === 'SILVER'&&this.client.contract.archived==false"
+                <div *ngIf="client.contract.premiumType === 'SILVER'&&this.client.contract.archived==false&&!isContractEndDatePastOrToday(client.contract.endDate)"
                     class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md transition duration-200 transform hover:scale-110"
                  >
                     <span class="tickets font-bold" style="background-color: #cccccc;">
@@ -141,7 +151,7 @@
 
                     <img [src]="client.companyLogo" alt="" style="border-color:#cccccc; border-width: 6px;" class="rounded-full mx-auto absolute  w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110">
                 </div>
-                <div *ngIf="client.contract.premiumType === 'GOLD'&&this.client.contract.archived==false"
+                <div *ngIf="client.contract.premiumType === 'GOLD'&&this.client.contract.archived==false&&!isContractEndDatePastOrToday(client.contract.endDate)"
                     class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md transition duration-200 transform hover:scale-110"
                  >
                     <span class="tickets font-bold" style="background-color: #FFD700;">
@@ -150,7 +160,7 @@
 
                     <img [src]="client.companyLogo" alt="" style="border-color:#FFD700; border-width: 6px;" class="rounded-full mx-auto absolute  w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110">
                 </div>
-                <div *ngIf="client.contract.premiumType === 'PLATINIUM'&&this.client.contract.archived==false"
+                <div *ngIf="client.contract.premiumType === 'PLATINIUM'&&this.client.contract.archived==false&&!isContractEndDatePastOrToday(client.contract.endDate)"
                     class="flex justify-center rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md transition duration-200 transform hover:scale-110"
                    >
                     <span class="tickets font-bold" style="background-color: #ac44f9;font-size: 2.5em;">
@@ -163,9 +173,12 @@
                 <p class="text-center text-sm text-gray-400 font-medium"
                 *ngIf="this.client.contract.archived==true">His contract is archived</p>
                 <p class="text-center text-sm text-gray-400 font-medium"
-                    *ngIf="client.contract.contractType === 'STANDARD'&&this.client.contract.archived==false"> Contract Type STANDARD</p>
+                *ngIf="this.client.contract.archived==false&&isContractEndDatePastOrToday(client.contract.endDate)">    The contract is terminated.
+                </p>
                 <p class="text-center text-sm text-gray-400 font-medium"
-                    *ngIf="client.contract.contractType === 'PREMIUM'&&this.client.contract.archived==false"> Contract Type {{client.contract.premiumType}}
+                    *ngIf="client.contract.contractType === 'STANDARD'&&this.client.contract.archived==false&&!isContractEndDatePastOrToday(client.contract.endDate)"> Contract Type STANDARD</p>
+                <p class="text-center text-sm text-gray-400 font-medium"
+                    *ngIf="client.contract.contractType === 'PREMIUM'&&this.client.contract.archived==false&&!isContractEndDatePastOrToday(client.contract.endDate)"> Contract Type {{client.contract.premiumType}}
                 </p>
                 <p>
                     <span></span>

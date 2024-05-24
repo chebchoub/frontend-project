@@ -38,7 +38,6 @@ export class AddContractToClientComponent implements OnInit {
         setTimeout(() => {
           location.reload()
         }, 2000);
-         
       }
       this.toggleModalAlert("alert")
       setTimeout(() => {
