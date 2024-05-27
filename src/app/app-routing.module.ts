@@ -99,7 +99,6 @@ const routes: Routes = [
       { path: 'techniciensArchvied', component: TechnicienArchivedComponent, canActivate: [SuperManagerGuard] },
       { path: 'clientsArchived', component: ClientsArchivedComponent, canActivate: [SuperManagerGuard] },
       { path: 'contractsArchived', component: ContractsArchivedComponent, canActivate: [SuperManagerGuard] },
-
       { path: 'updatePassword', component: UpdatePasswordComponent },
 
 
