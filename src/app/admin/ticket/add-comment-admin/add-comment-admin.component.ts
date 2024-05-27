@@ -7,6 +7,7 @@ import { TicketServiceService } from '../../services/ticket-service.service';
 import { ServiceTechnicianService } from '../../services/service-technician.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { DatePipe } from '@angular/common';
 interface ImageItem {
   base64Data: string;
   filename: string;
@@ -42,7 +43,7 @@ export class AddCommentAdminComponent implements OnInit{
     this.messageForm = this.formBuilder.group({
       comment: ['', [Validators.required]],
     }); }
-  constructor(private cookieService: CookieService,private formBuilder: FormBuilder,public technicianService: ServiceTechnicianService,public ticketService:TicketServiceService,public emailService:EmailServiceService,private router: Router, public clientService: ServiceClientsService,private contractService:ServiceContratService) { }
+  constructor(private datePipe: DatePipe,private cookieService: CookieService,private formBuilder: FormBuilder,public technicianService: ServiceTechnicianService,public ticketService:TicketServiceService,public emailService:EmailServiceService,private router: Router, public clientService: ServiceClientsService,private contractService:ServiceContratService) { }
   tickets!: any[];
 
   
@@ -276,6 +277,11 @@ selectedImages: ImageItem[] = [];
 
     }
 
+  }
+  isContractEndDatePastOrToday(endDate: string): boolean {
+    const today = new Date();
+    const formattedEndDate = new Date(this.datePipe.transform(endDate, 'yyyy-MM-dd') || '');
+    return formattedEndDate <= today;
   }
 
 }

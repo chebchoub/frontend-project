@@ -1,13 +1,14 @@
 
   
  #p{
-  font-weight: 600;
+  font-weight: 650;
   text-align: center;
   text-transform: uppercase;
   font-family: inherit;
   font-size: 2em;
   color: black;
   margin-left: 5px;
+
 }
   main {
     max-height: calc(100vh - 50px); /* 80px correspond à la hauteur de votre header */

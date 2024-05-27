@@ -48,13 +48,14 @@ import { ManagerArchivedComponent } from './admin/archive/managesArchived/manage
 import { TechnicienArchivedComponent } from './admin/archive/technicienArchived/technicien-archived/technicien-archived.component';
 import { ClientsArchivedComponent } from './admin/archive/ClientsArchived/clients-archived/clients-archived.component';
 import { ContractsArchivedComponent } from './admin/archive/contractsArchived/contracts-archived/contracts-archived.component';
+import { ProfileManagerComponent } from './admin/manager/profile-manager/profile-manager.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // Redirige le chemin vide vers 'home'
   { path: 'home', component: HomeComponent },
 
   { path: 'clientRegister', component: ClientRegisterComponent },
-  { path: 'technicienRegister', component: TechnicienRegisterComponent, canActivate: [TokenGuard] },
+  { path: 'technicienRegister', component: TechnicienRegisterComponent},
   { path: 'managerRegister', component: RegisterManagerComponent, canActivate: [TokenGuard] },
 
   { path: 'login', component: LoginComponent },
@@ -92,6 +93,8 @@ const routes: Routes = [
 
       { path: 'managers', component: ManagersComponent, canActivate: [SuperManagerGuard] },
       { path: 'viewManager', component: ViewmManagerComponent, canActivate: [SuperManagerGuard] },
+      { path: 'ManagerProfile', component: ProfileManagerComponent },
+
       { path: 'managersArchvied', component: ManagerArchivedComponent, canActivate: [SuperManagerGuard] },
       { path: 'techniciensArchvied', component: TechnicienArchivedComponent, canActivate: [SuperManagerGuard] },
       { path: 'clientsArchived', component: ClientsArchivedComponent, canActivate: [SuperManagerGuard] },
@@ -109,9 +112,7 @@ const routes: Routes = [
     path: 'homeClient', component: HomeClientComponent, canActivate: [ClientGuard],
     children: [
       { path: '', redirectTo: 'dashboardClient', pathMatch: 'full' }, // Redirection de homeClient vers dashboardClient
-
       { path: 'dashboardClient', component: DashboardClientComponent, canActivate: [ClientGuard] },
-
       { path: 'contract', component: ContractComponent, canActivate: [ClientGuard] },
       { path: 'tickets', component: TicketsClientComponent, canActivate: [ClientGuard] },
       { path: 'tickets/:id', component: TicketsClientComponent, canActivate: [ClientGuard] },

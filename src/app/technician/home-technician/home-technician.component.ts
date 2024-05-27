@@ -3,56 +3,70 @@ import { ServiceTechnicianService } from '../service/service-technician.service'
 import { UserServiceService } from '../../auth/services/user-service.service';
 import { ServiceUserNotifService } from '../../notification/services/service-user-notif.service';
 import { Subscription, interval, switchMap } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-home-technician',
   templateUrl: './home-technician.component.html',
-  styleUrl: './home-technician.component.css'
+  styleUrls: ['./home-technician.component.css']
 })
-export class HomeTechnicianComponent implements OnInit,OnDestroy {
-  constructor(public technicienService:ServiceTechnicianService,public userService:UserServiceService,public notificationService: ServiceUserNotifService)
-  {
-
-  }
-  ngOnInit(): void {
-    this.getTechnicianDetails()
-  }
-  technician:any;
+export class HomeTechnicianComponent implements OnInit, OnDestroy {
+  technician: any;
   private notificationSubscription!: Subscription;
   isNotificationOpen: boolean = false;
-  notifs!:any[];
+  hasNewNotification: boolean = false;  // New flag to track new notifications
+  notifs!: any[];
   openPopUp: string = "";
+  private refreshInterval!: Subscription;
+  private page = 0;
+  private size = 10;
+
+  constructor(
+    private cookieService:CookieService,
+    public technicienService: ServiceTechnicianService,
+    public userService: UserServiceService,
+    public notificationService: ServiceUserNotifService
+  ) { }
+
+  ngOnInit(): void {
+    this.cookieService.set('ticketID', '', 7, '/', '', true, 'Lax');
+
+    this.getTechnicianDetails();
+  }
+
+  ngOnDestroy(): void {
+    if (this.refreshInterval) {
+      this.refreshInterval.unsubscribe();
+    }
+  }
 
   getTechnicianDetails(): void {
     this.technicienService.getEmailFromToken().subscribe(
       (response) => {
         this.technicienService.getTechnicianByEmail(response).subscribe(technician => {
-          this.technician=technician;
-          this.technicienService.technicianLogedIn=technician;
+          this.technician = technician;
+          this.technicienService.technicianLogedIn = technician;
           this.technicienService.updateTechnicianRating(technician.id).subscribe(
             (response: any) => {
-              console.log(response)      
-        });
+              console.log(response);
+            }
+          );
           this.notificationService.idUserLogin = technician.id;
-
-                this.getFalseNotificationsForAdmin(technician.id);
-
-                this.notificationSubscription = interval(100).pipe(
-                  switchMap(() => this.notificationService.getFalseNotificationsForUser(technician.id))
-                ).subscribe(notif => {
-                  this.notifs = notif;
-                  if (this.notifs.length > 0) {
-                    this.isNotificationOpen = true;
-                  }
-                });
-        
-         });
+          this.setupAutoRefresh(technician.id);
+        });
       });
   }
-  ngOnDestroy(): void {
-    if (this.notificationSubscription) {
-      this.notificationSubscription.unsubscribe();
-    }
+
+  
+  setupAutoRefresh(id: string): void {
+    this.refreshInterval = interval(10000).pipe(
+      switchMap(() => this.notificationService.getAllNotificationsForUser(id, 0, this.size))
+    ).subscribe(response => {
+      if (response && response.content) {
+        this.notifs = response.content;
+        this.hasNewNotification = this.notifs.some(notif => !notif.readStatus);
+      }
+    });
   }
 
   navigation(index: number) {
@@ -60,23 +74,20 @@ export class HomeTechnicianComponent implements OnInit,OnDestroy {
       this.technicienService.getPageName = "Dashboard";
     } else if (index === 2) {
       this.technicienService.getPageName = "Tickets";
-
     } else if (index === 3) {
       this.technicienService.getPageName = "Profile";
-
     } else if (index === 4) {
-    } else {
+      // Handle other navigation
     }
   }
-  logout()
-  {
+
+  logout() {
     this.userService.logout();
   }
 
   getFalseNotificationsForAdmin(id: string): void {
     this.notificationService.getFalseNotificationsForUser(id).subscribe(notif => {
       this.notifs = notif;
-      
     });
   }
 
@@ -84,19 +95,18 @@ export class HomeTechnicianComponent implements OnInit,OnDestroy {
     this.notificationService.markNotificationsAsRead(this.notifs).subscribe(
       (response) => {
         console.log('Notifications marked as read:', response);
+        this.hasNewNotification = false;
       }
     );
-
   }
 
-
   toggleModalNotification() {
+    this.isNotificationOpen = !this.isNotificationOpen;
+    this.hasNewNotification = false;  // Reset the flag when the modal is opened
     this.notificationService.toggleModal();
-    this.isNotificationOpen = false;
 
     setTimeout(() => {
-      this.markNotificationsAsRead()
+      this.markNotificationsAsRead();
     }, 7000);
   }
 }
-

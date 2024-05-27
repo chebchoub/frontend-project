@@ -9,6 +9,7 @@ import * as Highcharts from 'highcharts';
 import HighchartsMore from 'highcharts/highcharts-more';
 import HighchartsExporting from 'highcharts/modules/exporting';
 import HighchartsExportData from 'highcharts/modules/export-data';
+import { DatePipe } from '@angular/common';
 
 HighchartsMore(Highcharts);
 HighchartsExporting(Highcharts);
@@ -22,6 +23,7 @@ HighchartsExportData(Highcharts);
 export class DashboardComponent implements OnInit {
   [x: string]: any;
   constructor(
+    private datePipe: DatePipe,
     public technicianService: ServiceTechnicianService,
     public ticketService: TicketServiceService,
     public emailService: EmailServiceService,
@@ -255,6 +257,12 @@ export class DashboardComponent implements OnInit {
     });
 
   }
+  isContractEndDatePastOrToday(endDate: string): boolean {
+    const today = new Date();
+    const formattedEndDate = new Date(this.datePipe.transform(endDate, 'yyyy-MM-dd') || '');
+    return formattedEndDate <= today;
+  }
+
   openPopUp: string = "";
 
   toggleModalview(destination: string, idContract: string) {

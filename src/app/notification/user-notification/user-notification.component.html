@@ -1,13 +1,11 @@
 <div id="dropdownNotification" class="z-20 max-w-sm bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-800 dark:divide-gray-700" aria-labelledby="dropdownNotificationButton">
-  <div class="block px-4 py-2 font-medium text-center text-gray-700 rounded-t-lg text-white"  style="background-color: #27284E;">
+  <div class="block px-4 py-2 font-medium text-center text-gray-700 rounded-t-lg text-white" style="background-color: #27284E;">
     Notifications
   </div>
-  <div class="divide-y divide-gray-100 dark:divide-gray-700" id="ul" >
-
-    <div *ngFor="let notif of this.notifs">
-      <a class="flex px-4 py-4 hover:bg-red-200 dark:hover:bg-red-700 bg-red-100" *ngIf=" notif.readStatus==false"  >
+  <div class="divide-y divide-gray-100 dark:divide-gray-700" id="ul">
+    <div *ngFor="let notif of notifs">
+      <a class="flex px-4 py-4" [ngClass]="{'bg-red-100 hover:bg-red-200 dark:hover:bg-red-700': notif.isNew, 'hover:bg-gray-100 dark:hover:bg-gray-700': !notif.isNew}">
         <div class="w-full">
-       
           <div class="text-gray-500 text-1xl mb-1.5 dark:text-gray-400">
             <span class="font-semibold text-gray-900 dark:text-white">{{ notif.message }}</span>
           </div>
@@ -16,17 +14,14 @@
           </div>
         </div>
       </a>
-    <a class="flex px-4 py-4 hover:bg-gray-100 dark:hover:bg-gray-700"  *ngIf=" notif.readStatus==true">
-      <div class="w-full" >
-       
-        <div class="text-gray-500 text-1xl mb-1.5 dark:text-gray-400">
-          <span class="font-semibold text-gray-900 dark:text-white">{{ notif.message }}</span>
-        </div>
-        <div class="text-xs text-blue-600 dark:text-blue-500">
-          {{ calculateTimeDifference(notif.createdAt) }}
-        </div>
+    </div>
+    <a *ngIf="!isLastPage && notifs.length > 0" (click)="loadMoreNotifications()" class="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-blue-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
+      <div class="inline-flex items-center">
+        <svg class="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
+          <path d="M10 0C4.612 0 0 5.336 0 7c0 1.742 3.546 7 10 7 6.454 0 10-5.258 10-7 0-1.664-4.612-7-10-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/>
+        </svg>
+        View all
       </div>
     </a>
-    </div>
   </div>
 </div>

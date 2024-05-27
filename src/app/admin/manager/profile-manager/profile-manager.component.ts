@@ -1,26 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { ServiceTechnicianService } from '../service/service-technician.service';
-import { UserServiceService } from '../../auth/services/user-service.service';
+import { ManagerServiceService } from '../../services/manager-service.service';
+import { EmailServiceService } from '../../services/email-service.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ServiceTechnicianService } from '../../services/service-technician.service';
+import { ServiceContratService } from '../../services/service-contrat.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ImageCompressService, ResizeOptions, ImageUtilityService, IImage, SourceImage } from 'ng2-image-compress';
-import { CookieService } from 'ngx-cookie-service';
+import { IImage, ImageCompressService } from 'ng2-image-compress';
 
 @Component({
-  selector: 'app-profile-technicien',
-  templateUrl: './profile-technicien.component.html',
-  styleUrl: './profile-technicien.component.css'
+  selector: 'app-profile-manager',
+  templateUrl: './profile-manager.component.html',
+  styleUrl: './profile-manager.component.css'
 })
-export class ProfileTechnicienComponent implements OnInit{
+export class ProfileManagerComponent implements OnInit{
+  constructor(private imgCompressService: ImageCompressService,private formBuilder: FormBuilder,public  managerService:ManagerServiceService, public emailService: EmailServiceService, private route: ActivatedRoute, private router: Router, public technicianService: ServiceTechnicianService, public contractService: ServiceContratService) { }
   
-  constructor(private imgCompressService: ImageCompressService,public technicienService:ServiceTechnicianService,public userService:UserServiceService,private formBuilder: FormBuilder,private router: Router)
-  {
 
-  }
+  
   ngOnInit(): void {
 
-    this.technicienService.getPageName = "PROFILE";
-    this.getTechnicianDetails()
+    this.contractService.getPageName = "PROFILE";
 
     this.updateProfileForm = this.formBuilder.group({
       profilePhoto: ['', Validators.required],
@@ -29,36 +28,23 @@ export class ProfileTechnicienComponent implements OnInit{
 
       email: ['', [Validators.required, Validators.email, this.emailValidator]],
     });
-    this.updatespecialitieForm=this.formBuilder.group({
-      specialitie:[,Validators.required]
-
-    })
-    this.file = this.technician.profilePhoto
+    this.getManagerDetails()
+    
+    this.file = this.manager.profilePhoto
   }
-  updatespecialitieForm:FormBuilder | any;
-  technician:any;
-  newSpecialities!:any[];
-  specialitiesBefore!:any[];
-  allSpecialities: string[] = ["Virtualization", "Developer", "OpenStack", "Ansible", "Satellite", "Gboss", "JEE", "AmazonCloud", "OpenShift"];
+  manager:any;
+  
 
-  getTechnicianDetails(): void {
-    this.technicienService.getEmailFromToken().subscribe(
-      (response) => {
-        this.technicienService.getTechnicianByEmail(response).subscribe(technician => {
-          this.technician=technician;
-          this.technicienService.technicianLogedIn=technician;
+  getManagerDetails(): void {
+    this.manager=this.managerService.ManagerLOGINID;
 
-          this.specialitiesBefore = [...this.technician.specialities];
-          this.newSpecialities = this.allSpecialities.filter(speciality => !this.specialitiesBefore.includes(speciality));
-          this.profilePhotoURL = this.technician?.profilePhoto || '';});
-          this.updateProfileForm.patchValue({
-            email: this.technician.email,
-            firstName: this.technician.firstName,
-            lastName: this.technician.lastName,
-          });
-          console.log( this.updateProfileForm)
+    this.profilePhotoURL = this.manager?.profilePhoto || '';
+    this.updateProfileForm.patchValue({
+      email: this.manager.email,
+      firstName: this.manager.firstName,
+      lastName: this.manager.lastName,
+    });
 
-      });
   }
   emailValidator(control: any): { [key: string]: boolean } | null {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -123,9 +109,9 @@ export class ProfileTechnicienComponent implements OnInit{
 
     }
     this.updateProfileForm.patchValue({
-      email: this.technician.email,
-      firstName: this.technician.firstName,
-      lastName: this.technician.lastName,
+      email: this.manager.email,
+      firstName: this.manager.firstName,
+      lastName: this.manager.lastName,
 
     });
   }
@@ -136,16 +122,16 @@ export class ProfileTechnicienComponent implements OnInit{
       lastName: this.updateProfileForm.controls.lastName.value,
       profilePhoto: this.profilePhotoURL,
     }
-    this.technicienService.updateUpdateTechnicien(technicianRequest, this.technician.id).subscribe(
+   /* this.technicienService.updateUpdateTechnicien(technicianRequest, this.technician.id).subscribe(
       (response: any) => {
         this.toggleModelUpdateValid()
       }
-    );
+    );*/
   }
   showUpdateValid: boolean = false;
   toggleModelUpdateValid() {
     this.showUpdateValid = true;
-    this.technicienService.toggleModalConfirmer();
+    this.managerService.toggleModalConfirmer();
     setTimeout(() => {
       location.reload();
     }, 2000); 
@@ -165,26 +151,18 @@ export class ProfileTechnicienComponent implements OnInit{
       }
     }
   }
-  updateSpecialitie()
-  {
-    this.technicienService.updateUpdateTechnicienSpecialitie(this.selectedSpecialities, this.technician.id).subscribe(
-      (response: any) => {
-        this.closeModal()
-        
-        this.toggleModelUpdateValid()
-      }
-    );  }
+
   openPopUp: string = "";
   toggleModalUpdateProfile(destination: string) {
     this.openPopUp = destination;
-    this.technicienService.toggleModal();
+    this.managerService.toggleModal();
   }
   toggleModalAddspecialitie(destination: string)
   {
     this.openPopUp = destination;
-    this.technicienService.toggleModal();
+    this.managerService.toggleModal();
   }
   closeModal() {
-    this.technicienService.closeModal();
+    this.managerService.closeModal();
   }
 }

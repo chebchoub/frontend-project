@@ -33,8 +33,7 @@
                                 </div>
                                 
                             </div>
-                            <h1 class="text-xl font-bold">{{this.client.contract.entreprise}}</h1>
-                            <p class="text-gray-700 " style="margin-left: -20px;">{{this.client.contract.premiumType}} CONTRACT</p>
+
                         </div>
                         <div class="transform mt-4" *ngIf="client.contract.premiumType === 'GOLD'&&!isContractEndDatePastOrToday(client.contract.endDate)">
                             <div style="display: flex;justify-content: center;margin-left: -23%;">
@@ -65,8 +64,6 @@
                                 </div>
                                 
                             </div>
-                            <h1 class="text-xl font-bold">{{this.client.contract.entreprise}}</h1>
-                            <p class="text-gray-700 " style="margin-left: -20px;">{{this.client.contract.premiumType}} CONTRACT</p>
                         </div>
                         <div class="transform mt-4" *ngIf="client.contract.premiumType === 'PLATINIUM'&&!isContractEndDatePastOrToday(client.contract.endDate)">
                             <div style="display: flex;justify-content: center;margin-left: -23%;">
@@ -97,8 +94,7 @@
                                 </div>
                                 
                             </div>
-                            <h1 class="text-xl font-bold">{{this.client.contract.entreprise}}</h1>
-                            <p class="text-gray-700 " style="margin-left: -20px;">{{this.client.contract.premiumType}} CONTRACT</p>
+                            
                         </div>
                         <div class="transform mt-4" *ngIf="client.contract.premiumType === 'SILVER'">
                             <div style="display: flex;justify-content: center;margin-left: -23%;">
@@ -130,9 +126,15 @@
                                 </div>
                                 
                             </div>
-                            <h1 class="text-xl font-bold">{{this.client.contract.entreprise}}</h1>
-                            <p class="text-gray-700 " style="margin-left: -20px;">{{this.client.contract.premiumType}} CONTRACT</p>
+      
                         </div>
+                        <div>
+                            <h1 class="text-xl font-bold" >{{this.client.contract.entreprise}}</h1>
+                            <p class="text-gray-700 " *ngIf="!isContractEndDatePastOrToday(client.contract.endDate)">{{this.client.contract.premiumType}} CONTRACT</p>
+                            <p class="text-gray-700 " *ngIf="isContractEndDatePastOrToday(client.contract.endDate)">Contract is over</p>
+
+                        </div>
+                     
                     </div>
                     <hr class="my-6 border-t border-gray-300 ">
                     <div class="flex flex-col">
@@ -176,7 +178,7 @@
             <div class="col-span-4 sm:col-span-9">
                 <div class=" shadow-lg rounded-xl  p-6">
                     <span class="font-bold  text-black text-2xl  mb-2">Contract information</span>
-                    <span class=" text-black text-2xl  mb-2 ml-4 text-red-600">( You contract is terminated )</span>
+                    <span class=" text-black text-2xl  mb-2 ml-4 text-red-600" *ngIf="isContractEndDatePastOrToday(client.contract.endDate)">( You contract is over )</span>
 
                    
                     <dl class="sm:divide-y sm:divide-gray-200">

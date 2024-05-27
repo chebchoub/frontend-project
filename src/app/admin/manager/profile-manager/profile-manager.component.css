@@ -1,0 +1,139 @@
+.tickets {
+    position: absolute;
+    top: -20px;
+    right: 0px;
+    z-index: 2;
+    color: black;
+    display: inline-block;
+    height: 45px;
+    line-height: 50px;
+    width: 45px;
+    border-radius: 50px;
+    background: #fdc632;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Rubik", sans-serif;
+    font-size: 25px;
+    text-align: center;
+ 
+}.error {
+    border-color: red;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.8rem;
+}.avatar-container {
+    position: relative;
+    width: fit-content;
+}
+
+
+.avatar-container label{
+    margin-bottom: 50px;
+}
+.image-container {
+    height: 150px;
+    width: 150px;
+    border-color: #e2e2e2;
+    z-index: 1;
+    border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+ 
+}
+.icon-wrapper {
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    padding: .35rem;
+    border-radius: 50%;
+    display: flex;
+    background-color: rgb(240, 240, 240);
+    align-items: center;
+    justify-content: center;
+
+    right: 0;
+    top: 75%;
+    z-index: 2;
+    cursor: pointer;
+
+
+
+    .icon {
+        color: white;
+        width: 25px;
+    }
+
+    label {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    input[type='file'] {
+        display: none;
+    }
+}
+.icon-wrapper:hover {
+
+background-color: #e2e2e2;}
+#bt:hover {
+    background-color: #0b0d41; /* Remplacez "your-hover-color" par la couleur de fond que vous souhaitez au survol */
+}
+#bt {
+    background-color:#27284E /* Remplacez "your-hover-color" par la couleur de fond que vous souhaitez au survol */
+    ;width: 40%;
+    margin-left: 30%;
+
+}
+button{
+    transition: 0.3s;
+    font-family: inherit;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  .icon2{
+    height: 40px;
+    width: 40px;
+    padding: .35rem;
+    border-radius: 50%;
+    background-color: rgb(240, 240, 240);
+    margin-left: 160%;
+  }.icon2:hover {
+
+    background-color: #e2e2e2;}
+    #bt2:hover {
+        background-color: #0b0d41; /* Remplacez "your-hover-color" par la couleur de fond que vous souhaitez au survol */
+    }
+    #bt2 {
+        background-color:#27284E /* Remplacez "your-hover-color" par la couleur de fond que vous souhaitez au survol */
+        ;width: 200px;
+        margin-left: 35%;
+        margin-top: 10px;
+    
+    }
+
+    #ul
+    {
+        max-height: calc(40vh - 50px); /* 80px correspond à la hauteur de votre header */
+        overflow-y: auto; /* Activer le défilement vertical lorsque le contenu dépasse la hauteur maximale */
+        flex-grow: 1;
+    
+      }
+      /* Personnalisation de la barre de défilement */
+    #ul::-webkit-scrollbar {
+      width: 7px; /* Largeur de la barre de défilement */
+    }
+    
+    #ul::-webkit-scrollbar-track {
+      background: transparent; /* Couleur de fond de la piste */
+    }
+    
+    #ul::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.2); /* Couleur de la barre de défilement */
+      border-radius: 10px; /* Rayon des coins de la barre de défilement */
+    }
+    

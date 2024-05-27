@@ -28,11 +28,13 @@
             </svg>
           </a>
           
-          <a style="height: 40px;" (click)="this.navigation(3)" title="Contracts" routerLink="/homeClient/profile"
+          <a style="height: 40px;" (click)="this.navigation(3)" title="Profile" routerLink="/homeClient/profile"
             class="inline-flex items-center justify-center py-3 text-black-400  hover:text-gray hover:bg-white rounded-lg">
-            <span class="sr-only">Contracts</span>
-            <svg width="40px" height="35px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 17H15M9 13H15M9 9H10M13 3H8.2C7.0799 3 6.51984 3 6.09202 3.21799C5.71569 3.40973 5.40973 3.71569 5.21799 4.09202C5 4.51984 5 5.0799 5 6.2V17.8C5 18.9201 5 19.4802 5.21799 19.908C5.40973 20.2843 5.71569 20.5903 6.09202 20.782C6.51984 21 7.0799 21 8.2 21H15.8C16.9201 21 17.4802 21 17.908 20.782C18.2843 20.5903 18.5903 20.2843 18.782 19.908C19 19.4802 19 18.9201 19 17.8V9M13 3L19 9M13 3V7.4C13 7.96005 13 8.24008 13.109 8.45399C13.2049 8.64215 13.3578 8.79513 13.546 8.89101C13.7599 9 14.0399 9 14.6 9H19" stroke="#808080" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-          </a>
+            <span class="sr-only">Profile</span>
+            <span class="sr-only">¨Profile</span>
+            <svg class="w-8 h-7 " style="color: #808080;" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4H1m3 4H1m3 4H1m3 4H1m6.071.286a3.429 3.429 0 1 1 6.858 0M4 1h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1Zm9 6.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"/>
+              </svg>             </a>
           <button (click)="logout()" style="margin-top: 400px;"
           class="inline-flex items-center justify-center py-3 text-black-400  hover:text-gray hover:bg-white rounded-lg">              <span class="sr-only">Log out</span>
               <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-8 w-8">
@@ -86,22 +88,24 @@
                 [src]="this.client.companyLogo"
                 alt="user profile photo" class="h-full w-full object-cover">
             </span>
-            <span *ngIf="client.contract.premiumType === 'SILVER'&&!isContractEndDatePastOrToday(client.contract.endDate)" class="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden" style="border-width: 2px;border-color: #cccccc;">
-              <span class="tickets font-bold"  style="background-color: #cccccc;">
+            <span *ngIf="client.contract.premiumType === 'SILVER'&&!isContractEndDatePastOrToday(client.contract.endDate)" class="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden" style="border-width: 4px;border-color: #cccccc;;">
+              <span class="tickets font-bold" style="background-color: #cccccc;;">
                 {{client.ticketsAvailable}}
-            </span>
-              <img
-                [src]="this.client.companyLogo"
-                alt="user profile photo" class="h-full w-full object-cover">
-            </span>
-            <span *ngIf="client.contract.premiumType === 'PLATINIUM'&&!isContractEndDatePastOrToday(client.contract.endDate)" class="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden" style="border-width: 2px;border-color: #ac44f9;">
-              <span class="tickets font-bold"   style="background-color: #ac44f9;">
 
-                ∞            </span>
+            </span>
+            <img
+            [src]="this.client.companyLogo"
+            alt="user profile photo" class="h-full w-full object-cover">
+            </span>
+            <span *ngIf="client.contract.premiumType === 'PLATINIUM'&&!isContractEndDatePastOrToday(client.contract.endDate)" class="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden" style="border-width: 4px;border-color: #ac44f9;">
+              <span class="tickets font-bold" style="background-color: #ac44f9;">
+                ∞
+            </span>
               <img
                 [src]="this.client.companyLogo"
                 alt="user profile photo" class="h-full w-full object-cover">
             </span>
+          
             <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor" class="hidden sm:block h-6 w-6 text-gray-300">
               <path fill-rule="evenodd"
                 d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -112,8 +116,8 @@
             <button (click)="toggleModalNotification()" 
             class="relative p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600 focus:bg-gray-100 focus:text-gray-600 rounded-full">
             <span class="sr-only">Notifications</span>
-            <span class="absolute top-0 right-0 h-2 w-2 mt-1 mr-2 bg-red-500 rounded-full" *ngIf="this.isNotificationOpen "></span>
-            <span class="absolute top-0 right-0 h-2 w-2 mt-1 mr-2 bg-red-500 rounded-full animate-ping" *ngIf="this.isNotificationOpen"></span>
+            <span class="absolute top-0 right-0 h-2 w-2 mt-1 mr-2 bg-red-500 rounded-full" *ngIf="hasNewNotification"></span>
+              <span class="absolute top-0 right-0 h-2 w-2 mt-1 mr-2 bg-red-500 rounded-full animate-ping" *ngIf="hasNewNotification"></span>
             <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />

@@ -165,8 +165,8 @@
           </div>
           </div>
         
-            <p class="text-md text-gray-400" style="margin-left: 60%;" *ngIf="ticket.status==='RESOLVED' ||ticket.status==='IN_PROGRESS'"> {{this.calculateTimeDifference(ticket.openingDate)}}</p> 
-            <p class="text-md text-gray-400" style="margin-left: 40%;" *ngIf="ticket.status==='CLOSED'"> {{this.calculateTimeDifference(ticket.ClosingDate)}}</p> 
+            <p class="text-md text-gray-400" style="margin-left: 40%;" *ngIf="ticket.status==='RESOLVED' ||ticket.status==='IN_PROGRESS'"> {{this.calculateTimeDifference(ticket.openingDate)}}</p> 
+            <p class="text-md text-gray-400" style="margin-left: 40%;" *ngIf="ticket.status==='CLOSED'"> {{this.calculateTimeDifference(ticket.closingDate)}}</p> 
         </div>
           
         </li>
@@ -184,6 +184,12 @@
           <div class="flex flex-col">
             <h3 class="font-semibold text-lg">Category</h3>
             <p class="text-light text-gray-400">{{ticket.category}}</p>
+          </div>
+        </div>
+        <div class="flex space-x-4 items-center">
+          <div class="flex flex-col">
+            <h3 class="font-semibold text-lg">Client</h3>
+            <p class="text-light text-gray-400"> {{ticket.client.contract.entreprise }}</p>
           </div>
         </div>
         <div class="flex space-x-4 items-center">
@@ -216,6 +222,12 @@
         </div>
         <div class="flex space-x-4 items-center">
           <div class="flex flex-col">
+            <h3 class="font-semibold text-lg">Client</h3>
+            <p class="text-light text-gray-400"> {{ticket.client.contract.entreprise }}</p>
+          </div>
+        </div>
+        <div class="flex space-x-4 items-center">
+          <div class="flex flex-col">
             <h3 class="font-semibold text-lg">Priority</h3>
             <p class="text-light text-gray-400">{{ticket.priority}}</p>
           </div>
@@ -227,14 +239,7 @@
               'yyyy-MM-dd' }}</p>
           </div>
         </div>
-        <div class="flex space-x-4 items-center">
-          <div class="flex flex-col">
-            <h3 class="font-semibold text-lg">Client</h3>
-            <p class="text-light text-gray-400">
-              {{ticket.client.contract.entreprise}}
-            </p>
-          </div>
-        </div>
+       
         <div class="flex space-x-4 items-center">
           <div class="flex flex-col">
             <h3 class="font-semibold text-lg">Status</h3>

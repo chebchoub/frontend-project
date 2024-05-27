@@ -67,6 +67,7 @@ export class TicketsComponent implements OnInit {
 
       this.tickets = tickets;
       this.ticket = this.tickets[0]
+      
       this.getTechnicianDetails(this.ticket.technicianId)
 
     });
@@ -81,9 +82,11 @@ export class TicketsComponent implements OnInit {
     });
   }
   technicianImage:string="";
+  technicien:any;
   getTechnicianDetails(id:string): void {
     this.technicianService.getTechnicianById(id).subscribe(techicien => {
       this.technicianImage=techicien.profilePhoto;
+      this.technicien=techicien;
     }, error => {
       console.error('Error deleting techicien:', error);
     });
@@ -181,9 +184,6 @@ export class TicketsComponent implements OnInit {
   toggleModalEdit(destination: string, idTicket: string) {
     this.openPopUp = destination;
     this.ticketService.selectedTicketId = idTicket;
-    // Naviguer vers la nouvelle URL avec l'ID du contrat
-    this.router.navigate(['/homeAdmin/editTickets']);
-
     // Afficher le popup
     this.ticketService.toggleModal();
   }
@@ -222,15 +222,15 @@ export class TicketsComponent implements OnInit {
   selectedImages: ImageItem[] = [];
   selectedPDFs: PDFItem[] = [];
 
-  calculateTimeDifference(createdAt: string): string {
-    const notificationDate = new Date(createdAt);
+  calculateTimeDifference(closingDate: string): string {
+    const closingDateParsed = new Date(closingDate); // Parse the date as midnight in UTC
     const currentDate = new Date();
-    const differenceInMilliseconds = currentDate.getTime() - notificationDate.getTime();
+    const differenceInMilliseconds = currentDate.getTime() - closingDateParsed.getTime();
     const differenceInSeconds = Math.floor(differenceInMilliseconds / 1000);
     const differenceInMinutes = Math.floor(differenceInSeconds / 60);
     const differenceInHours = Math.floor(differenceInMinutes / 60);
     const differenceInDays = Math.floor(differenceInHours / 24);
-
+  
     if (differenceInDays > 0) {
       return `${differenceInDays} days ago`;
     } else if (differenceInHours > 0) {
@@ -241,4 +241,5 @@ export class TicketsComponent implements OnInit {
       return 'a few moments ago';
     }
   }
+  
 }

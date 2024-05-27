@@ -211,7 +211,17 @@ export class TicketsClientComponent implements OnInit {
   confirmDelete(): void {
     this.serviceClient.markAsClosed(this.ticket._id).subscribe(
       (response: any) => {
-        this.toggleModalAddRating("rating",this.ticket._id)
+        if(this.ticket.technicianId!=null)
+          {
+            this.toggleModalAddRating("rating",this.ticket._id)
+
+          }
+          else{
+            this.cancelDelete()
+            setTimeout(() => {
+              location.reload();
+            }, 1000);
+          }
       },
       (error: any) => {
         // Handle error if needed
@@ -222,5 +232,23 @@ export class TicketsClientComponent implements OnInit {
     this.serviceClient.ticketIDClosed = "";
     this.closeModal()
   }
+  calculateTimeDifference(createdAt: string): string {
+    const notificationDate = new Date(createdAt);
+    const currentDate = new Date();
+    const differenceInMilliseconds = currentDate.getTime() - notificationDate.getTime();
+    const differenceInSeconds = Math.floor(differenceInMilliseconds / 1000);
+    const differenceInMinutes = Math.floor(differenceInSeconds / 60);
+    const differenceInHours = Math.floor(differenceInMinutes / 60);
+    const differenceInDays = Math.floor(differenceInHours / 24);
 
+    if (differenceInDays > 0) {
+      return `${differenceInDays} days ago`;
+    } else if (differenceInHours > 0) {
+      return `${differenceInHours} hours ago`;
+    } else if (differenceInMinutes > 0) {
+      return `${differenceInMinutes} minutes ago`;
+    } else {
+      return 'a few moments ago';
+    }
+  }
 }

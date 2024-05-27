@@ -172,8 +172,7 @@ Open new ticket
       <button id="btClose" *ngIf="ticket.status=='RESOLVED'" (click)="toggleModalClose('close',ticket._id)"  class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
         <svg width="15px" height="15px" style="margin-right: 5px;" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#000000" stroke="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="#ffffff" d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z"></path></g></svg>     
        Close</button>
-       <p class="text-md text-gray-400" *ngIf="ticket.status==='CLOSED'" style="margin-left: 60%;"> {{ticket.closingDate | date:
-        'yyyy-MM-dd'}}</p> 
+       <p class="text-md text-gray-400" style="margin-left: 60%;" *ngIf="ticket.status==='CLOSED'"> {{this.calculateTimeDifference(ticket.closingDate)}}</p> 
           </div>
     </li>
     
@@ -319,7 +318,7 @@ Open new ticket
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
-                    <h3 class="mb-5 text-lg font-normal text-red-500 dark:text-red-400">Are you sure you want to
+                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to
                         close this ticket?
                         <br>
                         {{this.ticket.titre}}

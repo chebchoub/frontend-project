@@ -4,6 +4,7 @@ import { ServiceContratService } from '../../services/service-contrat.service';
 import { FormGroup } from '@angular/forms';
 import { ServiceClientsService } from '../../services/service-clients.service';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   styleUrls: ['./contrats.component.css']
 })
 export class ContratsComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private router: Router, public contractService: ServiceContratService, private clientService: ServiceClientsService) { }
+  constructor(private datePipe: DatePipe,private route: ActivatedRoute, private router: Router, public contractService: ServiceContratService, private clientService: ServiceClientsService) { }
   ngOnInit(): void {
 
     this.getAllContracts()
@@ -93,6 +94,11 @@ export class ContratsComponent implements OnInit {
         }
       });
     }
+  }
+  isContractEndDatePastOrToday(endDate: string): boolean {
+    const today = new Date();
+    const formattedEndDate = new Date(this.datePipe.transform(endDate, 'yyyy-MM-dd') || '');
+    return formattedEndDate <= today;
   }
 
   getAllContractsByContractPermiumType(premiumType: string) {

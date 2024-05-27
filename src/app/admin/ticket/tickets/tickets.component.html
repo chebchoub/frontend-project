@@ -177,14 +177,14 @@
                 </svg>
           </button>
                 <button id="btClose" *ngIf="ticket.status=='NEW'" (click)="toggleModalAssigned('assigned',ticket._id)"  class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
-                    Assigned to</button>
-                    <button id="btClose"  style="width: 180px;" *ngIf="ticket.status=='IN_PROGRESS'" (click)="toggleModalAssigned('assigned',ticket._id)"  class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                    Assigne to</button>
+                <button id="btClose"  style="width: 180px;" *ngIf="ticket.status=='IN_PROGRESS'" (click)="toggleModalAssigned('assigned',ticket._id)"  class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
                       Change Assignment
-                    </button>    
+                </button>    
 
           </div>
           </div>
-          <p class="text-md text-gray-400" style="margin-left: 60%;" *ngIf="ticket.status!=='CLOSED' "> {{this.calculateTimeDifference(ticket.openingDate)}}</p> 
+          <p class="text-md text-gray-400" style="margin-left: 60%;" *ngIf="ticket.status=='RESOLVED' "> {{this.calculateTimeDifference(ticket.openingDate)}}</p> 
             <p class="text-md text-gray-400" style="margin-left: 40%;" *ngIf="ticket.status==='CLOSED'"> {{this.calculateTimeDifference(ticket.closingDate)}}</p> 
         </div>
           
@@ -197,12 +197,24 @@
       </div>
       
       <div >
-      <div class="flex justify-between items-center    grid gap-4  sm:grid-cols-4 " *ngIf="ticket.status==='CLOSED'">
+      <div class="flex justify-between items-center    grid gap-4  sm:grid-cols-6 " *ngIf="ticket.status==='CLOSED'">
        
         <div class="flex space-x-4 items-center">
           <div class="flex flex-col">
             <h3 class="font-semibold text-lg">Category</h3>
             <p class="text-light text-gray-400">{{ticket.category}}</p>
+          </div>
+        </div>
+        <div class="flex space-x-4 items-center">
+          <div class="flex flex-col">
+            <h3 class="font-semibold text-lg">Client</h3>
+            <p class="text-light text-gray-400">{{ticket.client.contract.entreprise}}</p>
+          </div>
+        </div>
+        <div class="flex space-x-4 items-center" *ngIf="ticket.technicianId!=null">
+          <div class="flex flex-col">
+            <h3 class="font-semibold text-lg" >Technician</h3>
+            <p class="text-light text-gray-400">{{technicien.firstName+" "+technicien.lastName}}</p>
           </div>
         </div>
         <div class="flex space-x-4 items-center">
@@ -225,13 +237,26 @@
               'yyyy-MM-dd' }}</p>
           </div>
         </div>
+      
       </div>
-      <div class="flex justify-between items-center    grid gap-4  sm:grid-cols-4 " *ngIf="ticket.status!=='CLOSED'">
+      <div class="flex justify-between items-center    grid gap-4  sm:grid-cols-5 " *ngIf="ticket.status!=='CLOSED'">
        
         <div class="flex space-x-4 items-center">
           <div class="flex flex-col">
             <h3 class="font-semibold text-lg">Category</h3>
             <p class="text-light text-gray-400">{{ticket.category}}</p>
+          </div>
+        </div>
+        <div class="flex space-x-4 items-center">
+          <div class="flex flex-col">
+            <h3 class="font-semibold text-lg">Client</h3>
+            <p class="text-light text-gray-400">{{ticket.client.contract.entreprise}}</p>
+          </div>
+        </div>
+        <div class="flex space-x-4 items-center" *ngIf="ticket.technicianId!=null">
+          <div class="flex flex-col">
+            <h3 class="font-semibold text-lg" >Technicien</h3>
+            <p class="text-light text-gray-400">{{technicien.firstName+" "+technicien.lastName}}</p>
           </div>
         </div>
         <div class="flex space-x-4 items-center">

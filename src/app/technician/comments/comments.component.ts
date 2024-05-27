@@ -4,6 +4,7 @@ import { ServiceTechnicianService } from '../service/service-technician.service'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { DatePipe } from '@angular/common';
 interface ImageItem {
   base64Data: string;
   filename: string;
@@ -24,14 +25,13 @@ interface PDFItem {
 })
 export class CommentsComponent implements OnInit {
 
-  constructor(public technicienService: ServiceTechnicianService,private cookieService: CookieService, public userService: UserServiceService, private formBuilder: FormBuilder, private router: Router,private cdr: ChangeDetectorRef) {
+  constructor(private datePipe: DatePipe,public technicienService: ServiceTechnicianService,private cookieService: CookieService, public userService: UserServiceService, private formBuilder: FormBuilder, private router: Router,private cdr: ChangeDetectorRef) {
 
   }
   @Input() ticket: any;
 
   ngOnInit(): void {
     
-    console.log(this.ticket)
     this.messageForm = this.formBuilder.group({
       comment: ['', [Validators.required]],
     });
@@ -101,6 +101,11 @@ export class CommentsComponent implements OnInit {
 
 
     console.log(this.selectedImages);
+  }
+  isContractEndDatePastOrToday(endDate: string): boolean {
+    const today = new Date();
+    const formattedEndDate = new Date(this.datePipe.transform(endDate, 'yyyy-MM-dd') || '');
+    return formattedEndDate <= today;
   }
 
   onPDFChanged(event: any) {

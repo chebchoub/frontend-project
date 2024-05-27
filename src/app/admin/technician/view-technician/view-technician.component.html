@@ -315,6 +315,11 @@
                                     Priority
 
                                 </th>
+                                <th
+                                class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                Client
+
+                            </th>
 
                                 <th
                                     class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
@@ -337,10 +342,12 @@
                                 <td>
                                     <div class="flex items-center pl-4">
                                         <p class="text-base font-medium leading-none text-gray-700 mr-2">
-                                            {{ticket.openingDate}} </p>
+                                            {{ticket.openingDate | date:
+                                                'yyyy-MM-dd' }} </p>
 
                                     </div>
                                 </td>
+                              
                                 <td>
                                     <div class="flex items-center pl-4">
                                         <p *ngIf="ticket.priority==='LOW'"
@@ -355,6 +362,13 @@
                                             class="text-base font-medium leading-none text-gray-700 mr-2"
                                             style="color: #8B0000;">
                                             {{ticket.priority}} </p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="flex items-center pl-4">
+                                        <p class="text-base font-medium leading-none text-gray-700 mr-2">
+                                            {{ticket.client.contract.entreprise }}</p>
+
                                     </div>
                                 </td>
                                 <td>

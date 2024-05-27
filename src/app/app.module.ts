@@ -66,6 +66,8 @@ import { ClientsArchivedComponent } from './admin/archive/ClientsArchived/client
 import { ContractsArchivedComponent } from './admin/archive/contractsArchived/contracts-archived/contracts-archived.component';
 import { AddContractToClientComponent } from './admin/client/add-contract-to-client/add-contract-to-client.component';
 import { CommonModule, DatePipe } from '@angular/common';
+import { ProfileManagerComponent } from './admin/manager/profile-manager/profile-manager.component';
+import { EnterPasswordManagerComponent } from './admin/manager/enter-password-manager/enter-password-manager.component';
 
 
 @NgModule({
@@ -126,7 +128,9 @@ import { CommonModule, DatePipe } from '@angular/common';
     TechnicienArchivedComponent,
     ClientsArchivedComponent,
     ContractsArchivedComponent,
-    AddContractToClientComponent
+    AddContractToClientComponent,
+    ProfileManagerComponent,
+    EnterPasswordManagerComponent
     
    
   ],

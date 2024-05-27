@@ -15,9 +15,11 @@ export class ServiceUserNotifService {
   getFalseNotificationsForUser(userId:string): Observable<void[]> {
     return this.http.get<void[]>(`${this.apiUrl}/${userId}/false`);
   }
-  getAllNotificationsForUser(userId:string): Observable<void[]> {
-    return this.http.get<void[]>(`${this.apiUrl}/getByCreatedAtDateDesc/${userId}`);
+  getAllNotificationsForUser(userId: string, page: number, size: number): Observable<any> {
+    return this.http.get<void[]>(`http://localhost:8080/api/v1/notification/${userId}?page=${page}&size=${size}`);
   }
+
+
   markNotificationsAsRead(notifications:any[]): Observable<void> {
     return this.http.put<void>(`${this.apiUrl}/mark-as-read`,notifications);
   }

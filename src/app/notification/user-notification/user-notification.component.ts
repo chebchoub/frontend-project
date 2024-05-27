@@ -1,63 +1,83 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription, interval, switchMap } from 'rxjs';
+import { Subscription, interval } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { ServiceUserNotifService } from '../services/service-user-notif.service';
 
 @Component({
   selector: 'app-user-notification',
   templateUrl: './user-notification.component.html',
-  styleUrl: './user-notification.component.css'
+  styleUrls: ['./user-notification.component.css']
 })
 export class UserNotificationComponent implements OnInit, OnDestroy {
-
-
   notifs: any[] = [];
+  notifsFlase: any[] = [];
   private subscription!: Subscription;
+  private page = 0;
+  private size = 10;
+  private isLoading = false;
+  public isLastPage = false;  // Make this public
+  private refreshInterval!: Subscription;
 
   constructor(private notificationService: ServiceUserNotifService) { }
 
   ngOnInit(): void {
-   this.getAllNotificationsForAdmin();
-    this.getFlaselNotificationsForAdmin()
-    
-    // Actualiser les notifications toutes les 30 secondes
-    this.subscription = interval(100).pipe(
-      switchMap(() => this.notificationService.getAllNotificationsForUser(this.notificationService.idUserLogin))
-    ).subscribe(notif => {
-      this.notifs = notif;
-      console.log('Notifications updated:', this.notifs);
-
-    });
-  
+    this.loadNotifications();
+    this.setupAutoRefresh();
   }
 
   ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
+    if (this.refreshInterval) {
+      this.refreshInterval.unsubscribe();
     }
   }
 
-  getAllNotificationsForAdmin(): void {
-    this.notificationService.getAllNotificationsForUser(this.notificationService.idUserLogin).subscribe(notif => {
-      this.notifs = notif;
-      console.log(notif);
+  setupAutoRefresh(): void {
+    this.refreshInterval = interval(10000).pipe(  // Poll every 10 seconds
+      switchMap(() => this.notificationService.getAllNotificationsForUser(this.notificationService.idUserLogin, 0, this.size))
+    ).subscribe(response => {
+      if (response && response.content) {
+        this.notifs = response.content.map((notif: any) => ({ ...notif, isNew: !notif.readStatus }));
+      }
     });
   }
-  notifsFlase: any[] = [];
+
+  loadNotifications(refresh: boolean = false): void {
+    if (this.isLoading || this.isLastPage) return;
+
+    this.isLoading = true;
+    this.notificationService.getAllNotificationsForUser(this.notificationService.idUserLogin, this.page, this.size)
+      .subscribe(response => {
+        if (response && response.content) {
+          if (refresh) {
+            this.notifs = response.content;
+            this.page = 1;  // Reset page to 1 after refresh
+          } else {
+            this.notifs = [...this.notifs, ...response.content];
+            this.page++;
+          }
+          this.isLastPage = response.last;
+        } else {
+          console.error('Expected a paginated response but got:', response);
+        }
+        this.isLoading = false;
+      }, error => {
+        console.error('Error loading notifications:', error);
+        this.isLoading = false;
+      });
+  }
+
   getFlaselNotificationsForAdmin(): void {
     this.notificationService.getFalseNotificationsForUser(this.notificationService.idUserLogin).subscribe(notif => {
       this.notifsFlase = notif;
-
     });
-
   }
+
   markNotificationsAsRead(): void {
-    this.notificationService.markNotificationsAsRead(this.notifsFlase).subscribe(
-      (response) => {
-        console.log('Notifications marked as read:', response);
-      }
-    );
-
+    this.notificationService.markNotificationsAsRead(this.notifsFlase).subscribe(response => {
+      console.log('Notifications marked as read:', response);
+    });
   }
+
   calculateTimeDifference(createdAt: string): string {
     const notificationDate = new Date(createdAt);
     const currentDate = new Date();
@@ -77,12 +97,15 @@ export class UserNotificationComponent implements OnInit, OnDestroy {
       return 'a few moments ago';
     }
   }
-  delete(idNotif: string) {
 
-    this.notificationService.deleteNotification(idNotif).subscribe(responce => {
-     console.log(responce)
-
+  delete(idNotif: string): void {
+    this.notificationService.deleteNotification(idNotif).subscribe(response => {
+      console.log('Notification deleted:', response);
+      this.notifs = this.notifs.filter(notif => notif.id !== idNotif);
     });
   }
-}
 
+  loadMoreNotifications(): void {
+    this.loadNotifications();
+  }
+}

@@ -6,6 +6,7 @@ import { ClientServiceService } from '../service/client-service.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
 import { ServiceTechnicianService } from '../../admin/services/service-technician.service';
+import { DatePipe } from '@angular/common';
 interface ImageItem {
   base64Data: string;
   filename: string;
@@ -27,7 +28,7 @@ interface PDFItem {
   styleUrl: './add-comment-client.component.css'
 })
 export class AddCommentClientComponent implements OnInit {
-  constructor(private cookieService: CookieService,private formBuilder: FormBuilder, private router: Router, public serviceClient: ClientServiceService, public sanitizer: DomSanitizer,private technicianService:ServiceTechnicianService) { }
+  constructor(private datePipe: DatePipe,private cookieService: CookieService,private formBuilder: FormBuilder, private router: Router, public serviceClient: ClientServiceService, public sanitizer: DomSanitizer,private technicianService:ServiceTechnicianService) { }
   messageForm: FormGroup | any;
   searchText = '';
   @Input() ticket: any;
@@ -130,7 +131,12 @@ export class AddCommentClientComponent implements OnInit {
     this.loadContracts();
   }
   addComment() {
-    console.log(this.messageForm.controls.comment.value !== "" || this.selectedImages.length != 0 || this.selectedPDFs.length != 0)
+    if(this.isContractEndDatePastOrToday(this.ticket.client.contract.endDate))
+      {
+        this.toggleModalCreate()
+      }
+      else
+      {
     if (this.messageForm.controls.comment.value !== "" || this.selectedImages.length != 0 || this.selectedPDFs.length != 0) {
       const messageRequest: any = {
         comment: this.messageForm.controls.comment.value,
@@ -157,6 +163,7 @@ export class AddCommentClientComponent implements OnInit {
       location.reload() 
       this.cookieService.set('ticketID', this.ticket._id, 7, '/', '', true, 'Lax');
     }
+  }
   }
 
 
@@ -186,6 +193,11 @@ export class AddCommentClientComponent implements OnInit {
 
 
     console.log(this.selectedImages);
+  }
+  isContractEndDatePastOrToday(endDate: string): boolean {
+    const today = new Date();
+    const formattedEndDate = new Date(this.datePipe.transform(endDate, 'yyyy-MM-dd') || '');
+    return formattedEndDate <= today;
   }
 
   onPDFChanged(event: any) {
@@ -227,10 +239,14 @@ export class AddCommentClientComponent implements OnInit {
     document.body.removeChild(link);
   }
   openPopUp: string = "";
-  toggleModalCreate(destination: string) {
-    this.openPopUp = destination;
-    this.serviceClient.toggleModal();
-
+  toggleModalCreate() {
+   
+        this.openPopUp="terminated"
+   
+   
+    
+      this.serviceClient.toggleModal();
+   
   }
   toggleModalClose(destination: string, ticketId: string) {
     this.serviceClient.ticketIDClosed = ticketId;

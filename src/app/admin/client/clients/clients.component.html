@@ -173,7 +173,7 @@
                 <p class="text-center text-sm text-gray-400 font-medium"
                 *ngIf="this.client.contract.archived==true">His contract is archived</p>
                 <p class="text-center text-sm text-gray-400 font-medium"
-                *ngIf="this.client.contract.archived==false&&isContractEndDatePastOrToday(client.contract.endDate)">    The contract is terminated.
+                *ngIf="this.client.contract.archived==false&&isContractEndDatePastOrToday(client.contract.endDate)">    The contract is over.
                 </p>
                 <p class="text-center text-sm text-gray-400 font-medium"
                     *ngIf="client.contract.contractType === 'STANDARD'&&this.client.contract.archived==false&&!isContractEndDatePastOrToday(client.contract.endDate)"> Contract Type STANDARD</p>

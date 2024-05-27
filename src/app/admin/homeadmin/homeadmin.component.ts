@@ -19,10 +19,12 @@ export class HomeadminComponent implements OnInit, OnDestroy {
   token: string = "";
   notifs: any[] = [];
   checkSuperManager: boolean = false;
-
-  manager: any;
   isNotificationOpen: boolean = false;
-  private notificationSubscription!: Subscription;
+  hasNewNotification: boolean = false;  // New flag to track new notifications
+  manager: any;
+  private size = 10;
+
+  private refreshInterval!: Subscription;
 
   constructor(
     public notificationService: ServiceUserNotifService,
@@ -30,7 +32,7 @@ export class HomeadminComponent implements OnInit, OnDestroy {
     public userService: UserServiceService,
     private cookieService: CookieService,
     private managerService: ManagerServiceService,
-    private ticketService:TicketServiceService
+    private ticketService: TicketServiceService
   ) { }
 
   ngOnInit(): void {
@@ -39,70 +41,52 @@ export class HomeadminComponent implements OnInit, OnDestroy {
     this.userService.checkSuperManager(jwtToken).subscribe(
       (response) => {
         this.checkSuperManager = response;
-        if (this.checkSuperManager == true) {
+        if (this.checkSuperManager) {
           this.notificationService.idUserLogin = "66268a264adef845b1edf1fb"
-
-          this.getFalseNotificationsForAdmin("66268a264adef845b1edf1fb");
-
-          this.notificationSubscription = interval(100).pipe(
-            switchMap(() => this.notificationService.getFalseNotificationsForUser("66268a264adef845b1edf1fb"))
-          ).subscribe(notif => {
-            this.notifs = notif;
-            if (this.notifs.length > 0) {
-              this.isNotificationOpen = true;
-            }
-          });
-        }
-        else {
+          this.setupAutoRefresh("66268a264adef845b1edf1fb");
+        } else {
           this.managerService.getEmailFromToken().subscribe(
             (response) => {
               this.emailManager = response;
-
               this.managerService.getManagerByEmail(this.emailManager).subscribe(manager => {
+                this.managerService.ManagerLOGINID=manager;
+                
                 this.manager = manager;
-
-
-                this.notificationService.idUserLogin = manager.id;
-
-                this.getFalseNotificationsForAdmin(manager.id);
-
-                this.notificationSubscription = interval(100).pipe(
-                  switchMap(() => this.notificationService.getFalseNotificationsForUser(manager.id))
-                ).subscribe(notif => {
-                  this.notifs = notif;
-                  if (this.notifs.length > 0) {
-                    this.isNotificationOpen = true;
-                  }
-                });
-
+                this.notificationService.idUserLogin ="66268a264adef845b1edf1fb";
+                this.setupAutoRefresh("66268a264adef845b1edf1fb");
               });
             });
         }
       }
     );
-
-
-    this.getAllTicketByStatus("NEW")
-
-
+    this.getAllTicketByStatus("NEW");
+   
   }
-  tickets!:any [];
+
+  tickets!: any[];
+
   getAllTicketByStatus(status: string): void {
-
-
-      this.ticketService.getByStatus(status).subscribe(tickets => {
-        this.tickets = tickets;
-
-
-      });
-    
+    this.ticketService.getByStatus(status).subscribe(tickets => {
+      this.tickets = tickets;
+    });
   }
+
   ngOnDestroy(): void {
-    if (this.notificationSubscription) {
-      this.notificationSubscription.unsubscribe();
+    if (this.refreshInterval) {
+      this.refreshInterval.unsubscribe();
     }
   }
 
+  setupAutoRefresh(id: string): void {
+    this.refreshInterval = interval(10000).pipe(
+      switchMap(() => this.notificationService.getAllNotificationsForUser(id, 0, this.size))
+    ).subscribe(response => {
+      if (response && response.content) {
+        this.notifs = response.content;
+        this.hasNewNotification = this.notifs.some(notif => !notif.readStatus);
+      }
+    });
+  }
 
   navigation(index: number) {
     if (index === 1) {
@@ -122,11 +106,9 @@ export class HomeadminComponent implements OnInit, OnDestroy {
     this.userService.logout();
   }
 
-
   getFalseNotificationsForAdmin(id: string): void {
     this.notificationService.getFalseNotificationsForUser(id).subscribe(notif => {
       this.notifs = notif;
-      
     });
   }
 
@@ -134,27 +116,22 @@ export class HomeadminComponent implements OnInit, OnDestroy {
     this.notificationService.markNotificationsAsRead(this.notifs).subscribe(
       (response) => {
         console.log('Notifications marked as read:', response);
+        this.hasNewNotification = false;
       }
     );
-
   }
+
   dropdownVisible: boolean = false;
 
-  showDropdown() {
-    this.dropdownVisible = true;
-  }
-
-  hideDropdown() {
-    this.dropdownVisible = false;
-  }
   openPopUp: string = ";"
 
   toggleModalNotification() {
+    this.isNotificationOpen = !this.isNotificationOpen;
+    this.hasNewNotification = false;  // Reset the flag when the modal is opened
     this.notificationService.toggleModal();
-    this.isNotificationOpen = false;
 
     setTimeout(() => {
-      this.markNotificationsAsRead()
+      this.markNotificationsAsRead();
     }, 7000);
   }
 }

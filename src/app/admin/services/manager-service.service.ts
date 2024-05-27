@@ -11,7 +11,7 @@ export class ManagerServiceService {
   private apiUrl = 'http://localhost:8080/api/v1/admin/super-manager'; // Mettez votre URL backend ici
 
   constructor(private http: HttpClient,private cookieService:CookieService) { }
-  ManagerLOGINID:string="";
+  ManagerLOGINID:any;
   getAllManager(): Observable<void[]> {
     return this.http.get<void[]>(`${this.apiUrl}/getByNonArchiver`);
   }

@@ -107,7 +107,7 @@
                         <div class="flex items-center pl-5">
 
                             <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ contract.entreprise }}
-
+                                <span class="text-red-600" *ngIf="isContractEndDatePastOrToday(contract.endDate)">(is over)</span>
                             </p>
 
                         </div>
