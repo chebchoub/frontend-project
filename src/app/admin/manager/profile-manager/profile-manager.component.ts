@@ -6,6 +6,9 @@ import { ServiceTechnicianService } from '../../services/service-technician.serv
 import { ServiceContratService } from '../../services/service-contrat.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { IImage, ImageCompressService } from 'ng2-image-compress';
+import { CookieService } from 'ngx-cookie-service';
+import { UserServiceService } from '../../../auth/services/user-service.service';
+import { SuperManagerService } from '../../services/super-manager.service';
 
 @Component({
   selector: 'app-profile-manager',
@@ -13,7 +16,7 @@ import { IImage, ImageCompressService } from 'ng2-image-compress';
   styleUrl: './profile-manager.component.css'
 })
 export class ProfileManagerComponent implements OnInit{
-  constructor(private imgCompressService: ImageCompressService,private formBuilder: FormBuilder,public  managerService:ManagerServiceService, public emailService: EmailServiceService, private route: ActivatedRoute, private router: Router, public technicianService: ServiceTechnicianService, public contractService: ServiceContratService) { }
+  constructor(private superManagerService:SuperManagerService,private userService:UserServiceService,private cookieService:CookieService,private imgCompressService: ImageCompressService,private formBuilder: FormBuilder,public  managerService:ManagerServiceService, public emailService: EmailServiceService, private route: ActivatedRoute, private router: Router, public technicianService: ServiceTechnicianService, public contractService: ServiceContratService) { }
   
 
   
@@ -29,21 +32,54 @@ export class ProfileManagerComponent implements OnInit{
       email: ['', [Validators.required, Validators.email, this.emailValidator]],
     });
     this.getManagerDetails()
-    
     this.file = this.manager.profilePhoto
   }
-  manager:any;
-  
-
+  manager: any;
+  superManager:any;
+  checkSuperManager:boolean=false;
   getManagerDetails(): void {
-    this.manager=this.managerService.ManagerLOGINID;
+    const jwtToken = this.cookieService.get('jwtToken');
+    this.userService.checkSuperManager(jwtToken).subscribe(
+      (response) => {
+        this.checkSuperManager = response;
+        this.superManagerService.checkSuperManager=response;
+        if (this.checkSuperManager) {
+          this.superManagerService.getEmailFromToken().subscribe(
+            (response) => {
+              this.superManagerService.getManagerByEmail(response).subscribe(superManager => {
+                this.managerService.ManagerLOGINID=superManager;
+                
+                this.manager = superManager;
+                this.profilePhotoURL = this.manager?.profilePhoto || '';
+                this.updateProfileForm.patchValue({
+                  email: this.manager.email,
+                  firstName: this.manager.firstName,
+                  lastName: this.manager.lastName,
+                });
+            
+              });
+            });
+        } else {
+          this.managerService.getEmailFromToken().subscribe(
+            (response) => {
+              this.managerService.getManagerByEmail(response).subscribe(manager => {
+                this.managerService.ManagerLOGINID=manager;
+                
+                this.manager = manager;
+                this.profilePhotoURL = this.manager?.profilePhoto || '';
+                this.updateProfileForm.patchValue({
+                  email: this.manager.email,
+                  firstName: this.manager.firstName,
+                  lastName: this.manager.lastName,
+                });
+            
+              });
+            });
+        }
+      }
+    );
+   
 
-    this.profilePhotoURL = this.manager?.profilePhoto || '';
-    this.updateProfileForm.patchValue({
-      email: this.manager.email,
-      firstName: this.manager.firstName,
-      lastName: this.manager.lastName,
-    });
 
   }
   emailValidator(control: any): { [key: string]: boolean } | null {
@@ -116,17 +152,26 @@ export class ProfileManagerComponent implements OnInit{
     });
   }
   submit() {
-     const technicianRequest: any = {
+     const managerRequest: any = {
       email: this.updateProfileForm.controls.email.value,
       firstName: this.updateProfileForm.controls.firstName.value,
       lastName: this.updateProfileForm.controls.lastName.value,
       profilePhoto: this.profilePhotoURL,
     }
-   /* this.technicienService.updateUpdateTechnicien(technicianRequest, this.technician.id).subscribe(
-      (response: any) => {
-        this.toggleModelUpdateValid()
-      }
-    );*/
+    if(this.checkSuperManager)
+      {
+        this.superManagerService.updateSuperManager(this.manager.id,managerRequest).subscribe(
+          (response: any) => {
+            this.toggleModelUpdateValid()
+          }
+      );}
+      else{
+        this.managerService.updateManager(this.manager.id,managerRequest).subscribe(
+          (response: any) => {
+            this.toggleModelUpdateValid()
+          }
+      );}
+   
   }
   showUpdateValid: boolean = false;
   toggleModelUpdateValid() {
@@ -136,32 +181,14 @@ export class ProfileManagerComponent implements OnInit{
       location.reload();
     }, 2000); 
   }
-  selectedSpecialities: string[] = []; 
-
-  updateSpecialities(event: any) {
-    const isChecked = event.target.checked;
-    const speciality = event.target.value;
   
-    if (isChecked) {
-      this.selectedSpecialities.push(speciality);
-    } else {
-      const index = this.selectedSpecialities.indexOf(speciality);
-      if (index !== -1) {
-        this.selectedSpecialities.splice(index, 1);
-      }
-    }
-  }
 
   openPopUp: string = "";
   toggleModalUpdateProfile(destination: string) {
     this.openPopUp = destination;
     this.managerService.toggleModal();
   }
-  toggleModalAddspecialitie(destination: string)
-  {
-    this.openPopUp = destination;
-    this.managerService.toggleModal();
-  }
+
   closeModal() {
     this.managerService.closeModal();
   }

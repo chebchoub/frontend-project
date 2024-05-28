@@ -7,6 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ManagerServiceService } from '../services/manager-service.service';
 import { ServiceUserNotifService } from '../../notification/services/service-user-notif.service';
 import { TicketServiceService } from '../services/ticket-service.service';
+import { SuperManagerService } from '../services/super-manager.service';
 
 @Component({
   selector: 'app-homeadmin',
@@ -22,11 +23,13 @@ export class HomeadminComponent implements OnInit, OnDestroy {
   isNotificationOpen: boolean = false;
   hasNewNotification: boolean = false;  // New flag to track new notifications
   manager: any;
+  superManager:any;
   private size = 10;
 
   private refreshInterval!: Subscription;
 
   constructor(
+    public superManagerService:SuperManagerService,
     public notificationService: ServiceUserNotifService,
     public contractService: ServiceContratService,
     public userService: UserServiceService,
@@ -42,8 +45,18 @@ export class HomeadminComponent implements OnInit, OnDestroy {
       (response) => {
         this.checkSuperManager = response;
         if (this.checkSuperManager) {
-          this.notificationService.idUserLogin = "66268a264adef845b1edf1fb"
-          this.setupAutoRefresh("66268a264adef845b1edf1fb");
+          this.superManagerService.getEmailFromToken().subscribe(
+            (response) => {
+              this.emailManager = response;
+              this.superManagerService.getManagerByEmail(this.emailManager).subscribe(superManager => {
+                this.managerService.ManagerLOGINID=superManager;
+                console.log(superManager.id)                
+                this.superManager = superManager;
+                this.notificationService.idUserLogin =superManager.id;
+                this.setupAutoRefresh(superManager.id);
+
+              });
+            });
         } else {
           this.managerService.getEmailFromToken().subscribe(
             (response) => {
@@ -52,8 +65,9 @@ export class HomeadminComponent implements OnInit, OnDestroy {
                 this.managerService.ManagerLOGINID=manager;
                 
                 this.manager = manager;
-                this.notificationService.idUserLogin ="66268a264adef845b1edf1fb";
-                this.setupAutoRefresh("66268a264adef845b1edf1fb");
+                this.notificationService.idUserLogin =manager.id;
+                this.setupAutoRefresh(manager.id);
+
               });
             });
         }

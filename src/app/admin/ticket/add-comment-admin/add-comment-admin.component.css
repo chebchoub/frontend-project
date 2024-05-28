@@ -8,7 +8,10 @@
     /* Pour conserver les proportions */
     margin-top: 10px;
   }
-  
+  .error-message {
+    color: red;
+    font-size: 0.8rem;
+}
   button{
     transition: 0.3s;
     font-family: inherit;

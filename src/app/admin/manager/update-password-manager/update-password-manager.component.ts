@@ -1,19 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { UserServiceService } from '../services/user-service.service';
-import { CookieService } from 'ngx-cookie-service'; // Importer CookieService depuis ngx-cookie-service
-import { AuthenticationRequest } from '../model/authentication-request';
-import { AuthenticationResponse } from '../model/authentication-response';
-import { AdminGuard } from '../services/AdminGuard';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ManagerServiceService } from '../../services/manager-service.service';
+import { SuperManagerService } from '../../services/super-manager.service';
+import { UserServiceService } from '../../../auth/services/user-service.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-update-password',
-  templateUrl: './update-password.component.html',
-  styleUrl: './update-password.component.css'
+  selector: 'app-update-password-manager',
+  templateUrl: './update-password-manager.component.html',
+  styleUrl: './update-password-manager.component.css'
 })
-export class UpdatePasswordComponent {
-  constructor(private formBuilder: FormBuilder, public userService: UserServiceService, private router: Router, private cookieService: CookieService, private route: ActivatedRoute) { } // Injecter CookieService ici
+export class UpdatePasswordManagerComponent implements OnInit{
+  constructor(private formBuilder: FormBuilder, public serviceManager: ManagerServiceService,public superManagerService:SuperManagerService,public userService: UserServiceService, private router: Router, private route: ActivatedRoute) { } // Injecter CookieService ici
   ngOnInit(): void {
     this.passwordForm = this.formBuilder.group({
       password: ['', [Validators.required, Validators.minLength(8), this.validatePassword]],
@@ -33,36 +31,36 @@ export class UpdatePasswordComponent {
     if ((this.passwordForm.controls.password.value !== this.passwordForm.controls.confirmpassword.value)) {
       this.passwordFormInvalid = true
     }
-    else
-      if (this.passwordForm.valid) {
-        // Récupérer le token de l'URL
-        const token = this.route.snapshot.queryParamMap.get('token');
-
-        // Vérifier si le token existe
-        if (!token) {
-          throw new Error('Token not found in URL');
-        } else {
-          const request: any = {
-            password: this.passwordForm.controls.password.value,
-            token: token
-          };
-          this.userService.resetPassword(request).subscribe(
+    else {
+      if(this.superManagerService.checkSuperManager)
+        {
+          this.userService.changeSuperManagerPassword(this.serviceManager.ManagerLOGINID.id,this.passwordForm.controls.password.value).subscribe(
             (response: any) => {
               this.toggleValider()
-              setTimeout(() => {
-                this.router.navigate(['/login']);
-
-              }, 2000);
             },
             (error) => {
               this.toggleIdnvalidAlert()
+    
+            }
+          );
+        }else
+        {
+          this.userService.changeManagerPassword(this.serviceManager.ManagerLOGINID.id,this.passwordForm.controls.password.value).subscribe(
+            (response: any) => {
+              this.toggleValider()
+            },
+            (error) => {
+              this.toggleIdnvalidAlert()
+    
             }
           );
         }
-
-      }
+     
+    }
 
   }
+
+
   openPopUp: string = "";
   showValiderAlert: boolean = false;
   showInvalidAlert: boolean = false;
@@ -70,7 +68,7 @@ export class UpdatePasswordComponent {
     this.showValiderAlert = true;
     this.userService.toggleModalConfirmer();
     setTimeout(() => {
-      this.showValiderAlert = false;
+      location.reload();
     }, 2000); // 5000 milliseconds = 5 seconds, adjust as needed
 
   }
@@ -79,7 +77,6 @@ export class UpdatePasswordComponent {
     this.userService.toggleModalConfirmer();
   }
   closeModal() {
-    this.showInvalidAlert=false
     this.userService.closeModal();
 
   }

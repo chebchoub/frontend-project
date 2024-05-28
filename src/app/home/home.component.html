@@ -303,6 +303,8 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
       data-tag="font"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
@@ -427,10 +429,10 @@
             <span class="logo" ><img src="assets\logo.png" style="width: 150px;"></span>
             <div data-thq="thq-navbar-nav" class="home-desktop-menu">
               <nav class="home-links">
-                <span class="bodySmall hover:text-red-700">Home</span>
-                <span class="home-nav22 bodySmall hover:text-red-700">Features</span>
-                <span class="home-nav32 bodySmall hover:text-red-700">Servies</span>
-                <span class="home-nav42 bodySmall hover:text-red-700">Faq
+                <span class="bodySmall hover:text-red-700"></span>
+                <span class="home-nav22 bodySmall hover:text-red-700"></span>
+                <span class="home-nav32 bodySmall hover:text-red-700"></span>
+                <span class="home-nav42 bodySmall hover:text-red-700">
                 </span>
               </nav>
               <div class="home-buttons">
@@ -464,10 +466,10 @@
                   </div>
                 </div>
                 <nav class="home-links">
-                  <a href="#home" class="bodySmall hover:text-red-700">Home</a>
-                  <a href="#features" class="home-nav22 bodySmall hover:text-red-700">Features</a>
-                  <a href="#services" class="home-nav32 bodySmall hover:text-red-700">Services</a>
-                  <a href="#faq" class="home-nav42 bodySmall hover:text-red-700">Faq</a>
+                  <a href="#home" class="bodySmall hover:text-red-700"></a>
+                  <a href="#features" class="home-nav22 bodySmall hover:text-red-700"></a>
+                  <a href="#services" class="home-nav32 bodySmall hover:text-red-700"></a>
+                  <a href="#faq" class="home-nav42 bodySmall hover:text-red-700"></a>
                 </nav>
                 <div class="home-buttons1">
                   <button class="buttonFlat">Login</button>
@@ -533,7 +535,7 @@
                 </span>
               </span>
               <div class="home-btn-group">
-                <button class="buttonFilled" style="background-color: #D53636;">Get Started</button>
+                <button class="buttonFilled"  routerLink="{{this.link}}" style="background-color: #D53636;">Get Started</button>
               </div>
             </div>
           </div>
@@ -576,13 +578,13 @@
                 </span>
               </div>
               <div class="home-container03">
-                <div class="featuresCard feature-card-feature-card">
-                  <svg viewBox="0 0 1024 1024" class="featuresIcon">
+                <div class="featuresCard feature-card-feature-card" style="border-radius:10px">
+                  <svg viewBox="0 0 1024 1024" class="featuresIcon" style="margin-left:10px;margin-top:10px" >
                     <path
                       d="M809.003 291.328l-297.003 171.819-297.003-171.819 275.456-157.397c4.779-2.731 9.899-4.48 15.147-5.333 9.301-1.451 18.987 0.128 27.904 5.291zM491.776 979.669c6.016 3.243 12.928 5.077 20.224 5.077 7.381 0 14.336-1.877 20.395-5.163 15.189-2.475 29.909-7.68 43.392-15.36l298.709-170.709c26.368-15.232 45.269-38.315 55.424-64.597 5.675-14.592 8.619-30.165 8.747-46.251v-341.333c0-20.395-4.821-39.723-13.397-56.917-0.939-3.029-2.219-5.973-3.883-8.832-1.963-3.371-4.267-6.357-6.912-8.96-1.323-1.835-2.731-3.669-4.139-5.419-9.813-12.203-21.845-22.528-35.456-30.507l-299.051-170.88c-26.027-15.019-55.467-19.84-83.328-15.531-15.531 2.432-30.507 7.637-44.288 15.488l-298.709 170.709c-16.341 9.429-29.824 21.888-40.149 36.267-2.56 2.56-4.864 5.547-6.784 8.832-1.664 2.901-2.987 5.888-3.925 8.96-1.707 3.456-3.243 6.955-4.608 10.496-5.632 14.635-8.576 30.208-8.704 45.995v341.632c0.043 30.293 10.581 58.197 28.331 80.128 9.813 12.203 21.845 22.528 35.456 30.507l299.051 170.88c13.824 7.979 28.587 13.099 43.605 15.445zM469.333 537.045v340.949l-277.12-158.336c-4.736-2.773-8.832-6.315-12.16-10.411-5.931-7.381-9.387-16.512-9.387-26.581v-318.379zM554.667 877.995v-340.949l298.667-172.757v318.379c-0.043 5.163-1.067 10.496-2.987 15.445-3.413 8.789-9.6 16.384-18.176 21.333z"
                     ></path>
                   </svg>
-                  <div class="feature-card-container">
+                  <div class="feature-card-container" style="margin-left:10px;margin-top:10px">
                     <h3 class="feature-card-text heading3">
                       <span>Ticket Submission</span>
                     </h3>
@@ -594,8 +596,8 @@
                     </span>
                   </div>
                 </div>
-                <div class="featuresCard feature-card-feature-card">
-                  <svg viewBox="0 0 1024 1024" class="featuresIcon">
+                <div class="featuresCard feature-card-feature-card" style="border-radius:10px">
+                  <svg viewBox="0 0 1024 1024" class="featuresIcon"  style="margin-left:10px;margin-top:10px">
                     <path
                       d="M809.003 291.328l-297.003 171.819-297.003-171.819 275.456-157.397c4.779-2.731 9.899-4.48 15.147-5.333 9.301-1.451 18.987 0.128 27.904 5.291zM491.776 979.669c6.016 3.243 12.928 5.077 20.224 5.077 7.381 0 14.336-1.877 20.395-5.163 15.189-2.475 29.909-7.68 43.392-15.36l298.709-170.709c26.368-15.232 45.269-38.315 55.424-64.597 5.675-14.592 8.619-30.165 8.747-46.251v-341.333c0-20.395-4.821-39.723-13.397-56.917-0.939-3.029-2.219-5.973-3.883-8.832-1.963-3.371-4.267-6.357-6.912-8.96-1.323-1.835-2.731-3.669-4.139-5.419-9.813-12.203-21.845-22.528-35.456-30.507l-299.051-170.88c-26.027-15.019-55.467-19.84-83.328-15.531-15.531 2.432-30.507 7.637-44.288 15.488l-298.709 170.709c-16.341 9.429-29.824 21.888-40.149 36.267-2.56 2.56-4.864 5.547-6.784 8.832-1.664 2.901-2.987 5.888-3.925 8.96-1.707 3.456-3.243 6.955-4.608 10.496-5.632 14.635-8.576 30.208-8.704 45.995v341.632c0.043 30.293 10.581 58.197 28.331 80.128 9.813 12.203 21.845 22.528 35.456 30.507l299.051 170.88c13.824 7.979 28.587 13.099 43.605 15.445zM469.333 537.045v340.949l-277.12-158.336c-4.736-2.773-8.832-6.315-12.16-10.411-5.931-7.381-9.387-16.512-9.387-26.581v-318.379zM554.667 877.995v-340.949l298.667-172.757v318.379c-0.043 5.163-1.067 10.496-2.987 15.445-3.413 8.789-9.6 16.384-18.176 21.333z"
                     ></path>
@@ -612,8 +614,8 @@
                     </span>
                   </div>
                 </div>
-                <div class="featuresCard feature-card-feature-card">
-                  <svg viewBox="0 0 1024 1024" class="featuresIcon">
+                <div class="featuresCard feature-card-feature-card" style="border-radius:10px">
+                  <svg viewBox="0 0 1024 1024" class="featuresIcon"  style="margin-left:10px;margin-top:10px">
                     <path
                       d="M809.003 291.328l-297.003 171.819-297.003-171.819 275.456-157.397c4.779-2.731 9.899-4.48 15.147-5.333 9.301-1.451 18.987 0.128 27.904 5.291zM491.776 979.669c6.016 3.243 12.928 5.077 20.224 5.077 7.381 0 14.336-1.877 20.395-5.163 15.189-2.475 29.909-7.68 43.392-15.36l298.709-170.709c26.368-15.232 45.269-38.315 55.424-64.597 5.675-14.592 8.619-30.165 8.747-46.251v-341.333c0-20.395-4.821-39.723-13.397-56.917-0.939-3.029-2.219-5.973-3.883-8.832-1.963-3.371-4.267-6.357-6.912-8.96-1.323-1.835-2.731-3.669-4.139-5.419-9.813-12.203-21.845-22.528-35.456-30.507l-299.051-170.88c-26.027-15.019-55.467-19.84-83.328-15.531-15.531 2.432-30.507 7.637-44.288 15.488l-298.709 170.709c-16.341 9.429-29.824 21.888-40.149 36.267-2.56 2.56-4.864 5.547-6.784 8.832-1.664 2.901-2.987 5.888-3.925 8.96-1.707 3.456-3.243 6.955-4.608 10.496-5.632 14.635-8.576 30.208-8.704 45.995v341.632c0.043 30.293 10.581 58.197 28.331 80.128 9.813 12.203 21.845 22.528 35.456 30.507l299.051 170.88c13.824 7.979 28.587 13.099 43.605 15.445zM469.333 537.045v340.949l-277.12-158.336c-4.736-2.773-8.832-6.315-12.16-10.411-5.931-7.381-9.387-16.512-9.387-26.581v-318.379zM554.667 877.995v-340.949l298.667-172.757v318.379c-0.043 5.163-1.067 10.496-2.987 15.445-3.413 8.789-9.6 16.384-18.176 21.333z"
                     ></path>
@@ -630,8 +632,8 @@
                     </span>
                   </div>
                 </div>
-                <div class="featuresCard feature-card-feature-card">
-                  <svg viewBox="0 0 1024 1024" class="featuresIcon">
+                <div class="featuresCard feature-card-feature-card" style="border-radius:10px">
+                  <svg viewBox="0 0 1024 1024" class="featuresIcon"  style="margin-left:10px;margin-top:10px">
                     <path
                       d="M809.003 291.328l-297.003 171.819-297.003-171.819 275.456-157.397c4.779-2.731 9.899-4.48 15.147-5.333 9.301-1.451 18.987 0.128 27.904 5.291zM491.776 979.669c6.016 3.243 12.928 5.077 20.224 5.077 7.381 0 14.336-1.877 20.395-5.163 15.189-2.475 29.909-7.68 43.392-15.36l298.709-170.709c26.368-15.232 45.269-38.315 55.424-64.597 5.675-14.592 8.619-30.165 8.747-46.251v-341.333c0-20.395-4.821-39.723-13.397-56.917-0.939-3.029-2.219-5.973-3.883-8.832-1.963-3.371-4.267-6.357-6.912-8.96-1.323-1.835-2.731-3.669-4.139-5.419-9.813-12.203-21.845-22.528-35.456-30.507l-299.051-170.88c-26.027-15.019-55.467-19.84-83.328-15.531-15.531 2.432-30.507 7.637-44.288 15.488l-298.709 170.709c-16.341 9.429-29.824 21.888-40.149 36.267-2.56 2.56-4.864 5.547-6.784 8.832-1.664 2.901-2.987 5.888-3.925 8.96-1.707 3.456-3.243 6.955-4.608 10.496-5.632 14.635-8.576 30.208-8.704 45.995v341.632c0.043 30.293 10.581 58.197 28.331 80.128 9.813 12.203 21.845 22.528 35.456 30.507l299.051 170.88c13.824 7.979 28.587 13.099 43.605 15.445zM469.333 537.045v340.949l-277.12-158.336c-4.736-2.773-8.832-6.315-12.16-10.411-5.931-7.381-9.387-16.512-9.387-26.581v-318.379zM554.667 877.995v-340.949l298.667-172.757v318.379c-0.043 5.163-1.067 10.496-2.987 15.445-3.413 8.789-9.6 16.384-18.176 21.333z"
                     ></path>
@@ -669,14 +671,19 @@
               </span>
             </div>
             <div class="home-container05">
-              <div class="freePricingCard home-pricing-card" >
-                <div class="home-container06">
-                  <span class="home-text36 heading3" >Silver Contract</span>
+              <div class="freePricingCard home-pricing-card" style="border-radius:10px" >
+                <div class="home-container06" style="margin-left:10px;margin-top:10px">
+                  <div class="grid sm:grid-cols-2">
+                    <svg width="30px" height="30px" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#27284E"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M182.52 146.2h585.14v256h73.15V73.06H109.38v877.71h256v-73.14H182.52z" fill="#27284E"></path><path d="M255.67 219.34h438.86v73.14H255.67zM255.67 365.63h365.71v73.14H255.67zM255.67 511.91H475.1v73.14H255.67zM775.22 458.24L439.04 794.42l-0.52 154.64 155.68 0.52L930.38 613.4 775.22 458.24z m51.72 155.16l-25.43 25.43-51.73-51.72 25.44-25.44 51.72 51.73z m-77.14 77.15L620.58 819.77l-51.72-51.72 129.22-129.22 51.72 51.72zM511.91 876.16l0.17-51.34 5.06-5.06 51.72 51.72-4.85 4.85-52.1-0.17z" fill="#27284E"></path></g></svg>
+                    <span class="home-text36 heading3" style="margin-left: -70px;" > 
+                      Silver Contract</span>
+                  </div>
+                
                   <span class="bodySmall" >
                     Streamline your support needs during business hours with up to 5 tickets, ensuring efficient resolution of essential queries and concerns.                     </span>
                 </div>
                 
-                <div class="home-container08">
+                <div class="home-container08" style="margin-left:10px;margin-top:10px">
                   <div class="home-container09">
                     <span class="home-text40">✔</span>
                     <span class="bodySmall">Up to 5 tickets can be opened </span>
@@ -695,13 +702,18 @@
                   </div>
                 </div>
               </div>
-              <div class="basicPricingCard home-pricing-card1">
-                <div class="home-container13">
-                  <span class="home-text44 heading3">Gold Contract             </span>
+              <div class="basicPricingCard home-pricing-card1" style="border-radius:10px" > 
+                <div class="home-container13"  style="margin-left:10px;margin-top:10px">
+                  <div class="grid sm:grid-cols-2">
+                    <svg width="30px" height="30px" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#27284E"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M182.52 146.2h585.14v256h73.15V73.06H109.38v877.71h256v-73.14H182.52z" fill="#27284E"></path><path d="M255.67 219.34h438.86v73.14H255.67zM255.67 365.63h365.71v73.14H255.67zM255.67 511.91H475.1v73.14H255.67zM775.22 458.24L439.04 794.42l-0.52 154.64 155.68 0.52L930.38 613.4 775.22 458.24z m51.72 155.16l-25.43 25.43-51.73-51.72 25.44-25.44 51.72 51.73z m-77.14 77.15L620.58 819.77l-51.72-51.72 129.22-129.22 51.72 51.72zM511.91 876.16l0.17-51.34 5.06-5.06 51.72 51.72-4.85 4.85-52.1-0.17z" fill="#27284E"></path></g></svg>
+                    <span class="home-text36 heading3" style="margin-left: -60px;" > 
+                      Gold Contract   </span>
+                  </div>
+                
                   <span class="bodySmall">
                     Experience enhanced flexibility with up to 5 tickets within a 7-day window, providing consistent and reliable assistance for all your needs.                  </span>
                 </div>
-                <div class="home-container15">
+                <div class="home-container15" style="margin-left:10px;margin-top:10px">
                   <div class="home-container16">
                     <span class="home-text49">✔</span>
                     <span class="bodySmall">Up to 5 tickets</span>
@@ -722,17 +734,19 @@
                 </div>
                
               </div>
-              <div class="proPricingCard home-pricing-card2">
-                <div class="home-container21">
-                  <span class="home-text55 heading3">
-                    <span>Platinum Contract
-                    </span>
-                    <br />
-                  </span>
+              <div class="proPricingCard home-pricing-card2" style="border-radius:10px" >
+                <div class="home-container21" style="margin-left:10px;margin-top:10px">
+                  <div class="grid sm:grid-cols-2">
+                    <svg width="30px" height="30px" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#27284E"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M182.52 146.2h585.14v256h73.15V73.06H109.38v877.71h256v-73.14H182.52z" fill="#27284E"></path><path d="M255.67 219.34h438.86v73.14H255.67zM255.67 365.63h365.71v73.14H255.67zM255.67 511.91H475.1v73.14H255.67zM775.22 458.24L439.04 794.42l-0.52 154.64 155.68 0.52L930.38 613.4 775.22 458.24z m51.72 155.16l-25.43 25.43-51.73-51.72 25.44-25.44 51.72 51.73z m-77.14 77.15L620.58 819.77l-51.72-51.72 129.22-129.22 51.72 51.72zM511.91 876.16l0.17-51.34 5.06-5.06 51.72 51.72-4.85 4.85-52.1-0.17z" fill="#27284E"></path></g></svg>
+                    <span class="home-text36 heading3" style="margin-left: -80px;" > 
+                      Platinum Contract</span>
+                  </div>
+                
+              
                   <span class="bodySmall">
                     Elevate your support experience with unlimited access to our dedicated team, ensuring every issue is resolved promptly, day or night.                  </span>
                 </div>
-                <div class="home-container23">
+                <div class="home-container23" style="margin-left:10px;margin-top:10px">
                   <div class="home-container24">
                     <span class="home-text62">✔</span>
                     <span class="bodySmall">
@@ -883,27 +897,70 @@
           </div>
         </div>
         <div class="home-footer">
-          <footer class="footerContainer home-footer1">
+          <footer class="footerContainer home-footer1"  >
             <div class="home-container31">
-              <span class="logo">LINSOFT</span>
+              <span class="question1-text heading3">CONTACT US</span>
               <nav class="home-nav1">
-                <span class="bodySmall hover:text-red-700">Home</span>
-                <span class="home-nav22 bodySmall hover:text-red-700">Features</span>
-                <span class="home-nav32 bodySmall hover:text-red-700">Servies</span>
-                <span class="home-nav42 bodySmall hover:text-red-700">Faq
+                <span class="bodySmall hover:text-red-700"></span>
+                <span class="home-nav22 bodySmall hover:text-red-700"></span>
+                <span class="home-nav32 bodySmall hover:text-red-700"></span>
+                <span class="home-nav42 bodySmall hover:text-red-700">
                 </span>
               </nav>
          
             </div>
             <div class="home-separator"></div>
             <div class="home-container32">
-              <span class="bodySmall home-text89">
-                © 2023 myCompany, All Rights Reserved.
-              </span>
-              <div class="home-icon-group1">
-                
-              
+              <footer class="bg-white text-gray-700 py-8">
+                <div class="container mx-auto px-4" style="margin-bottom: -10px;margin-left:13%">
+                    <div class="flex flex-wrap justify-between">
+                        <div class="w-full md:w-1/3 mb-8 md:mb-0" >
+                            <h3 class="font-bold text-lg mb-2 flex items-center" style="margin-bottom: 10px;"> 
+                                <img src="https://flagcdn.com/w40/tn.png" class=" h-6 mr-2" style="border-radius: 3px;" alt="Tunisie">Tunisie
+                            </h3>
+                            <p class="mb-2" style="margin-bottom: 10px;"><i class="fas fa-map-marker-alt mr-2"></i>Rue Omar Khayem,La Goulette-Lac 3 Tunis </p>
+                            <p class="mb-2" style="margin-bottom: 10px;"><i class="fas fa-phone-alt mr-2"></i>(+216) 71 960 819 | (+216) 31 332 200</p>
+                            <p class="mb-2" style="margin-bottom: 10px;"><i class="fas fa-fax mr-2"></i>(+216) 31 332 201</p>
+                            <p class="mb-2" style="margin-bottom: 10px;"><i class="fas fa-envelope mr-2"></i>{{emailTN}}</p>
+                        </div>
+                        <div class="w-full md:w-1/3 mb-8 md:mb-0" >
+                            <h3 class="font-bold text-lg mb-2 flex items-center" style="margin-bottom: 10px;">
+                                <img src="https://flagcdn.com/w40/ma.png" class=" h-6 mr-2" style="border-radius: 3px;" alt="Maroc">Maroc
+                            </h3>
+                            <p class="mb-2" style="margin-bottom: 10px;"><i class="fas fa-map-marker-alt mr-2"></i>Bureau 215 - Technopark-Nouaceur Casablanca-Maroc</p>
+                            <p class="mb-2" style="margin-bottom: 10px;"><i class="fas fa-phone-alt mr-2"></i>(+212) 6 61 68 76 44</p>
+                            <p class="mb-2" style="margin-bottom: 10px;"><i class="fas fa-fax mr-2"></i>(+212) 5 22 30 82 62</p>
+                            <p class="mb-2" style="margin-bottom: 10px;"><i class="fas fa-envelope mr-2"></i>{{emailDZ}}</p>
+                        </div>
+                        <div class="w-full md:w-1/3">
+                            <h3 class="font-bold text-lg mb-2 flex items-center" style="margin-bottom: 10px;">
+                                <img src="https://flagcdn.com/w40/dz.png"class=" h-6 mr-2" style="border-radius: 3px;" alt="Algérie">Algérie
+                            </h3>
+                            <p class="mb-2" style="margin-bottom: 10px;"><i class="fas fa-map-marker-alt mr-2"></i>Centre des Affaires Techno Parc Sidi Abdellah, Alger, Algérie</p>
+                            <p class="mb-2" style="margin-bottom: 10px;"><i class="fas fa-phone-alt mr-2"></i>(+213) 661 50 59 50</p>
+                            <p class="mb-2" style="margin-bottom: 10px;"><i class="fas fa-fax mr-2"></i>(+213) 661 50 59 50</p>
+                            <p class="mb-2" style="margin-bottom: 10px;"><i class="fas fa-envelope mr-2"></i>{{emailMC}}</p>
+                        </div>
+                    </div>
+                  
+
+                </div>
+                <div>
+
               </div>
+              <div class="flex justify-center space-x-4 " style="margin-left: 120%;">
+                <a href="https://www.linkedin.com/in/linsoft-%C2%AE-a8a9809b/" target="_blank" class="text-gray-200 hover:text-gray-400 " >
+                  <i class="fab fa-linkedin fa-2x" ></i>
+              </a>
+              <a href="https://x.com/i/flow/login?redirect_after_login=%2FLinsoftTunisia" target="_blank" class="text-gray-200 hover:text-gray-400">
+                  <i class="fab fa-twitter fa-2x"></i>
+              </a>
+              <a href="https://www.facebook.com/linsoft.xyz/about/?tab=overview" target="_blank" class="text-gray-200 hover:text-gray-400">
+                  <i class="fab fa-facebook fa-2x"></i>
+              </a>
+              </div>
+              <div>© Copyright 2017. LinSoft. Developed by <a href="https://www.linsoft.xyz/fr/" style="color: rgb(212, 0, 0);" > LinSoft.</a></div>
+            </footer>
             </div>
           </footer>
         </div>

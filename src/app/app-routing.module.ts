@@ -49,6 +49,8 @@ import { TechnicienArchivedComponent } from './admin/archive/technicienArchived/
 import { ClientsArchivedComponent } from './admin/archive/ClientsArchived/clients-archived/clients-archived.component';
 import { ContractsArchivedComponent } from './admin/archive/contractsArchived/contracts-archived/contracts-archived.component';
 import { ProfileManagerComponent } from './admin/manager/profile-manager/profile-manager.component';
+import { ManagerGuard } from './auth/services/ManagerGuard';
+import { EnterPasswordManagerComponent } from './admin/manager/enter-password-manager/enter-password-manager.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // Redirige le chemin vide vers 'home'
@@ -93,14 +95,14 @@ const routes: Routes = [
 
       { path: 'managers', component: ManagersComponent, canActivate: [SuperManagerGuard] },
       { path: 'viewManager', component: ViewmManagerComponent, canActivate: [SuperManagerGuard] },
-      { path: 'ManagerProfile', component: ProfileManagerComponent },
+      { path: 'ManagerProfile', component: ProfileManagerComponent,canActivate: [CombinedGuard] },
 
       { path: 'managersArchvied', component: ManagerArchivedComponent, canActivate: [SuperManagerGuard] },
       { path: 'techniciensArchvied', component: TechnicienArchivedComponent, canActivate: [SuperManagerGuard] },
       { path: 'clientsArchived', component: ClientsArchivedComponent, canActivate: [SuperManagerGuard] },
       { path: 'contractsArchived', component: ContractsArchivedComponent, canActivate: [SuperManagerGuard] },
-      { path: 'updatePassword', component: UpdatePasswordComponent },
-
+      { path: 'updatePassword', component: UpdatePasswordComponent ,canActivate: [CombinedGuard]},
+      { path: 'enterPassword', component: EnterPasswordManagerComponent ,canActivate: [CombinedGuard]},
 
 
       // Route enfant pour les détails du contrat

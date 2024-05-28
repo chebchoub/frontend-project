@@ -67,6 +67,19 @@ export class UserServiceService {
     this.router.navigate(['/home']);
 
   }
+  changeSuperManagerPassword(managerId:string,newPassword:string): Observable<any> {
+    return this.http.put<any>(`http://localhost:8080/api/v1/auth/change-super-manager-password/${managerId}?newPassword=${newPassword}`, null);
+  }
+  changeManagerPassword(managerId:string,newPassword:string): Observable<any> {
+    return this.http.put<any>(`http://localhost:8080/api/v1/auth/change-manager-password/${managerId}?newPassword=${newPassword}`, null);
+  }
+
+  verifPasswordSuperManager(managerId:string,password: string): Observable<any> {
+    return this.http.post<void>(`${this.baseUrl}/verify-super-manager-password/${managerId}?password=${password}`,null);
+  }
+  verifPasswordManager(managerId:string,password: string): Observable<any> {
+    return this.http.post<void>(`${this.baseUrl}/verify-manager-password/${managerId}?password=${password}`,null);
+  }
   modalOpen: boolean = false;
   selectedContractId: string = "";
   toggleModal() {

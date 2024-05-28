@@ -8,18 +8,18 @@ import { Observable, map } from 'rxjs';
 })
 export class ManagerServiceService {
 
-  private apiUrl = 'http://localhost:8080/api/v1/admin/super-manager'; // Mettez votre URL backend ici
+  private apiUrl = 'http://localhost:8080/api/v1/admin/manager'; // Mettez votre URL backend ici
 
   constructor(private http: HttpClient,private cookieService:CookieService) { }
   ManagerLOGINID:any;
   getAllManager(): Observable<void[]> {
-    return this.http.get<void[]>(`${this.apiUrl}/getByNonArchiver`);
+    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getByNonArchiver`);
   }
-  ArchivedManager(): Observable<void[]> {
-    return this.http.get<void[]>(`${this.apiUrl}/getAll-managers-archived`);
+  ArchivedManager(): Observable<any[]> {
+    return this.http.get<any[]>(`http://localhost:8080/api/v1/admin/super-manager/getAll-managers-archived`);
   }
   unarchiveManager(email:string): Observable<void[]> {
-    return this.http.post<void[]>(`${this.apiUrl}/unarchive-manager/${email}`,null);
+    return this.http.post<void[]>(`http://localhost:8080/api/v1/admin/super-manager/unarchive-manager/${email}`,null);
   }
   getEmailFromToken(): Observable<string> {
     const jwtToken = this.cookieService.get('jwtToken');
@@ -33,11 +33,16 @@ export class ManagerServiceService {
     return this.http.post<any>(`${this.apiUrl}/send-register-mail`, email);
   }
   getManagerByEmail(email: string): Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}/getByEmail/${email}`);
+    return this.http.get<any>(`http://localhost:8080/api/v1/admin/manager/getByEmail/${email}`);
   }
   deleteManager(id: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/delete/${id}`,"");
+    return this.http.post<any>(`http://localhost:8080/api/v1/admin/super-manager/delete/${id}`,"");
   }
+  updateManager(managerId:string,manager:any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/update/${managerId}`,manager);
+  }
+
+  
   modalOpen: boolean = false;
   selectedMangerEmail: string = "";
   selectedTicketId: string = "";

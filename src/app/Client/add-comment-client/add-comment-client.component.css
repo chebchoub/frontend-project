@@ -9,7 +9,10 @@
     margin-top: 10px;
 }
 
-  
+.error-message {
+  color: red;
+  font-size: 0.8rem;
+}
 /* Style pour agrandir et déplacer l'image au survol */
 .JustificationImge:hover {
     transform: scale(6);

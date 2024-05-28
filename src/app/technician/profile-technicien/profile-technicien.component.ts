@@ -45,6 +45,8 @@ export class ProfileTechnicienComponent implements OnInit{
     this.technicienService.getEmailFromToken().subscribe(
       (response) => {
         this.technicienService.getTechnicianByEmail(response).subscribe(technician => {
+          console.log(technician)
+
           this.technician=technician;
           this.technicienService.technicianLogedIn=technician;
 

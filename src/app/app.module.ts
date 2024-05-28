@@ -68,6 +68,7 @@ import { AddContractToClientComponent } from './admin/client/add-contract-to-cli
 import { CommonModule, DatePipe } from '@angular/common';
 import { ProfileManagerComponent } from './admin/manager/profile-manager/profile-manager.component';
 import { EnterPasswordManagerComponent } from './admin/manager/enter-password-manager/enter-password-manager.component';
+import { UpdatePasswordManagerComponent } from './admin/manager/update-password-manager/update-password-manager.component';
 
 
 @NgModule({
@@ -130,7 +131,8 @@ import { EnterPasswordManagerComponent } from './admin/manager/enter-password-ma
     ContractsArchivedComponent,
     AddContractToClientComponent,
     ProfileManagerComponent,
-    EnterPasswordManagerComponent
+    EnterPasswordManagerComponent,
+    UpdatePasswordManagerComponent
     
    
   ],
