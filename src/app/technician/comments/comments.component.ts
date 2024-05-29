@@ -161,7 +161,13 @@ export class CommentsComponent implements OnInit {
       }
     }
   }
+  removeImage(index: number) {
+    this.selectedImages.splice(index, 1);
+  }
 
+  removePDF(index: number) {
+    this.selectedPDFs.splice(index, 1);
+  }
   addComment() {
     if (this.messageForm.controls.comment.value !== "" || this.selectedImages.length != 0 || this.selectedPDFs.length != 0) {
       const messageRequest: any = {

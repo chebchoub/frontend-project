@@ -92,7 +92,7 @@ export class HomeadminComponent implements OnInit, OnDestroy {
   }
 
   setupAutoRefresh(id: string): void {
-    this.refreshInterval = interval(10000).pipe(
+    this.refreshInterval = interval(100).pipe(
       switchMap(() => this.notificationService.getAllNotificationsForUser(id, 0, this.size))
     ).subscribe(response => {
       if (response && response.content) {
@@ -143,9 +143,9 @@ export class HomeadminComponent implements OnInit, OnDestroy {
     this.isNotificationOpen = !this.isNotificationOpen;
     this.hasNewNotification = false;  // Reset the flag when the modal is opened
     this.notificationService.toggleModal();
-
+   
     setTimeout(() => {
       this.markNotificationsAsRead();
-    }, 7000);
+    }, 1000);
   }
 }

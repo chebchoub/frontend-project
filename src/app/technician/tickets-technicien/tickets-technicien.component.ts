@@ -106,6 +106,7 @@ export class TicketsTechnicienComponent implements OnInit {
 
       this.technicienService.getByPiority(priority, this.technician.id).subscribe(tickets => {
         this.tickets = tickets;
+        this.ticket=tickets[0]
 
       });
     }
@@ -121,6 +122,8 @@ export class TicketsTechnicienComponent implements OnInit {
 
       this.technicienService.getByStatus(status, this.technician.id).subscribe(tickets => {
         this.tickets = tickets;
+        this.ticket=tickets[0]
+
 
       });
     }
@@ -132,10 +135,14 @@ export class TicketsTechnicienComponent implements OnInit {
     if (this.sortByOpeningDate === 'OpeningDateAsc') {
       this.technicienService.getByTicketOpeningDateAsc(this.technician.id).subscribe(tickets => {
         this.tickets = tickets;
+        this.ticket=tickets[0]
+
       });
     } else if (this.sortByOpeningDate === 'OpeningDateDesc') {
       this.technicienService.getByTicketOpeningDateDesc(this.technician.id).subscribe(tickets => {
         this.tickets = tickets;
+        this.ticket=tickets[0]
+
       });
     }
   }
@@ -186,7 +193,9 @@ export class TicketsTechnicienComponent implements OnInit {
     }
   }
 
-
+  getDownloadLink(fileType:string,base64Data:string): string {
+    return `data:${fileType};base64,${base64Data}`;
+  }
   searchText = '';
   messageForm: FormGroup | any;
 

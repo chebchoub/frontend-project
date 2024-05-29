@@ -284,7 +284,13 @@ export class AddCommentAdminComponent implements OnInit {
       }
     }
   }
+  removeImage(index: number) {
+    this.selectedImages.splice(index, 1);
+  }
 
+  removePDF(index: number) {
+    this.selectedPDFs.splice(index, 1);
+  }
   addComment() {
     console.log(this.messageForm.controls.comment.value !== "" || this.selectedImages.length != 0 || this.selectedPDFs.length != 0);
     if (this.messageForm.controls.comment.value !== "" || this.selectedImages.length != 0 || this.selectedPDFs.length != 0) {

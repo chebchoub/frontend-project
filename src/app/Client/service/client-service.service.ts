@@ -78,7 +78,9 @@ export class ClientServiceService {
   changePassword(clientId:string,password: string): Observable<any> {
     return this.http.put<void>(`${this.apiUrl}/change-password/${clientId}?newPassword=${password}`,null);
   }
-  
+  addRapport(wordFile: any, ticketId: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/addRapport/${ticketId}`, wordFile);
+  }
   modalOpen: boolean = false;
   toggleModal() {
     this.modalOpen = !this.modalOpen;

@@ -246,6 +246,13 @@ export class AddCommentClientComponent implements OnInit {
     }
   }
 
+  removeImage(index: number) {
+    this.selectedImages.splice(index, 1);
+  }
+
+  removePDF(index: number) {
+    this.selectedPDFs.splice(index, 1);
+  }
   isContractEndDatePastOrToday(endDate: string): boolean {
     const today = new Date();
     const formattedEndDate = new Date(this.datePipe.transform(endDate, 'yyyy-MM-dd') || '');

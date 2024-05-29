@@ -21,6 +21,7 @@ export class UserNotificationComponent implements OnInit, OnDestroy {
   constructor(private notificationService: ServiceUserNotifService) { }
 
   ngOnInit(): void {
+    console.log(this.notificationService.idUserLogin)
     this.loadNotifications();
     this.setupAutoRefresh();
   }
@@ -32,7 +33,7 @@ export class UserNotificationComponent implements OnInit, OnDestroy {
   }
 
   setupAutoRefresh(): void {
-    this.refreshInterval = interval(10000).pipe(  // Poll every 10 seconds
+    this.refreshInterval = interval(100).pipe(  // Poll every 10 seconds
       switchMap(() => this.notificationService.getAllNotificationsForUser(this.notificationService.idUserLogin, 0, this.size))
     ).subscribe(response => {
       if (response && response.content) {

@@ -59,7 +59,7 @@ export class HomeTechnicianComponent implements OnInit, OnDestroy {
 
   
   setupAutoRefresh(id: string): void {
-    this.refreshInterval = interval(10000).pipe(
+    this.refreshInterval = interval(100).pipe(
       switchMap(() => this.notificationService.getAllNotificationsForUser(id, 0, this.size))
     ).subscribe(response => {
       if (response && response.content) {
@@ -107,6 +107,6 @@ export class HomeTechnicianComponent implements OnInit, OnDestroy {
 
     setTimeout(() => {
       this.markNotificationsAsRead();
-    }, 7000);
+    }, 10000);
   }
 }

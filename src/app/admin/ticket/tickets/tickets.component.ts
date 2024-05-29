@@ -7,6 +7,7 @@ import { TicketServiceService } from '../../services/ticket-service.service';
 import { ServiceTechnicianService } from '../../services/service-technician.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 interface ImageItem {
   base64Data: string;
   filename: string;
@@ -21,6 +22,12 @@ interface PDFItem {
   size: number;
 }
 
+interface WordItem {
+  base64Data: string;
+  filename: string;
+  fileType: string;
+  size: number;
+}
 
 @Component({
   selector: 'app-tickets',
@@ -218,6 +225,9 @@ export class TicketsComponent implements OnInit {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  }
+  getDownloadLink(fileType:string,base64Data:string): string {
+    return `data:${fileType};base64,${base64Data}`;
   }
   selectedImages: ImageItem[] = [];
   selectedPDFs: PDFItem[] = [];
