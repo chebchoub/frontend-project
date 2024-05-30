@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ClientRequest } from '../dto/client';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ import { Observable } from 'rxjs';
 export class ServiceClientsService {
 
 
-  private apiUrl = 'http://localhost:8080/api/v1/admin/client'; // Mettez votre URL backend ici
+  private apiUrl = environment.apiUrl +'api/v1/admin/client'; // Mettez votre URL backend ici
+  private apiUrlsuper = environment.apiUrl +'api/v1/admin/super-manager'; // Mettez votre URL backend ici
 
   constructor(private http: HttpClient) { }
   getAllClients(): Observable<void[]> {
@@ -26,7 +28,7 @@ export class ServiceClientsService {
     return this.http.delete<any>(`${this.apiUrl}/delete/${clientId}`);
   }
   unarchiveclient(clientId: string): Observable<any> {
-    return this.http.post<any>(`http://localhost:8080/api/v1/admin/super-manager/unarchive-client/${clientId}`,null);
+    return this.http.post<any>(`${this.apiUrlsuper}/unarchive-client/${clientId}`,null);
   }
   addContractToClient(clientId:string,contractSerialNumber:string): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/addContract/${clientId}/${contractSerialNumber}`,null);
@@ -47,21 +49,21 @@ export class ServiceClientsService {
   }
   // archiver Clients methods
   getAllClientsArchive(): Observable<void[]> {
-    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getAll-clients-archived`);
+    return this.http.get<void[]>(`${this.apiUrlsuper}/getAll-clients-archived`);
   }
   getContractByContractTypeClientArchived(contractType: string): Observable<void[]> {
-    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getByContractTypeClientArchived/${contractType}`);
+    return this.http.get<void[]>(`${this.apiUrlsuper}/getByContractTypeClientArchived/${contractType}`);
   }
   // Méthode pour récupérer les contrats triés par nombre de tickets (ascendant)
   getByTicketsAvailableAscClientArchived(): Observable<void[]> {
-    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getByTicketsAvailableAscClientArchived`);
+    return this.http.get<void[]>(`${this.apiUrlsuper}/getByTicketsAvailableAscClientArchived`);
   }
   getContractByPremiumTypeClientArchived(premiumType: string): Observable<void[]> {
-    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getByPremiumTypeClientArchived/${premiumType}`);
+    return this.http.get<void[]>(`${this.apiUrlsuper}/getByPremiumTypeClientArchived/${premiumType}`);
   }
   // Méthode pour récupérer les contrats triés par nombre de tickets (descendant)
   getByTicketsAvailableDescClientArchived(): Observable<void[]> {
-    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getByTicketsAvailableDescClientArchived`);
+    return this.http.get<void[]>(`${this.apiUrlsuper}/getByTicketsAvailableDescClientArchived`);
   }
   modalOpen: boolean = false;
   modalOpenAddContract: boolean = false;

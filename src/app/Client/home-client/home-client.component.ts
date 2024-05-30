@@ -102,6 +102,6 @@ export class HomeClientComponent implements OnInit, OnDestroy {
 
     setTimeout(() => {
       this.markNotificationsAsRead();
-    }, 10000);
+    }, 1000);
   }
 }

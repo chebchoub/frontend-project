@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServiceUserNotifService {
 
-  private apiUrl = 'http://localhost:8080/api/v1/notification'; // Mettez votre URL backend ici
+  private apiUrl = environment.apiUrl+'api/v1/notification'; // Mettez votre URL backend ici
 
   constructor(private http: HttpClient,private cookieService:CookieService) { }
   idUserLogin:string="";
@@ -16,7 +17,7 @@ export class ServiceUserNotifService {
     return this.http.get<void[]>(`${this.apiUrl}/${userId}/false`);
   }
   getAllNotificationsForUser(userId: string, page: number, size: number): Observable<any> {
-    return this.http.get<void[]>(`http://localhost:8080/api/v1/notification/${userId}?page=${page}&size=${size}`);
+    return this.http.get<void[]>(`${this.apiUrl}/${userId}?page=${page}&size=${size}`);
   }
 
 

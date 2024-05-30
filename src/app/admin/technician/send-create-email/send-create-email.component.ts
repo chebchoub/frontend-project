@@ -18,6 +18,7 @@ export class SendCreateEmailComponent implements OnInit {
     })
   }
   emailForm: FormGroup | any;
+  isLoading:boolean=false
   emailFormatValidator(control:any) {
     // Expression régulière pour vérifier le format de l'e-mail
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -41,14 +42,18 @@ export class SendCreateEmailComponent implements OnInit {
       }
       else
       {
+        this.isLoading=true
         this.technicianService.sendEmailToCreate(this.emailForm.controls.email.value).subscribe(
           (response: any) => {
           console.log("envoyer")
+          this.isLoading=false
+
           this.toggleModValidEmail()
           },
           (error) => {
             console.log(error);
-           
+            this.isLoading=false
+
               this.toggleModInvalidEmailAlert()
             
           }

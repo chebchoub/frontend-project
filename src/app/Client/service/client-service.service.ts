@@ -5,12 +5,15 @@ import { Observable, map, throwError } from 'rxjs';
 import { TicketResponce } from '../dto/ticket-responce';
 import { CookieService } from 'ngx-cookie-service';
 import { UserServiceService } from '../../auth/services/user-service.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientServiceService {
-  private apiUrl = 'http://localhost:8080/api/v1/client'; // Mettez votre URL backend ici
+  private apiUrl = environment.apiUrl +'api/v1/client'; // Mettez votre URL backend ici
+  private apiauth = environment.apiUrl +'api/v1/auth'; // Mettez votre URL backend ici
+
   clientLogedIn:any;;
   constructor(private http: HttpClient, private cookieService: CookieService, public userService: UserServiceService) { }
   getClientByEmail(email: string): Observable<any> {
@@ -20,7 +23,7 @@ export class ClientServiceService {
   getEmailFromToken(): Observable<string> {
     const jwtToken = this.cookieService.get('jwtToken');
 
-    return this.http.get<any>(`http://localhost:8080/api/v1/auth/getSubject/${jwtToken}`)
+    return this.http.get<any>(`${this.apiauth}/getSubject/${jwtToken}`)
       .pipe(
         map(response => response.subject as string) // Extrayez l'adresse e-mail de la propriété "subject"
       );

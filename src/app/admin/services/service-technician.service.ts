@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServiceTechnicianService {
 
-  private apiUrl = 'http://localhost:8080/api/v1/admin/technician'; // Mettez votre URL backend ici
+  private apiUrl =environment.apiUrl + 'api/v1/admin/technician'; // Mettez votre URL backend ici
+  private apiUrlsuper = environment.apiUrl +'api/v1/admin/super-manager'; // Mettez votre URL backend ici
 
   constructor(private http: HttpClient) { }
   getAllTechnician(): Observable<void[]> {
@@ -21,7 +23,7 @@ export class ServiceTechnicianService {
     return this.http.put<any>(`${this.apiUrl}/edit/${id}`, technicianRequest);
   }
   unarchivetechnician(id: string): Observable<any> {
-    return this.http.post<any>(`http://localhost:8080/api/v1/admin/super-manager/unarchive-technician/${id}`,null);
+    return this.http.post<any>(`${this.apiUrlsuper}/unarchive-technician/${id}`,null);
   }
   getTechnicianById(id:string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/get/${id}`);
@@ -56,30 +58,30 @@ export class ServiceTechnicianService {
     return this.http.put<any>(`${this.apiUrl}/reassignTicketToTechnician/${ticketId}/${technicenId}`,null);
   }
   sendEmailToCreate(email: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/send-register-mail`, email);
+    return this.http.post<any>(`${this.apiUrlsuper}/send-register-mail`, email);
   }
 
   //get archived
   getAllArchivedTechnicians(): Observable<void[]> {
-    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getAll-technicians-archived`);
+    return this.http.get<void[]>(`${this.apiUrlsuper}/getAll-technicians-archived`);
   }
     getBySpecialityarchived(speciality: string): Observable<void[]> {
-    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getBySpeciality-archived/${speciality}`);
+    return this.http.get<void[]>(`${this.apiUrlsuper}/getBySpeciality-archived/${speciality}`);
   }
 
   getByRatingAscarchived(): Observable<void[]> {
-    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getByTicketResolvedRatingAsc-archived`);
+    return this.http.get<void[]>(`${this.apiUrlsuper}/getByTicketResolvedRatingAsc-archived`);
   }
 
   getByRatingDescarchived(): Observable<void[]> {
-    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getByTicketResolvedRatingDesc-archived`);
+    return this.http.get<void[]>(`${this.apiUrlsuper}/getByTicketResolvedRatingDesc-archived`);
   }
   getByStartDateWorkAscarchived(): Observable<void[]> {
-    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getByStartDateWorkAsc-archived`);
+    return this.http.get<void[]>(`${this.apiUrlsuper}/getByStartDateWorkAsc-archived`);
   }
 
   getByStartDateWorkDescarchived(): Observable<void[]> {
-    return this.http.get<void[]>(`http://localhost:8080/api/v1/admin/super-manager/getByStartDateWorkDesc-archived`);
+    return this.http.get<void[]>(`${this.apiUrlsuper}/getByStartDateWorkDesc-archived`);
   }
   modalOpen: boolean = false;
   selectedTechniciaId: string = "";

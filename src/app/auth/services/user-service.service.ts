@@ -11,6 +11,7 @@ import { ClientRequest } from '../model/client-request';
 
 import { map } from 'rxjs/operators';
 import { TechnicienRequest } from '../model/technicien-request';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ import { TechnicienRequest } from '../model/technicien-request';
 export class UserServiceService {
 
 
-  public baseUrl = 'http://localhost:8080/api/v1/auth';
+  public baseUrl = environment.apiUrl +'api/v1/auth';
 
   constructor(private http: HttpClient,private cookieService: CookieService, private router: Router) {}
   role:string="";
@@ -32,34 +33,34 @@ export class UserServiceService {
     return this.http.post<any>(`${this.baseUrl}/register-manager/${token}`, request);
   }
   login(request: AuthenticationRequest): Observable<AuthenticationResponse> {
-    return this.http.post<AuthenticationResponse>(`http://localhost:8080/api/v1/auth/authenticate`, request);
+    return this.http.post<AuthenticationResponse>(`${this.baseUrl}/authenticate`, request);
   }
   checkManager(jwtToken: string): Observable<any> {
 
-    return this.http.get<any>(`http://localhost:8080/api/v1/auth/check-manager/${jwtToken}`, );
+    return this.http.get<any>(`${this.baseUrl}/check-manager/${jwtToken}`, );
   }
   checkSuperManager(jwtToken: string): Observable<any> {
 
-    return this.http.get<any>(`http://localhost:8080/api/v1/auth/check-super-manager/${jwtToken}`, );
+    return this.http.get<any>(`${this.baseUrl}/check-super-manager/${jwtToken}`, );
   }
   checkRole(jwtToken: string): Observable<string[]> {
-    return this.http.get<string[]>(`http://localhost:8080/api/v1/auth/getRole/${jwtToken}`);
+    return this.http.get<string[]>(`${this.baseUrl}/getRole/${jwtToken}`);
   }
   getEmailFromToken(jwtToken: string): Observable<string> {
-    return this.http.get<any>(`http://localhost:8080/api/v1/auth/getSubject/${jwtToken}`)
+    return this.http.get<any>(`${this.baseUrl}/getSubject/${jwtToken}`)
       .pipe(
         map(response => response.subject as string) // Extrayez l'adresse e-mail de la propriété "subject"
       );
   }
   checkTokenExpired(token: string): Observable<any> {
 
-    return this.http.get<any>(`http://localhost:8080/api/v1/auth/check-expired/${token}`, );
+    return this.http.get<any>(`${this.baseUrl}/check-expired/${token}`, );
   }
   forgotPassword(email: string): Observable<any> {
-    return this.http.post<any>(`http://localhost:8080/api/v1/auth/forgot-password`, email);
+    return this.http.post<any>(`${this.baseUrl}/forgot-password`, email);
   }
   resetPassword(request:any): Observable<any> {
-    return this.http.post<any>(`http://localhost:8080/api/v1/auth/reset-password`, request);
+    return this.http.post<any>(`${this.baseUrl}/reset-password`, request);
   }
   logout()
   {
@@ -68,10 +69,10 @@ export class UserServiceService {
 
   }
   changeSuperManagerPassword(managerId:string,newPassword:string): Observable<any> {
-    return this.http.put<any>(`http://localhost:8080/api/v1/auth/change-super-manager-password/${managerId}?newPassword=${newPassword}`, null);
+    return this.http.put<any>(`${this.baseUrl}/change-super-manager-password/${managerId}?newPassword=${newPassword}`, null);
   }
   changeManagerPassword(managerId:string,newPassword:string): Observable<any> {
-    return this.http.put<any>(`http://localhost:8080/api/v1/auth/change-manager-password/${managerId}?newPassword=${newPassword}`, null);
+    return this.http.put<any>(`${this.baseUrl}/change-manager-password/${managerId}?newPassword=${newPassword}`, null);
   }
 
   verifPasswordSuperManager(managerId:string,password: string): Observable<any> {

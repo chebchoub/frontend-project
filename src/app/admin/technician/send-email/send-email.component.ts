@@ -17,6 +17,7 @@ export class SendEmailComponent {
   constructor(public emailService: EmailServiceService, private route: ActivatedRoute, private router: Router, public technicianService: ServiceTechnicianService, public contractService: ServiceContratService) { }
 
   technicien:any;
+  isLoading:boolean=false;
   ngOnInit(): void {
     this.technicien = this.emailService.technicien;
     this.titreTicket=this.emailService.titreTicket;
@@ -43,14 +44,17 @@ export class SendEmailComponent {
   dateouverture:string=""
 
   sendEmail() {
-    this.closeModal();
-
+    this.isLoading=true
     this.emailService.sendEmail(this.to, this.subject, this.body).subscribe(
       response => {
         console.log('Email sent successfully:', response);
+        this.isLoading=false
+        this.toggleModalSendEmailconfirm()
       },
       error => {
         console.error('Error sending email:', error);
+        this.isLoading=false
+
         // Handle error, if needed
       }
     );
@@ -58,5 +62,19 @@ export class SendEmailComponent {
 
   closeModal() {
     this.emailService.closeModal();
+  }
+  showvalidEmaiAlert: boolean = false;
+
+  openPopUp:string="";
+  toggleModalSendEmailconfirm() {
+    this.showvalidEmaiAlert=true;
+    this.emailService.toggleModalConfirmer();
+    setTimeout(() => {
+      this.showvalidEmaiAlert = false;
+
+    }, 2000); 
+  }
+  closeModal2() {
+    this.emailService.closeModalConfimer();
   }
 }

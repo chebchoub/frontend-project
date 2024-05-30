@@ -17,6 +17,7 @@ export class SendEmailClientComponent implements OnInit {
   subject: string = "";
   body: string = "";
   to: string = "";
+  isLoading:boolean=false;
   ngOnInit(): void {
     this.client=this.emailService.client;
     this.to=this.client.email;
@@ -24,13 +25,18 @@ export class SendEmailClientComponent implements OnInit {
     this.body= `Cher  ${this.client.contract.entreprise},\n\nCordialement,\ndnen HAMMADI\nAdministrateur`;
   }
   sendEmail() {
-    this.closeModal();
-
+    this.isLoading=true
     this.emailService.sendEmail(this.to, this.subject, this.body).subscribe(
       response => {
         console.log('Email sent successfully:', response);
+        this.isLoading=false
+
+        this.toggleModalSendEmailconfirm()
+
       },
       error => {
+        this.isLoading=false
+
         console.error('Error sending email:', error);
         // Handle error, if needed
       }
@@ -39,6 +45,20 @@ export class SendEmailClientComponent implements OnInit {
 
   closeModal() {
     this.emailService.closeModal();
+  }
+  showvalidEmaiAlert: boolean = false;
+
+  openPopUp:string="";
+  toggleModalSendEmailconfirm() {
+    this.showvalidEmaiAlert=true;
+    this.emailService.toggleModalConfirmer();
+    setTimeout(() => {
+      this.showvalidEmaiAlert = false;
+
+    }, 2000); 
+  }
+  closeModal2() {
+    this.emailService.closeModalConfimer();
   }
 
 }

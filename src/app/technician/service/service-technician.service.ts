@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { UserServiceService } from '../../auth/services/user-service.service';
 import { Observable, map } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,9 @@ import { Observable, map } from 'rxjs';
 export class ServiceTechnicianService {
   
 
-  private apiUrl = 'http://localhost:8080/api/v1/technician'; // Mettez votre URL backend ici
+  private apiUrl = environment.apiUrl+'api/v1/technician'; // Mettez votre URL backend ici
+  private apiauth =  environment.apiUrl+'api/v1/auth'; // Mettez votre URL backend ici
+
 technicianLogedIn:any;;
   constructor(private http: HttpClient, private cookieService: CookieService, public userService: UserServiceService) { }
   getTechnicianByEmail(email: string): Observable<any> {
@@ -20,7 +23,7 @@ technicianLogedIn:any;;
   getEmailFromToken(): Observable<string> {
     const jwtToken = this.cookieService.get('jwtToken');
 
-    return this.http.get<any>(`http://localhost:8080/api/v1/auth/getSubject/${jwtToken}`)
+    return this.http.get<any>(`${this.apiauth}/getSubject/${jwtToken}`)
       .pipe(
         map(response => response.subject as string) // Extrayez l'adresse e-mail de la propriété "subject"
       );

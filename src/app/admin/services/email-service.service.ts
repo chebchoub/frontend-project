@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Technician } from '../dto/technicien';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { Technician } from '../dto/technicien';
 export class EmailServiceService {
 
   constructor(private http: HttpClient) { }
-  private EmailbaseUrl = 'http://localhost:8080/api/v1/email';
+  private EmailbaseUrl = environment.apiUrl +'api/v1/email';
   technicien:any;
   titreTicket:string=""
   dateouverture:string=""
@@ -26,8 +27,16 @@ export class EmailServiceService {
   toggleModal() {
     this.modalOpen = !this.modalOpen;
   }
+
+
+  ConifrmerModalOpen: boolean = false;
+  toggleModalConfirmer() {
+    this.ConifrmerModalOpen = !this.ConifrmerModalOpen;
+  }
   closeModal() {
     this.modalOpen = false;
   }
-
+  closeModalConfimer() {
+    this.ConifrmerModalOpen = false;
+  }
 }
